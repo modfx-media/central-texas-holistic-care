@@ -33,6 +33,8 @@ export function coverPrompt(title: string): string {
 export const COMMITTED_COVERS: Record<string, string> = {
   "how-to-prepare-for-a-female-hormone-therapy-consultation":
     "/images/blog-images/vitaly-gariev-rG5elqddGzo-unsplash.jpg",
+  "fall-fatigue-when-a-wellness-clinic-in-killeen-can-help":
+    "/images/blog-images/fall-fatigue-wellness-clinic-killeen.png",
 };
 
 export const COMMITTED_COVER_SLUGS: readonly string[] = Object.keys(COMMITTED_COVERS);
