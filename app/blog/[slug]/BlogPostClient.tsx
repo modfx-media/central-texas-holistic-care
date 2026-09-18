@@ -658,12 +658,12 @@ export default function BlogPostClient({
                   <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-[#C4A862]">
                     Take the next step
                   </p>
-                  <h3
+                  <h2
                     className="mt-3 font-heading font-semibold leading-tight"
                     style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.85rem)" }}
                   >
                     Turn this article into a real plan built around your labs.
-                  </h3>
+                  </h2>
                   <p className="mt-3 text-[14.5px] leading-relaxed text-white/85">
                     Our clinicians will review your symptoms, order the right
                     workup, and design a plan that fits your body, budget, and
