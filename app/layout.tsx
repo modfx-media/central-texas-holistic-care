@@ -7,6 +7,8 @@ import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import BottomBookNowBanner from "@/components/layout/BottomBookNowBanner";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
+import { getDisplayedGoogleReviews } from "@/lib/google-reviews";
+import { buildGoogleReviewsJsonLd } from "@/lib/reviews-schema";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
@@ -93,11 +95,17 @@ const organizationSchema = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { reviews, meta } = await getDisplayedGoogleReviews();
+  const organizationJsonLd = {
+    ...organizationSchema,
+    ...buildGoogleReviewsJsonLd(reviews, meta),
+  };
+
   return (
     <html
       lang="en"
@@ -126,11 +134,9 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "yj6jz31gz6");
           `}
         </Script>
-        <Script
-          id="ld-organization"
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <ScrollProgressBar />
         <BookingPopupProvider>

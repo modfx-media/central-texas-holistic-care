@@ -57,6 +57,11 @@ const NAV: NavItem[] = [
         href: "/contact/",
         description: "Get in touch with our care team.",
       },
+      {
+        label: "Patient Reviews",
+        href: "/reviews/",
+        description: "5-star Google reviews from CTHC patients.",
+      },
     ],
   },
   {

@@ -13,7 +13,6 @@ import {
   Leaf,
   MapPin,
   Phone,
-  Quote,
   ShieldCheck,
   Sparkles,
   Star,
@@ -21,12 +20,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
-import { formatPublishedDate, getAllPosts, type BlogPost } from "@/lib/blog-data";
-
+import { GoogleRatingBadge } from "@/components/home/Testimonials";
 import HomeInsuranceMarquee from "@/components/home/HomeInsuranceMarquee";
 import { useBookingPopup } from "@/components/booking/BookingPopupProvider";
+import { formatPublishedDate, getAllPosts, type BlogPost } from "@/lib/blog-data";
 
 /* -------------------------------------------------------------------------- */
 /*                                Site data                                   */
@@ -110,7 +109,11 @@ const HERO_SLIDES: HeroSlide[] = [
 
 const AUTOPLAY_MS = 5500;
 
-function HeroSlider() {
+function HeroSlider({
+  googleMeta,
+}: {
+  googleMeta?: { rating: number; reviewCount: number; reviewsUrl: string };
+}) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const total = HERO_SLIDES.length;
@@ -194,6 +197,16 @@ function HeroSlider() {
               <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
                 {HERO_SLIDES[index].description}
               </p>
+              {googleMeta && googleMeta.rating > 0 && googleMeta.reviewCount > 0 && (
+                <div className="mt-6 flex justify-center">
+                  <GoogleRatingBadge
+                    rating={googleMeta.rating}
+                    reviewCount={googleMeta.reviewCount}
+                    reviewsUrl={googleMeta.reviewsUrl}
+                    tone="dark"
+                  />
+                </div>
+              )}
               <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <Link
                   href={HERO_SLIDES[index].ctaHref}
@@ -949,149 +962,6 @@ function JourneySection() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*                              Testimonials                                  */
-/* -------------------------------------------------------------------------- */
-
-type Review = { quote: string; author: string; context: string };
-
-const REVIEWS: Review[] = [
-  {
-    quote:
-      "I had been struggling with hot flashes and mood swings for months, but after seeking treatment here, I feel so much better! The holistic approach really made a difference, and I finally feel like myself again.",
-    author: "Verified CTHC Patient",
-    context: "Hormone & menopause care",
-  },
-  {
-    quote:
-      "I was skeptical about acupuncture at first, but after just a few sessions, I noticed a huge improvement in my headaches and overall stress levels. The process is painless and very relaxing!",
-    author: "Verified CTHC Patient",
-    context: "Holistic & supportive therapy",
-  },
-];
-
-function TestimonialsSection() {
-  const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  const next = useCallback(
-    () => setIndex((i) => (i + 1) % REVIEWS.length),
-    [],
-  );
-  const prev = useCallback(
-    () => setIndex((i) => (i - 1 + REVIEWS.length) % REVIEWS.length),
-    [],
-  );
-
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(next, 7000);
-    return () => clearInterval(id);
-  }, [next, paused]);
-
-  const review = REVIEWS[index];
-
-  return (
-    <section
-      className="relative w-full overflow-hidden bg-white py-14 sm:py-20"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center gap-3">
-          <span className="block h-[2px] w-8 rounded-full bg-[#C4A862]" />
-          <p className="text-[11px] font-semibold uppercase tracking-[0.4em] text-[#8a6f30]">
-            Patient Stories
-          </p>
-          <span className="block h-[2px] w-8 rounded-full bg-[#C4A862]" />
-        </div>
-        <h2
-          className="mt-4 font-heading font-semibold leading-[1.1] text-[#1a3a0a]"
-          style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.5rem)" }}
-        >
-          What our patients say.
-        </h2>
-
-        <div className="relative mt-12">
-          <span
-            aria-hidden
-            className="absolute -left-2 -top-6 text-[#C4A862]/25"
-          >
-            <Quote className="size-16" />
-          </span>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6, ease: EASE }}
-              className="relative"
-            >
-              <div
-                aria-label="Rating: 5 out of 5"
-                className="flex items-center justify-center gap-1"
-              >
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="size-5 fill-[#C4A862] text-[#C4A862]"
-                  />
-                ))}
-              </div>
-              <blockquote className="mt-6 text-xl leading-relaxed text-stone-700 sm:text-2xl">
-                &ldquo;{review.quote}&rdquo;
-              </blockquote>
-              <p className="mt-6 text-sm font-semibold text-[#1a3a0a]">
-                {review.author}
-              </p>
-              <p className="text-xs uppercase tracking-[0.2em] text-stone-500">
-                {review.context}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="mt-10 flex items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={prev}
-              aria-label="Previous review"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-stone-300 text-stone-600 transition-colors hover:border-[#C4A862] hover:text-[#1a3a0a]"
-            >
-              <ChevronLeft className="size-4" />
-            </button>
-            <div className="flex items-center gap-2">
-              {REVIEWS.map((r, i) => (
-                <button
-                  key={r.author + i}
-                  type="button"
-                  aria-label={`Go to review ${i + 1}`}
-                  aria-current={i === index}
-                  onClick={() => setIndex(i)}
-                  className={`h-1.5 rounded-full transition-all ${
-                    i === index
-                      ? "w-8 bg-[#C4A862]"
-                      : "w-3 bg-stone-300 hover:bg-stone-400"
-                  }`}
-                />
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={next}
-              aria-label="Next review"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-stone-300 text-stone-600 transition-colors hover:border-[#C4A862] hover:text-[#1a3a0a]"
-            >
-              <ChevronRight className="size-4" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /*                                Blog posts                                  */
 /* -------------------------------------------------------------------------- */
 
@@ -1391,14 +1261,18 @@ function LocationSection() {
 
 export default function Home2Client({
   latestBlogPosts,
+  testimonials,
+  googleMeta,
 }: {
   latestBlogPosts?: BlogPost[];
+  testimonials?: ReactNode;
+  googleMeta?: { rating: number; reviewCount: number; reviewsUrl: string };
 }) {
   const posts = latestBlogPosts?.length ? latestBlogPosts : getAllPosts();
 
   return (
     <>
-      <HeroSlider />
+      <HeroSlider googleMeta={googleMeta} />
       <HomeInsuranceMarquee />
       <WelcomeSection />
       <ServicesGrid />
@@ -1407,7 +1281,7 @@ export default function Home2Client({
       <PillarsSection />
       <HRTFeatureSection />
       <JourneySection />
-      <TestimonialsSection />
+      {testimonials}
       <BlogSection posts={posts} />
       <CTABand />
       <LocationSection />

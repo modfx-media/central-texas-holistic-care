@@ -34,6 +34,7 @@ const QUICK_LINKS = [
   { label: "Stem Cell Therapy", href: "/stem-cells/" },
   { label: "Areas We Serve", href: "/areas-we-serve/" },
   { label: "Payment Plans", href: "/payment-plans/" },
+  { label: "Patient Reviews", href: "/reviews/" },
   { label: "Contact", href: "/contact/" },
   { label: "Book Appointment", href: BOOKING_URL, external: true },
 ];

@@ -37,6 +37,7 @@ const STATIC_PAGES: ReadonlyArray<StaticPage> = [
   { path: "/stem-cells/", lastModified: "2026-07-07", changeFrequency: "monthly", priority: 0.8 },
   { path: "/payment-plans/", lastModified: "2026-07-13", changeFrequency: "yearly", priority: 0.6 },
   { path: "/contact/", lastModified: "2026-07-07", changeFrequency: "yearly", priority: 0.8 },
+  { path: "/reviews/", lastModified: "2026-09-22", changeFrequency: "weekly", priority: 0.7 },
   { path: "/areas-we-serve/", lastModified: "2026-06-30", changeFrequency: "monthly", priority: 0.8 },
   { path: "/blog/", lastModified: "2026-07-14", changeFrequency: "weekly", priority: 0.8 },
   { path: "/privacy-policy/", lastModified: "2026-06-30", changeFrequency: "yearly", priority: 0.3 },

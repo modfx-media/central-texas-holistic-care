@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 
+import { GoogleReviews } from "@/components/home/GoogleReviews";
+import { Testimonials } from "@/components/home/Testimonials";
 import Home2Client from "@/components/home2/Home2Client";
+import { getDisplayedGoogleReviews } from "@/lib/google-reviews";
 import { getPublishedUiPosts } from "@/lib/ranked/ui";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
@@ -65,10 +68,12 @@ const webPageSchema = {
 };
 
 export default async function Home() {
-  const latestBlogPosts = (await getPublishedUiPosts().catch(() => [])).slice(
-    0,
-    3,
-  );
+  const [latestBlogPosts, googleReviews] = await Promise.all([
+    getPublishedUiPosts()
+      .catch(() => [])
+      .then((posts) => posts.slice(0, 3)),
+    getDisplayedGoogleReviews(),
+  ]);
 
   return (
     <>
@@ -76,7 +81,26 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
-      <Home2Client latestBlogPosts={latestBlogPosts} />
+      <Home2Client
+        latestBlogPosts={latestBlogPosts}
+        googleMeta={googleReviews.meta}
+        testimonials={
+          <GoogleReviews>
+            {({ reviews, meta }) => (
+              <Testimonials
+                items={reviews.map((review) => ({
+                  name: review.name,
+                  quote: review.quote,
+                  when: review.relativeTime ?? "Posted on Google",
+                }))}
+                rating={meta.rating}
+                reviewCount={meta.reviewCount}
+                reviewsUrl={meta.reviewsUrl}
+              />
+            )}
+          </GoogleReviews>
+        }
+      />
     </>
   );
 }

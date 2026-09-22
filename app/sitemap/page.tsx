@@ -96,6 +96,11 @@ const GROUPS: SiteGroup[] = (() => {
         description: "Meet our team and learn our approach.",
       },
       {
+        label: "Patient Reviews",
+        href: "/reviews/",
+        description: "5-star Google reviews from CTHC patients.",
+      },
+      {
         label: "Payment Plans",
         href: "/payment-plans/",
         description: "Flexible financing through Cherry and Denefits.",
