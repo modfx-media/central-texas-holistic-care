@@ -1216,8 +1216,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readMinutes: 6,
     publishedAt: "2026-09-23",
     author: DR_GARTH,
-    coverImage:
-      "/images/blog-images/fall-energy-support-with-iv-nutrition-or-oral-supplements.webp",
+    coverImage: "/images/blog-images/iv-therapy-vs-oral-supplements.png",
     tags: ["IV Therapy", "Nutrition", "Energy", "Wellness"],
     relatedServiceHref: "/iv-nutrition/",
     relatedServiceLabel: "See IV Nutrition Menu",
