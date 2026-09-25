@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/men/testosterone/`;
 
 const PAGE_TITLE = "Testosterone Therapy (TRT) | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Testosterone Therapy (TRT) in Killeen, TX: restore vitality, confidence, and wellness with physician-supervised TRT tailored to your labs and symptoms.";
+  "Testosterone Therapy (TRT) in Killeen, TX: restore vitality, confidence, and wellness with clinician-supervised TRT tailored to your labs and symptoms.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -62,7 +62,7 @@ const medicalProcedureSchema = {
   alternateName: "Testosterone Replacement Therapy (TRT)",
   url: CANONICAL,
   description:
-    "Physician-supervised testosterone replacement therapy for men experiencing fatigue, low libido, mood changes, weight gain, and slow recovery related to low testosterone.",
+    "Clinician-supervised testosterone replacement therapy for men experiencing fatigue, low libido, mood changes, weight gain, and slow recovery related to low testosterone.",
   medicineSystem: "https://schema.org/WesternConventional",
   relevantSpecialty: {
     "@type": "MedicalSpecialty",

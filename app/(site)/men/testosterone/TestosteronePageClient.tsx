@@ -196,7 +196,7 @@ function HeroSection() {
           className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-stone-200 sm:text-base"
         >
           Restore vitality, confidence, and overall wellness with
-          physician-supervised TRT, tailored to your labs, your symptoms, and
+          clinician-supervised TRT, tailored to your labs, your symptoms, and
           your life.
         </motion.p>
 
@@ -228,7 +228,7 @@ function HeroSection() {
           className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] text-white/70"
         >
           {[
-            { icon: ShieldCheck, label: "Physician-supervised" },
+            { icon: ShieldCheck, label: "Clinician-supervised" },
             { icon: Activity, label: "Lab-guided dosing" },
             { icon: Sparkles, label: "Personalized protocols" },
           ].map(({ icon: Icon, label }) => (
@@ -507,7 +507,7 @@ function WhyCTHCSection() {
   const pillars = [
     {
       icon: ShieldCheck,
-      title: "Physician-supervised",
+      title: "Clinician-supervised",
       body: "Every TRT plan is reviewed and adjusted by our clinicians, never one-size-fits-all.",
     },
     {

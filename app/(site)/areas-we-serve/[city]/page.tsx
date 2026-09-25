@@ -15,7 +15,7 @@ import {
   type City,
   type Service,
 } from "@/lib/locations";
-import { composeCityHubMeta } from "@/lib/programmatic-content";
+import { composeCityHubMeta, composeCityHubParagraphs } from "@/lib/programmatic-content";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const BOOKING_URL =
@@ -166,16 +166,14 @@ export default async function CityHubPage({
                 >
                   Care built for the way {city.name} lives
                 </h2>
-                <p className="mt-5 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg">
-                  {city.shortDescription}
-                </p>
-                <p className="mt-5 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)]">
-                  Our clinic in Killeen is about{" "}
-                  <span className="font-medium text-[var(--color-forest)]">
-                    {city.driveTimeMin} minutes
-                  </span>{" "}
-                  from {city.name} via {city.primaryRoute}, with parking right out front.
-                </p>
+                {composeCityHubParagraphs(city).map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 32)}
+                    className="mt-5 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
 
               <aside className="rounded-2xl border border-[var(--color-border,rgba(45,80,22,0.12))] bg-white p-6">

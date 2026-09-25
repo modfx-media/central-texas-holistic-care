@@ -32,7 +32,7 @@ const SERVICES: Service[] = [
   {
     title: "Medical Weight Loss & Peptides",
     description:
-      "Physician-supervised weight loss with modern peptide protocols matched to your metabolism.",
+      "Clinician-supervised weight loss with modern peptide protocols matched to your metabolism.",
     href: "/men/",
     icon: Activity,
   },

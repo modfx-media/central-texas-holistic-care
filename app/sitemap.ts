@@ -21,7 +21,9 @@ type StaticPage = {
 
 const STATIC_PAGES: ReadonlyArray<StaticPage> = [
   { path: "/", lastModified: "2026-07-17", changeFrequency: "weekly", priority: 1.0 },
-  { path: "/about-us/", lastModified: "2025-06-16", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/about-us/", lastModified: "2026-09-25", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/providers/bimisa-augustin/", lastModified: "2026-09-25", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/providers/larissa-garth/", lastModified: "2026-09-25", changeFrequency: "monthly", priority: 0.7 },
   { path: "/men/", lastModified: "2025-06-16", changeFrequency: "monthly", priority: 0.9 },
   { path: "/men/testosterone/", lastModified: "2025-06-16", changeFrequency: "monthly", priority: 0.8 },
   { path: "/men/wellness-exams/", lastModified: "2025-06-16", changeFrequency: "monthly", priority: 0.7 },

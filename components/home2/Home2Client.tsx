@@ -63,10 +63,10 @@ const HERO_SLIDES: HeroSlide[] = [
   {
     image: "/images/hero/doctor-1.png",
     eyebrow: "Since 2024",
-    title: "Helping You Feel Your Best at Every Stage of Life.",
+    title: "Holistic Medicine and Hormone Therapy in Killeen, TX",
     description:
-      "Comprehensive healthcare for men and women featuring hormone therapy, IV nutrition, wellness exams, stem cell therapy, weight management, and personalized treatment plans, all under one roof in Central Texas.",
-    ctaLabel: "Meet the doctors",
+      "Comprehensive healthcare for men and women featuring hormone therapy, IV nutrition, wellness exams, stem cell therapy, weight management, and personalized treatment plans, all under one roof in Killeen, TX.",
+    ctaLabel: "Meet the providers",
     ctaHref: "/about-us/",
   },
   {
@@ -74,7 +74,7 @@ const HERO_SLIDES: HeroSlide[] = [
     eyebrow: "Men's Health & Testosterone",
     title: "Reclaim Energy, Strength, and Drive.",
     description:
-      "Physician-supervised testosterone optimization, wellness exams, and lab-guided protocols built for men in Central Texas.",
+      "Clinician-supervised testosterone optimization, wellness exams, and lab-guided protocols built for men in Killeen, TX.",
     ctaLabel: "Explore Men's Health",
     ctaHref: "/men/",
   },
@@ -83,7 +83,7 @@ const HERO_SLIDES: HeroSlide[] = [
     eyebrow: "IV Nutrition Therapy",
     title: "Nutrients Delivered, Right Where You Need Them.",
     description:
-      "Myers' Cocktail, immune boosters, hangover recovery, and workout recovery drips supervised by our physicians.",
+      "Myers' Cocktail, immune boosters, hangover recovery, and workout recovery drips supervised by our providers in Killeen, TX.",
     ctaLabel: "Explore IV Menu",
     ctaHref: "/iv-nutrition/",
   },
@@ -581,7 +581,7 @@ const SERVICES: Service[] = [
     image: "/images/source/iv-infusion-therapy.jpg",
     title: "IV Infusion Therapy",
     blurb:
-      "Physician-supervised infusions delivering vitamins, minerals, and amino acids directly to your bloodstream.",
+      "Clinician-supervised infusions delivering vitamins, minerals, and amino acids directly to your bloodstream.",
     href: "/iv-nutrition/",
   },
   {

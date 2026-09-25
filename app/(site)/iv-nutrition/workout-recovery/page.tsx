@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/iv-nutrition/workout-recovery/`;
 
 const PAGE_TITLE = "Workout Recovery IV Therapy | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Workout Recovery IV Therapy in Harker Heights, TX. Fluids, B-complex, B12, vitamin C, glutathione, zinc, taurine, and magnesium for faster muscle recovery.";
+  "Workout Recovery IV Therapy in Killeen, TX. Fluids, B-complex, B12, vitamin C, glutathione, zinc, taurine, and magnesium for faster muscle recovery.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -71,7 +71,7 @@ const therapySchema = {
   name: "Workout Recovery IV Therapy",
   alternateName: "Athletic Recovery IV Drip",
   description:
-    "Physician-supervised post-exercise IV infusion of fluids, amino acids, B-complex, vitamin C, glutathione, zinc, taurine, and high-dose magnesium to accelerate muscle repair and reduce inflammation.",
+    "Clinician-supervised post-exercise IV infusion of fluids, amino acids, B-complex, vitamin C, glutathione, zinc, taurine, and high-dose magnesium to accelerate muscle repair and reduce inflammation.",
   url: CANONICAL,
 };
 
@@ -103,7 +103,7 @@ export default function WorkoutRecoveryPage() {
         closingNote="Whether you're a competitive athlete or a weekend warrior, this IV therapy is your go-to recovery solution to train harder and recover smarter."
         iconKey="dumbbell"
         trust={[
-          { iconKey: "shieldCheck", label: "Physician-supervised" },
+          { iconKey: "shieldCheck", label: "Clinician-supervised" },
           { iconKey: "droplets", label: "Sterile, single-use" },
           { iconKey: "activity", label: "Athlete-trusted" },
         ]}

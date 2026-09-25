@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/about-us/`;
 
 const PAGE_TITLE = "About Us | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Meet the clinicians behind Central Texas Holistic Care in Killeen, TX. 20+ years combined in regenerative, restorative, and preventive medicine and hormones.";
+  "Meet Bimisa Augustin, DNP, and Larissa Garth, PA-C, at Central Texas Holistic Care in Killeen, TX. 26 years and 10+ years of clinical experience in hormone and preventive care.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },

@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 const DEFAULT_DESCRIPTION =
-  "Central Texas Holistic Care (CTHC) specializes in individualized health plans combining traditional family medicine with holistic therapies. Hormone therapy, IV nutrition, men's & women's health in Harker Heights, TX.";
+  "Central Texas Holistic Care (CTHC) specializes in individualized health plans combining clinical care with holistic therapies. Hormone therapy, IV nutrition, men's and women's health in Killeen, TX.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

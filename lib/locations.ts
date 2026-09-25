@@ -475,7 +475,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["ranching and agriculture", "Evant ISD educators", "retirees"],
     landmarks: ["Evant City Park", "the US-281 / US-84 junction", "Evant ISD campus"],
     surroundingCitySlugs: ["lampasas", "gatesville", "copperas-cove"],
-    live: true,
+    live: false,
   },
   {
     slug: "lometa",
@@ -495,7 +495,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["cattle ranching", "Lometa ISD", "small businesses along US-190"],
     landmarks: ["Lometa City Park", "the Colorado River bridges", "the historic Lometa rail line"],
     surroundingCitySlugs: ["lampasas", "kempner"],
-    live: true,
+    live: false,
   },
   {
     slug: "burnet",
@@ -515,7 +515,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Hill Country tourism and hospitality", "Burnet ISD", "retirees and Lake Buchanan homeowners", "small business"],
     landmarks: ["the Burnet County Courthouse square", "Inks Lake State Park", "Longhorn Cavern", "Hamilton Creek Park"],
     surroundingCitySlugs: ["lampasas", "marble-falls"],
-    live: true,
+    live: false,
   },
   {
     slug: "marble-falls",
@@ -535,7 +535,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Highland Lakes tourism", "retirees and lakefront homeowners", "Marble Falls ISD", "small business and trades"],
     landmarks: ["Lake Marble Falls", "the historic Granite Mountain quarry", "Lakeside Park", "Sweet Berry Farm"],
     surroundingCitySlugs: ["burnet", "lampasas"],
-    live: true,
+    live: false,
   },
   {
     slug: "florence",
@@ -555,7 +555,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["ranching and agriculture", "Florence ISD educators", "Georgetown and Liberty Hill commuters"],
     landmarks: ["the Florence Old Bank Building", "Florence City Park", "FM 195 / FM 970 junction"],
     surroundingCitySlugs: ["liberty-hill", "killeen", "salado"],
-    live: true,
+    live: false,
   },
   {
     slug: "liberty-hill",
@@ -575,7 +575,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Austin metro tech and professional services", "Liberty Hill ISD", "small business and trades", "youth-sports families"],
     landmarks: ["Liberty Hill Public Library", "the Lions Foundation Park", "TX-29 / Ronald Reagan Blvd"],
     surroundingCitySlugs: ["leander", "georgetown", "florence"],
-    live: true,
+    live: false,
   },
   {
     slug: "georgetown",
@@ -595,7 +595,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Southwestern University faculty and staff", "Sun City Texas retirees", "Williamson County government", "Austin metro tech professionals"],
     landmarks: ["the historic Williamson County Courthouse square", "San Gabriel Park", "Southwestern University", "Sun City Texas", "Blue Hole Park"],
     surroundingCitySlugs: ["round-rock", "liberty-hill", "salado"],
-    live: true,
+    live: false,
   },
   {
     slug: "round-rock",
@@ -615,7 +615,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Dell and tech professionals", "Baylor Scott & White Round Rock clinicians", "Round Rock ISD families", "small business"],
     landmarks: ["Old Settlers Park", "the Dell Diamond", "Round Rock Premium Outlets", "the historic Round Rock"],
     surroundingCitySlugs: ["georgetown", "cedar-park", "leander"],
-    live: true,
+    live: false,
   },
   {
     slug: "leander",
@@ -635,7 +635,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Austin metro tech professionals", "Leander ISD educators and families", "construction and trades", "youth-sports families"],
     landmarks: ["Devine Lake Park", "the CapMetro Leander Station", "Crystal Falls", "Northline downtown district"],
     surroundingCitySlugs: ["cedar-park", "liberty-hill", "round-rock"],
-    live: true,
+    live: false,
   },
   {
     slug: "cedar-park",
@@ -655,7 +655,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Austin metro tech and professional services", "healthcare professionals", "Leander ISD families", "youth-sports families"],
     landmarks: ["HEB Center at Cedar Park", "Brushy Creek Lake Park", "Lakeline Mall", "Bell Boulevard corridor"],
     surroundingCitySlugs: ["leander", "round-rock"],
-    live: true,
+    live: false,
   },
   {
     slug: "taylor",
@@ -675,7 +675,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Samsung Taylor semiconductor employees", "Williamson County government", "Taylor ISD", "agribusiness and rail logistics"],
     landmarks: ["the Samsung Taylor campus", "Murphy Park", "the historic downtown rail district", "Heritage Square"],
     surroundingCitySlugs: ["round-rock", "georgetown"],
-    live: true,
+    live: false,
   },
   {
     slug: "waco",
@@ -695,7 +695,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Baylor University faculty and staff", "Magnolia and Silos-area small business", "Ascension Providence and Baylor Scott & White clinicians", "manufacturing and logistics"],
     landmarks: ["Magnolia Market at the Silos", "Baylor University", "Cameron Park", "the Waco Suspension Bridge"],
     surroundingCitySlugs: ["hewitt", "woodway", "temple"],
-    live: true,
+    live: false,
   },
   {
     slug: "hewitt",
@@ -715,7 +715,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Waco-area commuters", "Midway ISD educators and families", "healthcare professionals", "small business"],
     landmarks: ["Warren Park", "Hewitt Park", "the I-35 / Sun Valley corridor"],
     surroundingCitySlugs: ["woodway", "waco", "lorena"],
-    live: true,
+    live: false,
   },
   {
     slug: "woodway",
@@ -735,7 +735,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Waco professional services", "Midway ISD families", "physicians and healthcare leadership", "retirees"],
     landmarks: ["Carleen Bright Arboretum", "Woodway Park", "Midway High School", "Lake Air Drive corridor"],
     surroundingCitySlugs: ["hewitt", "waco"],
-    live: true,
+    live: false,
   },
   {
     slug: "lorena",
@@ -755,7 +755,7 @@ export const CITIES: ReadonlyArray<City> = [
     industries: ["Lorena ISD educators and families", "Waco and Temple commuters", "agriculture", "logistics along I-35"],
     landmarks: ["Lorena City Park", "Lorena ISD campus", "the I-35 / FM 2837 junction"],
     surroundingCitySlugs: ["hewitt", "waco", "temple"],
-    live: true,
+    live: false,
   },
 ] as const;
 
@@ -861,7 +861,7 @@ export const SERVICES: ReadonlyArray<Service> = [
       "athletic recovery IV",
     ],
     shortDescription:
-      "Physician-supervised IV infusions delivering hydration, B-complex, vitamin C, magnesium, glutathione, and amino acids directly to your bloodstream for full absorption.",
+      "Clinician-supervised IV infusions delivering hydration, B-complex, vitamin C, magnesium, glutathione, and amino acids directly to your bloodstream for full absorption.",
     longDescription:
       "Our IV nutrition program delivers carefully formulated infusions to the patients who actually need them, people recovering from illness, athletes between training blocks, busy professionals running on empty, and patients with absorption issues that make oral supplementation unreliable. Every drip is built around your goal, immune support, recovery, energy, or a full-body reset, and every infusion is screened and supervised by a clinician, not a kiosk technician.",
     benefits: [
@@ -909,7 +909,7 @@ export const SERVICES: ReadonlyArray<Service> = [
       },
       {
         q: "Is IV therapy safe?",
-        a: "Every drip is physician-supervised. We screen briefly before starting, confirm your medications, and adjust formulations based on what you can safely receive.",
+        a: "Every drip is clinician-supervised. We screen briefly before starting, confirm your medications, and adjust formulations based on what you can safely receive.",
       },
       {
         q: "How often should I get an IV?",
@@ -942,7 +942,7 @@ export const SERVICES: ReadonlyArray<Service> = [
       "hormone optimization for men",
     ],
     shortDescription:
-      "Lab-guided testosterone replacement therapy (TRT) for men, restore energy, strength, focus, libido, and recovery with a physician-supervised protocol.",
+      "Lab-guided testosterone replacement therapy (TRT) for men, restore energy, strength, focus, libido, and recovery with a clinician-supervised protocol.",
     longDescription:
       "Our testosterone replacement program is built for men who are doing the right things, training, eating well, sleeping, and still feel a step slower than they should. We confirm Low T with bloodwork (total testosterone, free testosterone, estradiol, SHBG, PSA, CBC, and metabolic markers), then match you to the right delivery method and dose. Every plan is overseen by a clinician, with labs re-checked on a schedule so we hit the target range without overshooting.",
     benefits: [
@@ -1072,7 +1072,7 @@ export const SERVICES: ReadonlyArray<Service> = [
       "metabolic peptides",
     ],
     shortDescription:
-      "Physician-prescribed peptide protocols for metabolic health, recovery, immune support, and longevity, with labs, dosing oversight, and follow-up cadence built in.",
+      "Clinician-directed peptide protocols for metabolic health, recovery, immune support, and longevity, with labs, dosing oversight, and follow-up cadence built in.",
     longDescription:
       "Our peptide therapy program uses carefully selected, evidence-backed peptides to support metabolic health, tissue repair, immune resilience, and healthy aging. Every protocol is prescribed and monitored by a clinician after a labs-first consult, no kiosks, no DIY dosing, and no peptides outside of indicated use. We pair peptides with hormone, IV, and lifestyle protocols when it makes sense so the whole picture moves in the right direction.",
     benefits: [
@@ -1710,9 +1710,9 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     primaryKeyword: "GLP-1 peptide therapy",
     secondaryKeywords: ["semaglutide", "tirzepatide", "GLP-1 weight loss", "metabolic peptide therapy"],
     shortDescription:
-      "Physician-supervised GLP-1 peptide protocols for metabolic health, body composition, and sustainable weight loss.",
+      "Clinician-supervised GLP-1 peptide protocols for metabolic health, body composition, and sustainable weight loss.",
     longDescription:
-      "Our GLP-1 program uses physician-supervised semaglutide or tirzepatide alongside labs, body-composition tracking, and nutrition coaching so you get the metabolic benefits without the rebound. We are not a write-a-script-and-wave-goodbye clinic; we plan the on-ramp, the maintenance dose, and the eventual taper or maintenance phase.",
+      "Our GLP-1 program uses clinician-supervised semaglutide or tirzepatide alongside labs, body-composition tracking, and nutrition coaching so you get the metabolic benefits without the rebound. We are not a write-a-script-and-wave-goodbye clinic; we plan the on-ramp, the maintenance dose, and the eventual taper or maintenance phase.",
     indicatedFor: [
       "patients with a BMI of 27+ and metabolic risk factors",
       "patients whose weight loss has stalled despite real effort",

@@ -59,7 +59,7 @@ const SERVICES: readonly Service[] = [
     icon: TrendingUp,
     highlights: [
       "Lab-guided TRT",
-      "Physician-supervised dosing",
+      "Clinician-supervised dosing",
       "Energy, focus & libido",
     ],
   },
@@ -103,7 +103,7 @@ const MORE_SERVICES: readonly MoreService[] = [
   },
   {
     title: "Medical Weight Loss",
-    description: "Peptide-guided, physician-supervised plans.",
+    description: "Peptide-guided, clinician-supervised plans.",
     href: "/#services",
     icon: Flame,
   },

@@ -270,7 +270,7 @@ export default function HomeApproach() {
               {/* floating top-left badge */}
               <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-[#C4A862]/40 bg-[#0b1d04]/80 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C4A862] backdrop-blur">
                 <Stethoscope className="size-3.5" />
-                Physician-supervised
+                Clinician-supervised
               </div>
 
               {/* floating top-right badge (balances the top-left pill) */}

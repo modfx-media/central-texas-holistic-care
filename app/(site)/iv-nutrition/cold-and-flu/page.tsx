@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/iv-nutrition/cold-and-flu/`;
 
 const PAGE_TITLE = "Cold & Flu IV Therapy | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Cold & Flu IV Therapy in Harker Heights, TX. Rapid rehydration, high-dose vitamin C, zinc, glutathione, and anti-inflammatory relief to shorten illness.";
+  "Cold & Flu IV Therapy in Killeen, TX. Rapid rehydration, high-dose vitamin C, zinc, glutathione, and anti-inflammatory relief to shorten illness.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -71,7 +71,7 @@ const therapySchema = {
   name: "Cold & Flu IV Therapy",
   alternateName: "Viral Illness Recovery IV",
   description:
-    "Physician-supervised IV infusion of fluids, B-complex, B12, high-dose vitamin C, glutathione, zinc, and anti-inflammatory medication for symptom relief and faster recovery from cold or flu.",
+    "Clinician-supervised IV infusion of fluids, B-complex, B12, high-dose vitamin C, glutathione, zinc, and anti-inflammatory medication for symptom relief and faster recovery from cold or flu.",
   url: CANONICAL,
 };
 
@@ -103,7 +103,7 @@ export default function ColdAndFluPage() {
         closingNote="Perfect for those battling seasonal flu, common cold, or viral fatigue, this IV therapy gives your body the immediate support it needs to heal faster and feel better."
         iconKey="snowflake"
         trust={[
-          { iconKey: "shieldCheck", label: "Physician-supervised" },
+          { iconKey: "shieldCheck", label: "Clinician-supervised" },
           { iconKey: "droplets", label: "Sterile, single-use" },
           { iconKey: "heartPulse", label: "Same-day relief" },
         ]}

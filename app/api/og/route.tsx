@@ -12,7 +12,7 @@ const CREAM = "#FAF6EE";
 const ACCENT = "#C4A862";
 
 const DEFAULT_TITLE = "Central Texas Holistic Care";
-const DEFAULT_SUBTITLE = "Holistic & Preventive Medicine · Harker Heights, TX";
+const DEFAULT_SUBTITLE = "Holistic medicine and hormone therapy · Killeen, TX";
 
 /**
  * Dynamic Open Graph image route.
@@ -172,7 +172,7 @@ export async function GET(request: NextRequest) {
             centraltexasholisticcarepllc.com
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            254-213-2423 · Harker Heights, TX
+            254-213-2423 · Killeen, TX
           </div>
         </div>
       </div>

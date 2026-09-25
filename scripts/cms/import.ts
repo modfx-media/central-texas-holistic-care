@@ -54,6 +54,7 @@ async function findExisting(
     collection,
     limit: 1,
     depth: 0,
+    draft: true,
     overrideAccess: true,
     where: { legacyId: { equals: legacyId } },
   });
@@ -63,31 +64,20 @@ async function findExisting(
     collection,
     limit: 1,
     depth: 0,
+    draft: true,
     overrideAccess: true,
     where: { sourceUrl: { equals: sourceUrl } },
   });
   return bySource.docs[0] ?? null;
 }
 
-async function main() {
-  requireDatabase();
-  const apply = process.argv.includes("--apply") || process.env.CMS_IMPORT_APPLY === "1";
-  const publish = process.argv.includes("--publish");
-  if (publish) {
-    console.error("Refusing --publish. Import drafts only; publish one URL at a time in /admin.");
-    process.exit(1);
-  }
-
+export async function applyDraftImport(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+) {
   const data = loadExport();
-  console.log(`Loaded ${data.records.length} records (apply=${apply})`);
-
-  if (!apply) {
-    console.log("Dry run. Re-run with --apply after reviewing the export.");
-    return;
-  }
-
-  process.env.CMS_IMPORT_APPLY = "1";
-  const payload = await getPayload({ config: payloadConfig });
+  let created = 0;
+  let updated = 0;
+  let skipped = 0;
 
   for (const record of data.records) {
     try {
@@ -109,7 +99,7 @@ async function main() {
           draft: true,
           overrideAccess: true,
         });
-        console.log(`updated ${record.collection} ${record.sourceUrl}`);
+        updated += 1;
       } else {
         await payload.create({
           collection: record.collection,
@@ -117,9 +107,10 @@ async function main() {
           draft: true,
           overrideAccess: true,
         });
-        console.log(`created ${record.collection} ${record.sourceUrl}`);
+        created += 1;
       }
     } catch (error) {
+      skipped += 1;
       console.error(`[cms:import] skipped ${record.sourceUrl}`, error);
     }
   }
@@ -133,14 +124,41 @@ async function main() {
       });
       console.log(`updated global ${slug}`);
     } catch (error) {
+      skipped += 1;
       console.error(`[cms:import] skipped global ${slug}`, error);
     }
   }
 
-  console.log("Draft import complete. Public pages stay on designed fallbacks until publish.");
+  return { records: data.records.length, created, updated, skipped };
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+async function main() {
+  requireDatabase();
+  const apply = process.argv.includes("--apply") || process.env.CMS_IMPORT_APPLY === "1";
+  const publish = process.argv.includes("--publish");
+  if (publish) {
+    console.error("Refusing --publish. Import drafts only; publish one URL at a time in /admin.");
+    process.exit(1);
+  }
+
+  const data = loadExport();
+  console.log(`Loaded ${data.records.length} records (apply=${apply})`);
+
+  if (!apply) {
+    console.log("Dry run. Re-run with --apply after reviewing the export.");
+    return;
+  }
+
+  process.env.CMS_IMPORT_APPLY = "1";
+  const payload = await getPayload({ config: payloadConfig });
+  const result = await applyDraftImport(payload);
+  console.log("Draft import complete.", result);
+}
+
+const isDirect = process.argv[1]?.replace(/\\/g, "/").endsWith("scripts/cms/import.ts");
+if (isDirect) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}

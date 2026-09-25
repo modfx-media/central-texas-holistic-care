@@ -228,7 +228,7 @@ export default async function CityServicePage({
                 <dl className="mt-4 space-y-3 text-sm">
                   <Fact icon={Clock} label="Drive time" value={`~${city.driveTimeMin} min via ${city.primaryRoute}`} />
                   <Fact icon={MapPin} label="Clinic" value="311 E. Stan Schlueter Loop, Suite 207, Killeen, TX 76542" />
-                  <Fact icon={ShieldCheck} label="Provider" value="Clinician-led, physician-supervised" />
+                  <Fact icon={ShieldCheck} label="Provider" value="Clinician-led, lab-guided care" />
                 </dl>
                 <a
                   href={BOOKING_URL}
@@ -273,6 +273,18 @@ export default async function CityServicePage({
             </h2>
             <p className="mt-5 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg">
               {copy.whyChoose}
+            </p>
+            <h3 className="mt-8 font-heading text-xl font-light text-[var(--color-forest)]">
+              What a visit from {city.name} looks like
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg">
+              {copy.whatToExpect}
+            </p>
+            <h3 className="mt-8 font-heading text-xl font-light text-[var(--color-forest)]">
+              Who in {city.name} this is for
+            </h3>
+            <p className="mt-4 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg">
+              {copy.candidacy}
             </p>
           </Reveal>
 

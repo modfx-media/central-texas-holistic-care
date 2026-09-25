@@ -20,6 +20,8 @@ export type ComposedContent = {
   whyChoose: string;
   drivingDirections: string;
   closingCta: string;
+  whatToExpect: string;
+  candidacy: string;
   faqs: { q: string; a: string }[];
 };
 
@@ -34,7 +36,7 @@ export function composeMetaTitle(city: City, service: Service): string {
 export function composeMetaDescription(city: City, service: Service): string {
   const opener =
     service.slug === "iv-nutrition"
-      ? `Physician-supervised ${service.primaryKeyword} in ${city.name}, TX.`
+      ? `Clinician-supervised ${service.primaryKeyword} in ${city.name}, TX.`
       : service.slug === "testosterone-therapy"
         ? `Lab-guided ${service.primaryKeyword} for men in ${city.name}, TX.`
         : `Lab-guided ${service.primaryKeyword} in ${city.name}, TX.`;
@@ -146,13 +148,63 @@ function composeClosingCta(city: City, service: Service): string {
   return `If you are ready to see what ${service.shortName} could look like for you, we would love to meet. Patients from ${city.name} can usually be seen the same day, often sooner. Book a consultation online or call us, we will take it from there.`;
 }
 
+function composeWhatToExpect(city: City, service: Service): string {
+  const landmark = city.landmarks[0] ?? city.name;
+  const walkthrough = service.process
+    .map((step) => `${step.title}. ${step.body}`)
+    .join(" ");
+  return `A first ${service.shortName} visit for someone leaving ${landmark} in ${city.name} is at the Killeen clinic, about ${city.driveTimeMin} minutes via ${city.primaryRoute}. ${walkthrough} You leave with a written plan. The next lab date is on the calendar before you walk out. Parking is in front of 311 E. Stan Schlueter Loop, Suite 207.`;
+}
+
+function composeCandidacy(city: City, service: Service): string {
+  const concerns = service.addresses.slice(0, 4).join(", ");
+  const people = formatList(city.industries.slice(0, 2));
+  return `People in ${city.name} usually book ${service.shortName} when ${concerns} have started to affect work, training, sleep, or family life. That includes ${people}. The consult is also the right step if a previous plan treated one symptom and left the rest alone. We will tell you plainly if labs do not support treatment, and we will say so before any protocol starts. ${city.county} County patients are seen at the same Killeen clinic as everyone else. There is no satellite office in ${city.name}.`;
+}
+
+export function composeTreatmentNarrative(
+  city: City,
+  service: Service,
+  treatment: {
+    name: string;
+    longDescription: string;
+    protocol: string;
+    indicatedFor: readonly string[];
+    benefits: readonly string[];
+  },
+): string[] {
+  const landmarks = formatList((city.landmarks.slice(0, 3) as string[]));
+  const indicated = formatList(treatment.indicatedFor.slice(0, 4));
+  const outcomes = treatment.benefits
+    .slice(0, 4)
+    .map((benefit) => benefit.replace(/\.$/, ""))
+    .join(". ");
+  const workplaces = formatList(city.industries.slice(0, 3));
+  return [
+    treatment.longDescription,
+    `Patients from ${city.name}, in ${city.county} County, are seen at 311 E. Stan Schlueter Loop, Suite 207, Killeen. The drive is about ${city.driveTimeMin} minutes via ${city.primaryRoute}. People usually leave from ${landmarks}. There is no ${treatment.name.toLowerCase()} office inside ${city.name}.`,
+    `${treatment.name} is the ${service.shortName} protocol we use when the history matches ${indicated}. ${treatment.protocol}`,
+    `After treatment starts, the changes we track are specific: ${outcomes}. A large share of ${city.name} patients on this protocol work in ${workplaces}. If the first labs do not support ${treatment.name.toLowerCase()}, we stop and walk through the numbers before any dose is chosen. Later changes come from repeat labs and from how you feel between visits.`,
+  ];
+}
+
 /* -------------------------------------------------------------------------- */
 /*                              FAQs                                          */
 /* -------------------------------------------------------------------------- */
 
 function composeFaqs(city: City, service: Service): { q: string; a: string }[] {
   const local = service.localFaqs.map((fn) => fn(city));
-  return [...local, ...service.baseFaqs];
+  const extra = [
+    {
+      q: `Do you have an office in ${city.name}?`,
+      a: `No. Every ${city.name} patient is seen at 311 E. Stan Schlueter Loop, Suite 207, Killeen, TX 76542. The drive is about ${city.driveTimeMin} minutes via ${city.primaryRoute}.`,
+    },
+    {
+      q: `How soon can someone from ${city.name} be seen for ${service.shortName}?`,
+      a: `Most ${city.name} patients are offered a visit within a few days. Same-day openings are common. Call (254) 213-2423 or book online and we will confirm the time.`,
+    },
+  ];
+  return [...local, ...extra, ...service.baseFaqs];
 }
 
 /* -------------------------------------------------------------------------- */
@@ -169,6 +221,8 @@ export function composeCityServiceCopy(city: City, service: Service): ComposedCo
     whyChoose: composeWhyChoose(city, service),
     drivingDirections: composeDrivingDirections(city),
     closingCta: composeClosingCta(city, service),
+    whatToExpect: composeWhatToExpect(city, service),
+    candidacy: composeCandidacy(city, service),
     faqs: composeFaqs(city, service),
   };
 }
@@ -176,6 +230,16 @@ export function composeCityServiceCopy(city: City, service: Service): ComposedCo
 /* -------------------------------------------------------------------------- */
 /*                              City hub meta                                 */
 /* -------------------------------------------------------------------------- */
+
+export function composeCityHubParagraphs(city: City): string[] {
+  const industries = formatList(city.industries.slice(0, 3));
+  const landmarks = formatList(city.landmarks.slice(0, 3));
+  return [
+    city.shortDescription,
+    `The ${city.name} patients we see most often work in ${industries}. Appointments are usually booked by people who live or work near ${landmarks}, then driven to the Killeen clinic. Plan on about ${city.driveTimeMin} minutes via ${city.primaryRoute}. The address is 311 E. Stan Schlueter Loop, Suite 207, Killeen, TX 76542, with parking in front.`,
+    `Hormone therapy, IV nutrition, testosterone therapy, wellness exams, and peptide protocols are the services on this page. Each one starts with a history and labs at the same ${city.county} County visit, in Killeen. We do not run a satellite clinic in ${city.name}. If a protocol is not a fit, that is said at the consult, before anything is started.`,
+  ];
+}
 
 export function composeCityHubMeta(city: City): { title: string; description: string } {
   return {

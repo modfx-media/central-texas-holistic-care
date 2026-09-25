@@ -167,7 +167,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title:
       "IV Nutrition Therapy in Central Texas: What It Is, Who It Helps, and Why It Works",
     excerpt:
-      "From immune resilience to post-workout recovery, IV nutrition delivers vitamins and minerals directly into the bloodstream. Here's an honest, physician-supervised look at what these drips do, and what they don't.",
+      "From immune resilience to post-workout recovery, IV nutrition delivers vitamins and minerals directly into the bloodstream. Here's an honest, clinician-supervised look at what these drips do, and what they don't.",
     category: "IV Nutrition",
     categoryHref: "/iv-nutrition/",
     readMinutes: 6,
@@ -180,7 +180,7 @@ export const BLOG_POSTS: BlogPost[] = [
     content: [
       {
         type: "p",
-        text: "IV nutrition therapy is one of the fastest-growing wellness services in the country, and, admittedly, one of the most over-hyped online. Marketing claims range from reasonable to ridiculous. So let's cut through the noise and walk through what a physician-supervised IV program actually does, based on what we see day-to-day at our Killeen clinic.",
+        text: "IV nutrition therapy is one of the fastest-growing wellness services in the country, and, admittedly, one of the most over-hyped online. Marketing claims range from reasonable to ridiculous. So let's cut through the noise and walk through what a clinician-supervised IV program actually does, based on what we see day-to-day at our Killeen clinic.",
       },
       { type: "h2", text: "How IV therapy is different from oral supplements" },
       {

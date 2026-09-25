@@ -67,7 +67,7 @@ const SERVICE_LINKS: DestinationLink[] = [
   {
     href: "/iv-nutrition/",
     label: "IV Nutrition",
-    description: "Physician-supervised IV infusion menu.",
+    description: "Clinician-supervised IV infusion menu.",
     icon: Droplets,
   },
   {

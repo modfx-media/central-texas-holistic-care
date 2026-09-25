@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/iv-nutrition/immune-booster/`;
 
 const PAGE_TITLE = "Immune Booster IV Therapy | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Immune Booster IV Therapy in Harker Heights, TX. IV fluids, B-complex, B12, vitamin C, glutathione, and zinc to strengthen defenses before travel or illness.";
+  "Immune Booster IV Therapy in Killeen, TX. IV fluids, B-complex, B12, vitamin C, glutathione, and zinc to strengthen defenses before travel or illness.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -71,7 +71,7 @@ const therapySchema = {
   name: "Immune Booster IV Therapy",
   alternateName: "Immune Support IV Drip",
   description:
-    "Physician-supervised IV infusion of fluids, B-complex, B12, vitamin C, glutathione, and zinc designed to strengthen immune defense and accelerate recovery.",
+    "Clinician-supervised IV infusion of fluids, B-complex, B12, vitamin C, glutathione, and zinc designed to strengthen immune defense and accelerate recovery.",
   url: CANONICAL,
 };
 
@@ -102,7 +102,7 @@ export default function ImmuneBoosterPage() {
         closingNote="Ideal during flu season, before travel, or whenever your immune system needs a lift, our IV therapy helps you stay protected, energized, and well."
         iconKey="shieldCheck"
         trust={[
-          { iconKey: "shieldCheck", label: "Physician-supervised" },
+          { iconKey: "shieldCheck", label: "Clinician-supervised" },
           { iconKey: "droplets", label: "Sterile, single-use" },
           { iconKey: "sparkles", label: "Same-day relief" },
         ]}

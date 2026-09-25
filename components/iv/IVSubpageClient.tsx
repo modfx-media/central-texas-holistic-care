@@ -436,7 +436,7 @@ function OverviewSection({
             <div className="absolute bottom-5 left-5 right-5 text-white">
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] backdrop-blur">
                 <span className="size-1.5 rounded-full bg-[#9DD270]" />
-                Physician-supervised IV
+                Clinician-supervised IV
               </span>
             </div>
           </div>

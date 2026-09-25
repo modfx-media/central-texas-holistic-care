@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/iv-nutrition/`;
 
 const PAGE_TITLE = "IV Nutrition Therapy | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Physician-supervised IV nutrition in Harker Heights, TX: Immune Booster, Workout Recovery, Myer's Cocktail, Cold & Flu, and Hangover IV infusions.";
+  "Clinician-supervised IV nutrition in Killeen, TX: Immune Booster, Workout Recovery, Myer's Cocktail, Cold & Flu, and Hangover IV infusions. Serving Harker Heights.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },

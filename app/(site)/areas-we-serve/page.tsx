@@ -521,7 +521,7 @@ function AreasHero({
         </h1>
         <p className="mt-5 max-w-2xl text-base text-white/80 sm:text-lg">
           Patients from across Bell and Coryell County trust Central Texas Holistic Care
-          for lab-guided hormone therapy, physician-supervised IV nutrition, and
+          for lab-guided hormone therapy, clinician-supervised IV nutrition, and
           root-cause wellness medicine.
         </p>
 

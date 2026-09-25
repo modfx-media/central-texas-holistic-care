@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/iv-nutrition/hangover/`;
 
 const PAGE_TITLE = "Hangover IV Therapy | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Hangover IV Therapy in Harker Heights, TX. Rapid rehydration, B-vitamins, glutathione, anti-nausea, and pain relief to bounce back after a long night.";
+  "Hangover IV Therapy in Killeen, TX. Rapid rehydration, B-vitamins, glutathione, anti-nausea, and pain relief to bounce back after a long night.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -71,7 +71,7 @@ const therapySchema = {
   name: "Hangover IV Therapy",
   alternateName: "Hangover Recovery IV Drip",
   description:
-    "Physician-supervised IV infusion of fluids, electrolytes, B-complex, B12, glutathione, anti-nausea, and anti-inflammatory medication for rapid hangover recovery.",
+    "Clinician-supervised IV infusion of fluids, electrolytes, B-complex, B12, glutathione, anti-nausea, and anti-inflammatory medication for rapid hangover recovery.",
   url: CANONICAL,
 };
 
@@ -103,7 +103,7 @@ export default function HangoverPage() {
         closingNote="Whether you're recovering from a night out or prepping for a busy day ahead, this drip will have you feeling recharged, refreshed, and fully functional in no time."
         iconKey="sunrise"
         trust={[
-          { iconKey: "shieldCheck", label: "Physician-supervised" },
+          { iconKey: "shieldCheck", label: "Clinician-supervised" },
           { iconKey: "droplets", label: "Sterile, single-use" },
           { iconKey: "zap", label: "Same-day relief" },
         ]}
@@ -184,7 +184,7 @@ export default function HangoverPage() {
           },
           {
             q: "Is it safe?",
-            a: "Yes, every drip is physician-supervised. We screen briefly before starting and adjust medications based on what you can safely receive.",
+            a: "Yes, every drip is clinician-supervised. We screen briefly before starting and adjust medications based on what you can safely receive.",
           },
           {
             q: "Can I get this before a big event instead of after?",

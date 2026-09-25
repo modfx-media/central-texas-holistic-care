@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/hormone-therapy/`;
 
 const PAGE_TITLE = "Hormone Therapy (BHRT) | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Bio-identical hormone replacement therapy (BHRT) in Harker Heights, TX. Testosterone for men, estrogen and progesterone for women, personalized to your labs.";
+  "Bioidentical hormone replacement therapy (BHRT) in Killeen, TX. Testosterone for men, estrogen and progesterone for women, personalized to your labs. Serving Harker Heights.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },

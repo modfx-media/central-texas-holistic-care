@@ -10,9 +10,9 @@ import { getPublishedUiPosts } from "@/lib/ranked/ui";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const PAGE_TITLE =
-  "Central Texas Holistic Care | Holistic & Preventive Medicine in Harker Heights, TX";
+  "Holistic Medicine in Killeen, TX | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Central Texas Holistic Care offers personalized holistic medicine, hormone therapy, IV nutrition, men's and women's health in Harker Heights, TX. Book today.";
+  "Holistic medicine and hormone therapy in Killeen, TX. Bioidentical HRT, IV nutrition, and men's and women's health at 311 E. Stan Schlueter Loop. Serving Harker Heights. Book today.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -29,7 +29,7 @@ const pageMetadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${SITE_URL}/api/og?title=${encodeURIComponent("Holistic & Preventive Medicine")}&subtitle=${encodeURIComponent("Harker Heights, TX · Hormone therapy, IV nutrition, men's & women's health")}`,
+        url: `${SITE_URL}/api/og?title=${encodeURIComponent("Holistic Medicine in Killeen")}&subtitle=${encodeURIComponent("Killeen, TX · Hormone therapy, IV nutrition, men's & women's health")}`,
         width: 1200,
         height: 630,
         alt: "Central Texas Holistic Care",
@@ -40,7 +40,7 @@ const pageMetadata: Metadata = {
     card: "summary_large_image",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    images: [`${SITE_URL}/api/og?title=${encodeURIComponent("Holistic & Preventive Medicine")}&subtitle=${encodeURIComponent("Harker Heights, TX · Hormone therapy, IV nutrition, men's & women's health")}`],
+    images: [`${SITE_URL}/api/og?title=${encodeURIComponent("Holistic Medicine in Killeen")}&subtitle=${encodeURIComponent("Killeen, TX · Hormone therapy, IV nutrition, men's & women's health")}`],
   },
 }
 

@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/men/`;
 
 const PAGE_TITLE = "Men's Health | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Men's health at Central Texas Holistic Care: testosterone replacement therapy and annual wellness exams, physician-supervised root-cause care in Killeen, TX.";
+  "Men's health at Central Texas Holistic Care: testosterone replacement therapy and annual wellness exams, clinician-supervised root-cause care in Killeen, TX.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },

@@ -78,7 +78,7 @@ const WOMEN_SYMPTOMS: readonly Symptom[] = [
 const PILLARS = [
   {
     icon: Stethoscope,
-    title: "Physician-supervised",
+    title: "Clinician-supervised",
     body: "Every plan is overseen by a clinician, never algorithmic, never one-size-fits-all.",
   },
   {
@@ -296,7 +296,7 @@ function HeroSection() {
             >
               <li className="inline-flex items-center gap-1.5">
                 <ShieldCheck className="size-3.5 text-[#C4A862]" />
-                Physician-supervised
+                Clinician-supervised
               </li>
               <li className="inline-flex items-center gap-1.5">
                 <Atom className="size-3.5 text-[#C4A862]" />

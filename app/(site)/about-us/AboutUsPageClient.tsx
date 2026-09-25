@@ -181,7 +181,7 @@ function HeroSection() {
           variants={fadeUp}
           className="mx-auto mt-5 max-w-3xl text-[15px] leading-relaxed text-stone-300 sm:text-base"
         >
-          With over 20 years of combined medical experience, our team has
+          With 26 years and more than 10 years of clinical experience between them, our team has
           proudly served the Central Texas community, offering individualized
           care for hormonal imbalances, preventive health, and chronic
           conditions, blending functional medicine with optimal results with a
@@ -220,8 +220,8 @@ function HeroSection() {
 const STATS = [
   {
     icon: Award,
-    value: "20+",
-    label: "Years combined experience",
+    value: "36+",
+    label: "Years of combined clinical experience",
   },
   {
     icon: ShieldCheck,
@@ -386,10 +386,12 @@ function ProviderBimisa() {
               className="mt-4 font-heading font-semibold leading-[1.1] text-[#0f2706]"
               style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.5rem)" }}
             >
-              Dr. Bimisa Augustin,{" "}
-              <span className="italic text-[#8a6f30]">
-                DNP, FNP-C, PMHNP-BC
-              </span>
+              <Link href="/providers/bimisa-augustin/" className="hover:text-[#8a6f30]">
+                Dr. Bimisa Augustin,{" "}
+                <span className="italic text-[#8a6f30]">
+                  DNP, FNP-C, PMHNP-BC
+                </span>
+              </Link>
             </motion.h2>
 
             <motion.p
@@ -533,10 +535,12 @@ function ProviderLarissa() {
               className="mt-4 font-heading font-semibold leading-[1.1] text-[#0f2706]"
               style={{ fontSize: "clamp(1.85rem, 3.4vw, 2.5rem)" }}
             >
-              Dr. Larissa Garth,{" "}
-              <span className="italic text-[#8a6f30]">
-                DMSC, MPH, MPAS, PA-C
-              </span>
+              <Link href="/providers/larissa-garth/" className="hover:text-[#8a6f30]">
+                Dr. Larissa Garth,{" "}
+                <span className="italic text-[#8a6f30]">
+                  DMSC, MPH, MPAS, PA-C
+                </span>
+              </Link>
             </motion.h2>
 
             <motion.p

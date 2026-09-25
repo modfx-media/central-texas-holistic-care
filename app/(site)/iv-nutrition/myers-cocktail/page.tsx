@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/iv-nutrition/myers-cocktail/`;
 
 const PAGE_TITLE = "Myer's Cocktail IV Therapy | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Myer's Cocktail IV Therapy in Harker Heights, TX. The time-tested infusion of fluids, B-complex, B12, vitamin C, and magnesium for energy and immunity.";
+  "Myer's Cocktail IV Therapy in Killeen, TX. The time-tested infusion of fluids, B-complex, B12, vitamin C, and magnesium for energy and immunity.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -71,7 +71,7 @@ const therapySchema = {
   name: "Myer's Cocktail IV Therapy",
   alternateName: "Classic Wellness IV Drip",
   description:
-    "Physician-supervised Myer's Cocktail IV infusion of fluids, B-complex, B12, vitamin C, and magnesium designed for energy, immunity, and full-body relief.",
+    "Clinician-supervised Myer's Cocktail IV infusion of fluids, B-complex, B12, vitamin C, and magnesium designed for energy, immunity, and full-body relief.",
   url: CANONICAL,
 };
 
@@ -103,7 +103,7 @@ export default function MyersCocktailPage() {
         closingNote="This all-in-one nutrient infusion is ideal for anyone seeking a natural health reset, whether for chronic conditions or everyday vitality."
         iconKey="sparkles"
         trust={[
-          { iconKey: "shieldCheck", label: "Physician-supervised" },
+          { iconKey: "shieldCheck", label: "Clinician-supervised" },
           { iconKey: "droplets", label: "Sterile, single-use" },
           { iconKey: "heartPulse", label: "Time-tested formula" },
         ]}

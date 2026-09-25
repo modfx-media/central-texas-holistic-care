@@ -18,7 +18,7 @@ const SERVICES: Service[] = [
     image: "/images/source/iv-infusion-therapy.jpg",
     title: "IV Infusion Therapy",
     blurb:
-      "Physician-supervised infusions delivering vitamins, minerals, and amino acids directly to your bloodstream for full absorption.",
+      "Clinician-supervised infusions delivering vitamins, minerals, and amino acids directly to your bloodstream for full absorption.",
     href: "/iv-nutrition/",
   },
   {

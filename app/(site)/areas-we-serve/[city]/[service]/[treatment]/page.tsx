@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { Reveal } from "@/components/motion/Reveal";
+import { composeTreatmentNarrative } from "@/lib/programmatic-content";
 import Accordion from "@/components/ui/Accordion";
 import {
   getCity,
@@ -62,7 +63,7 @@ export async function generateMetadata({
 
   const canonical = `${SITE_URL}/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}/`;
   const title = `${treatment.name} in ${city.name}, TX`;
-  const description = `${treatment.shortDescription} Available in ${city.name}, TX.`;
+  const description = `${treatment.shortDescription} Seen at our Killeen clinic, about ${city.driveTimeMin} minutes from ${city.name} via ${city.primaryRoute}.`;
 
   return cmsMetadata(
     `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`,
@@ -228,7 +229,11 @@ export default async function CityServiceTreatmentPage({
                   An overview
                 </h2>
                 <p className="text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg">
-                  {treatment.longDescription}
+                  {composeTreatmentNarrative(city, service, treatment).map((paragraph) => (
+                    <span key={paragraph.slice(0, 24)} className="mt-4 block">
+                      {paragraph}
+                    </span>
+                  ))}
                 </p>
                 <p className="text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)] sm:text-lg">
                   {city.name} patients typically reach our Killeen clinic in about
@@ -247,7 +252,7 @@ export default async function CityServiceTreatmentPage({
                 <dl className="mt-4 space-y-3 text-sm">
                   <Fact icon={Clock} label="Drive time" value={`~${city.driveTimeMin} min via ${city.primaryRoute}`} />
                   <Fact icon={MapPin} label="Clinic" value="311 E. Stan Schlueter Loop, Suite 207, Killeen, TX 76542" />
-                  <Fact icon={ShieldCheck} label="Oversight" value="Clinician-led, physician-supervised" />
+                  <Fact icon={ShieldCheck} label="Oversight" value="Clinician-led, clinician-supervised" />
                   <Fact icon={Stethoscope} label="Service area" value={`${service.name} program`} />
                 </dl>
                 <Link

@@ -26,9 +26,9 @@ type ExportRecord = {
 
 const STATIC_TITLES: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Central Texas Holistic Care | Holistic & Preventive Medicine in Harker Heights, TX",
+    title: "Holistic Medicine in Killeen, TX | Central Texas Holistic Care",
     description:
-      "Central Texas Holistic Care offers personalized holistic medicine, hormone therapy, IV nutrition, men's and women's health in Harker Heights, TX. Book today.",
+      "Holistic medicine and hormone therapy in Killeen, TX. Bioidentical HRT, IV nutrition, and men's and women's health at 311 E. Stan Schlueter Loop. Serving Harker Heights. Book today.",
   },
   "/about-us": {
     title: "About Us",
@@ -38,7 +38,7 @@ const STATIC_TITLES: Record<string, { title: string; description: string }> = {
   "/men": { title: "Men's Health", description: "Men's health, testosterone, and wellness exams." },
   "/men/testosterone": {
     title: "Testosterone Therapy",
-    description: "Physician-supervised testosterone therapy in Central Texas.",
+    description: "Clinician-supervised testosterone therapy in Central Texas.",
   },
   "/men/wellness-exams": {
     title: "Men's Wellness Exams",
@@ -59,7 +59,7 @@ const STATIC_TITLES: Record<string, { title: string; description: string }> = {
   },
   "/iv-nutrition": {
     title: "IV Nutrition",
-    description: "Physician-supervised IV infusion menu.",
+    description: "Clinician-supervised IV nutrition in Killeen, TX.",
   },
   "/iv-nutrition/immune-booster": {
     title: "Immune Booster IV",
@@ -83,7 +83,7 @@ const STATIC_TITLES: Record<string, { title: string; description: string }> = {
   },
   "/hormone-therapy": {
     title: "Hormone Therapy (BHRT)",
-    description: "Bio-identical hormone replacement therapy in Harker Heights, TX.",
+    description: "Bioidentical hormone replacement therapy (BHRT) in Killeen, TX.",
   },
   "/stem-cells": {
     title: "Stem Cell Therapy",

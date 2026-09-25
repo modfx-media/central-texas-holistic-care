@@ -269,7 +269,7 @@ function HeroSection() {
           variants={fadeUp}
           className="mx-auto mt-6 max-w-2xl text-[15px] leading-relaxed text-stone-200 sm:text-base"
         >
-          Physician-supervised IV infusions for immunity, recovery, energy,
+          Clinician-supervised IV infusions for immunity, recovery, energy,
           and resilience, delivered in a calm, private setting in Harker
           Heights.
         </motion.p>
@@ -302,7 +302,7 @@ function HeroSection() {
           className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] text-white/70"
         >
           {[
-            { Icon: ShieldCheck, label: "Physician-supervised" },
+            { Icon: ShieldCheck, label: "Clinician-supervised" },
             { Icon: Droplets, label: "Sterile, single-use" },
             { Icon: Stethoscope, label: "Brief health screening" },
           ].map(({ Icon, label }) => (

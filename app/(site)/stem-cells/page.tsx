@@ -37,7 +37,7 @@ const PHONE_TEL = "+12542132423";
 const PAGE_TITLE =
   "Stem Cell Therapy in Killeen, TX | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Physician-supervised stem cell, exosome, and PRP therapy in Killeen, TX. Non-surgical regenerative injections for joints, tendons, hair, and recovery.";
+  "Clinician-supervised stem cell, exosome, and PRP therapy in Killeen, TX. Non-surgical regenerative injections for joints, tendons, hair, and recovery.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -237,7 +237,7 @@ function HeroSection() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-stone-200 sm:text-lg">
-          Physician-supervised{" "}
+          Clinician-supervised{" "}
           <span className="font-semibold text-white">
             stem cell, exosome, and PRP injections
           </span>{" "}
