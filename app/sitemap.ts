@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+import { queryPublishedSeoDocs } from "@/lib/cms/query";
+import { normalizeCmsPath } from "@/lib/cms/url";
 import {
   getLiveCities,
   getLiveCityServicePairs,
@@ -48,11 +50,32 @@ const STATIC_PAGES: ReadonlyArray<StaticPage> = [
 
 const PROGRAMMATIC_LAST_MODIFIED = "2026-06-30";
 
+function sitemapPathFromUrl(url: string): string {
+  try {
+    return normalizeCmsPath(new URL(url).pathname);
+  } catch {
+    return normalizeCmsPath(url);
+  }
+}
+
 export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
+  const cmsDocs = await queryPublishedSeoDocs();
+  const skip = new Set(
+    cmsDocs
+      .filter((doc) => doc.noIndex || doc.excludeFromSitemap)
+      .map((doc) => normalizeCmsPath(doc.path)),
+  );
+  const cmsDates = new Map(
+    cmsDocs.map((doc) => [
+      normalizeCmsPath(doc.path),
+      doc.sourceUpdatedAt || doc.updatedAt || null,
+    ]),
+  );
+
   const staticEntries: SitemapEntry[] = STATIC_PAGES.map(
     ({ path, lastModified, changeFrequency, priority }) => ({
       url: `${SITE_URL}${path}`,
-      lastModified: new Date(lastModified),
+      lastModified: new Date(cmsDates.get(normalizeCmsPath(path)) || lastModified),
       changeFrequency,
       priority,
     }),
@@ -96,7 +119,7 @@ export async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
     ...cityServiceEntries,
     ...cityServiceTreatmentEntries,
     ...blogEntries,
-  ];
+  ].filter((entry) => !skip.has(sitemapPathFromUrl(entry.url)));
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

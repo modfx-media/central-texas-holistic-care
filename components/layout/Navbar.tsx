@@ -24,18 +24,26 @@ const PHONE_DISPLAY = "(254) 213-2423";
 const PHONE_TEL = "+12542132423";
 const ADDRESS = "311 E. Stan Schlueter Loop #207, Killeen, TX";
 
-type NavChild = {
+export type NavChild = {
   label: string;
   href: string;
   description: string;
 };
 
-type NavItem = {
+export type NavItem = {
   label: string;
   href: string;
   children?: NavChild[];
   hideOverview?: boolean;
   pulse?: boolean;
+};
+
+export type NavbarProps = {
+  phone?: string;
+  phoneTel?: string;
+  address?: string;
+  bookingUrl?: string;
+  nav?: NavItem[];
 };
 
 const NAV: NavItem[] = [
@@ -197,11 +205,17 @@ function Logo({ className }: { className?: string }) {
 /*                              Desktop nav menu                               */
 /* -------------------------------------------------------------------------- */
 
-function DesktopMenu({ pathname }: { pathname: string }) {
+function DesktopMenu({
+  pathname,
+  items,
+}: {
+  pathname: string;
+  items: NavItem[];
+}) {
   return (
     <NavigationMenu.Root className="relative hidden xl:block">
       <NavigationMenu.List className="flex items-center gap-0.5">
-        {NAV.map((item) => {
+        {items.map((item) => {
           const active = isActive(pathname, item.href);
 
           if (!item.children) {
@@ -374,10 +388,20 @@ function MobileDrawer({
   open,
   onClose,
   pathname,
+  items,
+  phone,
+  phoneTel,
+  address,
+  bookingUrl,
 }: {
   open: boolean;
   onClose: () => void;
   pathname: string;
+  items: NavItem[];
+  phone: string;
+  phoneTel: string;
+  address: string;
+  bookingUrl: string;
 }) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -433,7 +457,7 @@ function MobileDrawer({
             {/* Quick actions */}
             <div className="grid grid-cols-2 gap-2 px-4 pt-4">
               <a
-                href={BOOKING_URL}
+                href={bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={onClose}
@@ -443,9 +467,9 @@ function MobileDrawer({
                 Book Now
               </a>
               <a
-                href={`tel:${PHONE_TEL}`}
+                href={`tel:${phoneTel}`}
                 onClick={onClose}
-                aria-label={`Call ${PHONE_DISPLAY}`}
+                aria-label={`Call ${phone}`}
                 className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#1a3a0a]/15 bg-white px-4 py-2.5 text-[13px] font-semibold text-[#1a3a0a]"
               >
                 <Phone className="size-3.5 text-[#6CBE45]" />
@@ -458,7 +482,7 @@ function MobileDrawer({
                 Menu
               </p>
               <ul className="flex flex-col gap-0.5">
-                {NAV.map((item) => {
+                {items.map((item) => {
                   const active = isActive(pathname, item.href);
                   const isExpanded = expanded === item.href;
 
@@ -559,15 +583,15 @@ function MobileDrawer({
                 </p>
                 <div className="mt-2 flex items-start gap-2 text-[12.5px] leading-snug text-stone-600">
                   <MapPin className="mt-0.5 size-4 flex-none text-[#8BAD5A]" />
-                  {ADDRESS}
+                  {address}
                 </div>
                 <div className="mt-3 h-px bg-stone-200" />
                 <a
-                  href={`tel:${PHONE_TEL}`}
+                  href={`tel:${phoneTel}`}
                   className="mt-3 flex items-center gap-2 text-sm font-semibold text-[#1a3a0a]"
                 >
                   <Phone className="size-4 text-[#6CBE45]" />
-                  {PHONE_DISPLAY}
+                  {phone}
                 </a>
               </div>
             </nav>
@@ -582,10 +606,17 @@ function MobileDrawer({
 /*                                  Navbar                                     */
 /* -------------------------------------------------------------------------- */
 
-export default function Navbar() {
+export default function Navbar({
+  phone = PHONE_DISPLAY,
+  phoneTel = PHONE_TEL,
+  address = ADDRESS,
+  bookingUrl = BOOKING_URL,
+  nav,
+}: NavbarProps) {
   const pathname = usePathname() ?? "/";
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const items = nav && nav.length > 0 ? nav : NAV;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -615,17 +646,17 @@ export default function Navbar() {
             </span>
             <span aria-hidden className="h-3 w-px bg-[#C4A862]/30" />
             <a
-              href={`tel:${PHONE_TEL}`}
+              href={`tel:${phoneTel}`}
               className="inline-flex items-center gap-2 transition-colors hover:text-[#C4A862]"
             >
               <Phone className="size-3.5 text-[#C4A862]" />
-              {PHONE_DISPLAY}
+              {phone}
             </a>
           </div>
           <div className="flex items-center gap-5 text-[#FAF6EE]/85">
             <span className="hidden items-center gap-2 xl:inline-flex">
               <MapPin className="size-3.5 text-[#C4A862]" />
-              {ADDRESS}
+              {address}
             </span>
             <Link
               href="/payment-plans/"
@@ -663,24 +694,24 @@ export default function Navbar() {
           <Logo />
 
           <div className="flex items-center justify-center">
-            <DesktopMenu pathname={pathname} />
+            <DesktopMenu pathname={pathname} items={items} />
           </div>
 
           <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2">
             {/* Phone: icon-only on tablet, hidden on very small mobile */}
             <a
-              href={`tel:${PHONE_TEL}`}
-              aria-label={`Call ${PHONE_DISPLAY}`}
-              title={PHONE_DISPLAY}
+              href={`tel:${phoneTel}`}
+              aria-label={`Call ${phone}`}
+              title={phone}
               className="hidden size-10 items-center justify-center rounded-full border border-[#1a3a0a]/15 bg-white/70 text-[#1a3a0a] backdrop-blur transition-colors hover:border-[#6CBE45] hover:bg-[#f0f5eb] sm:inline-flex"
             >
               <Phone className="size-4 text-[#6CBE45]" />
-              <span className="sr-only">{PHONE_DISPLAY}</span>
+              <span className="sr-only">{phone}</span>
             </a>
 
             {/* Book Appointment: full label on sm+, icon-only pill on mobile */}
             <motion.a
-              href={BOOKING_URL}
+              href={bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Book an appointment"
@@ -720,6 +751,11 @@ export default function Navbar() {
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         pathname={pathname}
+        items={items}
+        phone={phone}
+        phoneTel={phoneTel}
+        address={address}
+        bookingUrl={bookingUrl}
       />
     </>
   );

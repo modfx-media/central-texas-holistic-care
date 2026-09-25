@@ -168,8 +168,36 @@ function FooterLink({
   );
 }
 
-export default function Footer() {
+export type FooterLinkItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+export type FooterProps = {
+  tagline?: string;
+  phone?: string;
+  phoneTel?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  hours?: string;
+  quickLinks?: FooterLinkItem[];
+  services?: FooterLinkItem[];
+};
+
+export default function Footer({
+  tagline = "Healing from the Inside Out",
+  phone = "254-213-2423",
+  phoneTel = "+12542132423",
+  addressLine1 = "311 E. Stan Schlueter Loop #207",
+  addressLine2 = "Killeen, TX 76542",
+  hours = "Mon to Fri · 8:00 am to 5:00 pm",
+  quickLinks,
+  services,
+}: FooterProps) {
   const year = new Date().getFullYear();
+  const links = quickLinks && quickLinks.length > 0 ? quickLinks : QUICK_LINKS;
+  const serviceLinks = services && services.length > 0 ? services : SERVICES;
 
   return (
     <footer
@@ -206,7 +234,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-4 font-heading text-lg italic text-[#8BAD5A]">
-              Healing from the Inside Out
+              {tagline}
             </p>
 
             <ul className="mt-6 flex items-center gap-3">
@@ -230,7 +258,7 @@ export default function Footer() {
           <nav aria-label="Footer quick links">
             <ColumnHeading>Quick Links</ColumnHeading>
             <ul className="mt-5 space-y-2.5">
-              {QUICK_LINKS.map((l) => (
+              {links.map((l) => (
                 <li key={l.label}>
                   <FooterLink href={l.href} external={l.external}>
                     {l.label}
@@ -244,7 +272,7 @@ export default function Footer() {
           <nav aria-label="Footer services">
             <ColumnHeading>Services</ColumnHeading>
             <ul className="mt-5 space-y-2.5">
-              {SERVICES.map((s) => (
+              {serviceLinks.map((s) => (
                 <li key={s.label}>
                   <FooterLink href={s.href}>{s.label}</FooterLink>
                 </li>
@@ -259,25 +287,25 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-[#8BAD5A]" aria-hidden />
                 <address className="not-italic text-white/70">
-                  311 E. Stan Schlueter Loop #207
+                  {addressLine1}
                   <br />
-                  Killeen, TX 76542
+                  {addressLine2}
                 </address>
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="mt-0.5 size-4 shrink-0 text-[#8BAD5A]" aria-hidden />
                 <a
-                  href="tel:+12542132423"
+                  href={`tel:${phoneTel}`}
                   className="text-white/70 transition-colors hover:text-white"
                 >
-                  254-213-2423
+                  {phone}
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Clock className="mt-0.5 size-4 shrink-0 text-[#8BAD5A]" aria-hidden />
                 <div className="text-white/70">
                   <p className="font-medium text-white/85">Hours</p>
-                  <p>Mon to Fri · 8:00 am to 5:00 pm</p>
+                  <p>{hours}</p>
                 </div>
               </li>
             </ul>
