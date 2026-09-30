@@ -108,7 +108,7 @@ export default function ImmuneBoosterPage() {
         ]}
         highlights={["Vitamin C + Zinc", "Glutathione boost", "Pre-travel ready"]}
         image={{
-          src: `${SITE_URL}/wp-content/uploads/2025/06/Immune-Booster-IV-Therapy-Strengthen-Your-Bodys-Defense-pexels-jonathanborba-3076513-scaled.webp`,
+          src: "/images/iv/immune-booster.webp",
           alt: "Immune Booster IV Therapy Strengthen Your Body's Defense",
         }}
         ingredients={{

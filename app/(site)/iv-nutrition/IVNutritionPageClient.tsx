@@ -25,8 +25,6 @@ const PHONE_DISPLAY = "(254) 213-2423";
 const PHONE_TEL = "+12542132423";
 const BOOKING_URL =
   "https://www.tebra.com/care/practice/central-texas-holistic-care-163683";
-const WP_BASE =
-  "https://centraltexasholisticcarepllc.com/wp-content/uploads/2025/06";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -58,7 +56,7 @@ const SERVICES: readonly DripService[] = [
     body: "Give your immune system the powerful support it needs with our Immune Booster IV Therapy, a targeted blend of vitamins, antioxidants, and hydration designed to help your body fight off illness, recover faster, and feel revitalized.",
     href: "/iv-nutrition/immune-booster/",
     image: {
-      src: `${WP_BASE}/Immune-Booster-IV-Therapy-Strengthen-Your-Bodys-Defense-pexels-jonathanborba-3076513-scaled.webp`,
+      src: "/images/iv/immune-booster.webp",
       alt: "Immune Booster IV Therapy",
     },
     icon: ShieldCheck,
@@ -100,7 +98,7 @@ const SERVICES: readonly DripService[] = [
     body: "Don't let cold or flu symptoms slow you down. Our Cold & Flu IV Therapy delivers targeted nutrients and hydration directly into your bloodstream to help you recover faster, reduce symptoms, and strengthen your immune system when you need it most.",
     href: "/iv-nutrition/cold-and-flu/",
     image: {
-      src: `${WP_BASE}/Cold-Flu-main-pexels-olly-3801394-scaled.webp`,
+      src: "/images/iv/cold-and-flu.webp",
       alt: "Cold & Flu IV Therapy",
     },
     icon: Snowflake,

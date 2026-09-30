@@ -38,11 +38,8 @@ const PHONE_DISPLAY = "(254) 213-2423";
 const PHONE_TEL = "+12542132423";
 const BOOKING_URL =
   "https://www.tebra.com/care/practice/central-texas-holistic-care-163683";
-const WP =
-  "https://centraltexasholisticcarepllc.com/wp-content/uploads/2025/06";
-
 const MEN_IMAGE = "/images/services/hormone-treatments-for-men-v2.png";
-const WOMEN_IMAGE = `${WP}/Hormone-Treatments-for-Women-pexels-thirdman-7659552-scaled.webp`;
+const WOMEN_IMAGE = "/images/hormone/hormone-treatments-for-women.jpg";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },

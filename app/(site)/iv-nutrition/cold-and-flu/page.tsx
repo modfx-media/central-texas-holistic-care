@@ -113,7 +113,7 @@ export default function ColdAndFluPage() {
           "Shortens illness",
         ]}
         image={{
-          src: `${SITE_URL}/wp-content/uploads/2025/06/Cold-Flu-main-pexels-olly-3801394-scaled.webp`,
+          src: "/images/iv/cold-and-flu.webp",
           alt: "Cold & Flu IV Therapy",
         }}
         ingredients={{

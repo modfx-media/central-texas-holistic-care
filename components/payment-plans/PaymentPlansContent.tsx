@@ -27,7 +27,6 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 const CHERRY_APPLY = "https://withcherry.com/";
@@ -925,15 +924,6 @@ export default function PaymentPlansContent() {
             </a>
             .
           </p>
-          {/* Preserved brand assets, kept off-viewport for parity with prior page */}
-          <div aria-hidden className="sr-only">
-            <Image
-              src="/images/get-financed/den-logo.png"
-              alt=""
-              width={1}
-              height={1}
-            />
-          </div>
         </div>
       </section>
     </>
