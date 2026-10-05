@@ -1,6 +1,7 @@
 import {
   BLOG_POSTS,
   getRelatedPosts,
+  normalizeBulletBlocks,
   type BlogBlock,
   type BlogPost,
 } from "@/lib/blog-data";
@@ -58,7 +59,8 @@ function rankedToBlocks(post: BlogPostData): BlogBlock[] {
     }
   }
 
-  return blocks.length ? blocks : [{ type: "p", text: post.metaDescription || post.title }];
+  const filled = blocks.length ? blocks : [{ type: "p" as const, text: post.metaDescription || post.title }];
+  return normalizeBulletBlocks(filled);
 }
 
 export function rankedDataToBlogPost(post: BlogPostData): BlogPost {

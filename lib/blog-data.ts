@@ -1353,3 +1353,57 @@ export function formatPublishedDate(iso: string): string {
     day: "numeric",
   });
 }
+
+/** Named and numeric bullet entities that arrive as literal text from imported HTML. */
+const BULLET_MARKER = /(?:&amp;bull;|&bull;|&#8226;|&#x2022;|•)\s*/i;
+
+function stripLeadingBullet(text: string): string {
+  return text.replace(new RegExp(`^${BULLET_MARKER.source}`, "i"), "").trim();
+}
+
+/**
+ * Turn paragraphs that still contain literal `&bull;` (or a bullet character)
+ * into the same checkmark lists used by hand-authored posts.
+ * Consecutive bullet-only paragraphs collapse into one list.
+ */
+export function normalizeBulletBlocks(blocks: BlogBlock[]): BlogBlock[] {
+  const out: BlogBlock[] = [];
+
+  for (const block of blocks) {
+    if (block.type === "list") {
+      out.push({
+        type: "list",
+        items: block.items.map((item) => stripLeadingBullet(item)),
+      });
+      continue;
+    }
+
+    if (block.type !== "p" || !BULLET_MARKER.test(block.text)) {
+      out.push(block);
+      continue;
+    }
+
+    const parts = block.text.split(new RegExp(BULLET_MARKER.source, "gi"));
+    const before = (parts[0] ?? "").trim();
+    const items = parts
+      .slice(1)
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0);
+
+    if (before) out.push({ type: "p", text: before });
+
+    if (items.length === 0) {
+      if (!before) out.push(block);
+      continue;
+    }
+
+    const last = out[out.length - 1];
+    if (!before && last?.type === "list") {
+      out[out.length - 1] = { type: "list", items: [...last.items, ...items] };
+    } else {
+      out.push({ type: "list", items });
+    }
+  }
+
+  return out;
+}

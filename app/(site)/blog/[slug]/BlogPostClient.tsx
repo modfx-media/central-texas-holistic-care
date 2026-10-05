@@ -29,6 +29,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   formatPublishedDate,
+  normalizeBulletBlocks,
   type BlogBlock,
   type BlogPost,
 } from "@/lib/blog-data";
@@ -577,12 +578,14 @@ export default function BlogPostClient({
   post: BlogPost;
   related: BlogPost[];
 }) {
+  const content = useMemo(() => normalizeBulletBlocks(post.content), [post.content]);
+
   const headings = useMemo(
     () =>
-      post.content
+      content
         .filter((b): b is Extract<BlogBlock, { type: "h2" }> => b.type === "h2")
         .map((b) => ({ id: slugifyHeading(b.text), text: b.text })),
-    [post.content],
+    [content],
   );
 
   /* Scroll spy: highlight the current section in the TOC. */
@@ -646,7 +649,7 @@ export default function BlogPostClient({
             </div>
 
             <div className="mt-2">
-              {post.content.map((block, i) => (
+              {content.map((block, i) => (
                 <BlockRenderer key={i} block={block} />
               ))}
             </div>
