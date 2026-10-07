@@ -35,6 +35,10 @@ export const COMMITTED_COVERS: Record<string, string> = {
     "/images/blog-images/vitaly-gariev-rG5elqddGzo-unsplash.jpg",
   "fall-fatigue-when-a-wellness-clinic-in-killeen-can-help":
     "/images/blog-images/fall-fatigue-wellness-clinic-killeen.png",
+  "choosing-between-a-hormone-doctor-and-primary-care-in-killeen":
+    "/images/blog-images/choosing-between-hormone-doctor-and-primary-care-killeen.jpg",
+  "what-happens-after-starting-bioidentical-hormones-in-killeen":
+    "/images/blog-images/what-happens-after-starting-bioidentical-hormones-killeen.jpg",
 };
 
 export const COMMITTED_COVER_SLUGS: readonly string[] = Object.keys(COMMITTED_COVERS);
