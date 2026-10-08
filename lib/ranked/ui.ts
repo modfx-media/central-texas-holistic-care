@@ -7,6 +7,8 @@ import {
 } from "@/lib/blog-data";
 import { SITE_URL } from "@/lib/site";
 
+import { queryCmsBlogPostBySlug, queryPublishedCmsBlogPosts } from "@/lib/cms/posts";
+
 import { getPublishedBlogPosts } from "./posts";
 import type { BlogPostData } from "./types";
 
@@ -94,27 +96,34 @@ export async function getPublishedUiPosts(): Promise<BlogPost[]> {
   const merged = await getPublishedBlogPosts();
   const localBySlug = new Map(BLOG_POSTS.map((post) => [post.slug, post]));
 
-  return merged
-    .map((data) => {
-      const local = localBySlug.get(data.slug);
-      if (local) {
-        return {
-          ...local,
-          publishedAt: data.publishDate,
-          coverImage: data.coverImage,
-        };
-      }
-      return rankedDataToBlogPost(data);
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-    );
+  const designed = merged.map((data) => {
+    const local = localBySlug.get(data.slug);
+    if (local) {
+      return {
+        ...local,
+        publishedAt: data.publishDate,
+        coverImage: data.coverImage,
+      };
+    }
+    return rankedDataToBlogPost(data);
+  });
+
+  const cmsPosts = await queryPublishedCmsBlogPosts();
+  const seen = new Set(designed.map((post) => post.slug));
+  const extras = cmsPosts.filter((post) => !seen.has(post.slug));
+
+  return [...designed, ...extras].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
 }
 
 export async function getPublishedUiPost(slug: string): Promise<BlogPost | undefined> {
   const posts = await getPublishedUiPosts();
-  return posts.find((post) => post.slug === slug);
+  return (
+    posts.find((post) => post.slug === slug) ??
+    (await queryCmsBlogPostBySlug(slug)) ??
+    undefined
+  );
 }
 
 export async function getPublishedRelatedPosts(slug: string, count = 2): Promise<BlogPost[]> {

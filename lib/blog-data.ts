@@ -10,6 +10,7 @@
  *   - "list"    unordered list
  *   - "steps"   numbered steps (with optional per-item title)
  *   - "callout" highlighted info card
+ *   - "image"   inline figure from CMS media
  *
  * Kept as a plain-data module (no React deps) so it can be imported from
  * both server metadata generators and client components.
@@ -22,7 +23,8 @@ export type BlogBlock =
   | { type: "quote"; text: string; cite?: string }
   | { type: "list"; items: string[] }
   | { type: "steps"; items: { title?: string; text: string }[] }
-  | { type: "callout"; title: string; text: string };
+  | { type: "callout"; title: string; text: string }
+  | { type: "image"; src: string; alt?: string };
 
 export type BlogAuthor = {
   name: string;

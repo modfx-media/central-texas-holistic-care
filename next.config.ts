@@ -45,10 +45,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "*.public.blob.vercel-storage.com",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "*.blob.vercel-storage.com",
+        pathname: "/**",
       },
     ],
     formats: ["image/avif", "image/webp"],
