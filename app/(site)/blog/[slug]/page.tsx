@@ -6,11 +6,11 @@ import Script from "next/script";
 
 import BlogPostClient from "./BlogPostClient";
 import { SITE_URL } from "@/lib/site";
-import { getPublishedBlogSlugs } from "@/lib/ranked/posts";
 import {
   absoluteAssetUrl,
   getPublishedRelatedPosts,
   getPublishedUiPost,
+  getPublishedUiPosts,
 } from "@/lib/ranked/ui";
 
 export const revalidate = 3600;
@@ -19,8 +19,8 @@ export const dynamicParams = true;
 type Params = { slug: string };
 
 export async function generateStaticParams(): Promise<Params[]> {
-  const slugs = await getPublishedBlogSlugs().catch(() => []);
-  return slugs.map((slug) => ({ slug }));
+  const posts = await getPublishedUiPosts().catch(() => []);
+  return [...new Set(posts.map((post) => post.slug))].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -122,7 +122,6 @@ export default async function BlogPostPage({
   };
 
   return (
-    <CMSRoute path={`/blog/${post.slug}`}>
     <>
       <Script
         id={`ld-article-${post.slug}`}
@@ -136,8 +135,9 @@ export default async function BlogPostPage({
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <BlogPostClient post={post} related={related} />
+      <CMSRoute path={`/blog/${post.slug}`}>
+        <BlogPostClient post={post} related={related} />
+      </CMSRoute>
     </>
-    </CMSRoute>
   );
 }

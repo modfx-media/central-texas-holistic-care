@@ -20,6 +20,17 @@ export async function CMSRoute({
 
   if (!routed) return children;
 
+  // Blog posts use the designed article template passed as children.
+  // A published post must not swap that template for a generic renderer.
+  if (routed.collection === "posts") {
+    return (
+      <>
+        {draft.isEnabled ? <LivePreviewListener /> : null}
+        {children}
+      </>
+    );
+  }
+
   return (
     <>
       {draft.isEnabled ? <LivePreviewListener /> : null}

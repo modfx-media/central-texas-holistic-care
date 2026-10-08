@@ -345,6 +345,25 @@ function BlockRenderer({ block }: { block: BlogBlock }) {
           ))}
         </ol>
       );
+    case "image":
+      return (
+        <figure className="mt-10 overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-md shadow-[#1a3a0a]/5">
+          <div className="relative aspect-[16/9] w-full">
+            <Image
+              src={block.src}
+              alt={block.alt || ""}
+              fill
+              sizes="(min-width: 1024px) 48rem, 100vw"
+              className="object-cover"
+            />
+          </div>
+          {block.alt ? (
+            <figcaption className="border-t border-stone-100 px-5 py-3 text-[12.5px] text-stone-500">
+              {block.alt}
+            </figcaption>
+          ) : null}
+        </figure>
+      );
     case "callout":
       return (
         <aside className="mt-10 flex items-start gap-4 rounded-3xl border border-[#6CBE45]/25 bg-[color:var(--color-soft-green)] p-6">

@@ -41,8 +41,11 @@ export type CmsRoutedDoc = {
   slug?: string | null;
   path?: string | null;
   excerpt?: string | null;
+  category?: string | null;
   authorName?: string | null;
+  heroImage?: { url?: string | null; alt?: string | null } | number | string | null;
   content?: unknown;
+  _status?: "draft" | "published" | null;
   layout?: CmsBlock[] | null;
   canonicalUrl?: string | null;
   noIndex?: boolean | null;

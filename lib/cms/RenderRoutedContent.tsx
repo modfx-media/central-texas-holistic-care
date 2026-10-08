@@ -104,35 +104,10 @@ function BlockView({ block }: { block: CmsBlock }) {
 
 export function RenderRoutedContent({
   doc,
-  collection,
 }: {
   doc: CmsRoutedDoc;
   collection: "pages" | "posts";
 }) {
-  if (collection === "posts") {
-    return (
-      <article className="bg-[color:var(--color-cream-soft)]">
-        <PageHero
-          title={doc.title || "Article"}
-          subtitle={doc.excerpt || undefined}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Blog", href: "/blog/" },
-            {
-              label: doc.title || "Article",
-              href: doc.path ? `${doc.path}/` : "/blog/",
-            },
-          ]}
-        />
-        {doc.content ? (
-          <div className="prose prose-stone mx-auto max-w-3xl px-4 pb-20 sm:px-6">
-            <RichText data={doc.content as never} />
-          </div>
-        ) : null}
-      </article>
-    );
-  }
-
   const blocks = doc.layout ?? [];
   if (blocks.length === 0) {
     return (
