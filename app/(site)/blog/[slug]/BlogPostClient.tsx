@@ -33,6 +33,7 @@ import {
   type BlogBlock,
   type BlogPost,
 } from "@/lib/blog-data";
+import { withoutDuplicateCoverImage } from "@/lib/blog-publish";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -597,7 +598,10 @@ export default function BlogPostClient({
   post: BlogPost;
   related: BlogPost[];
 }) {
-  const content = useMemo(() => normalizeBulletBlocks(post.content), [post.content]);
+  const content = useMemo(
+    () => withoutDuplicateCoverImage(normalizeBulletBlocks(post.content), post.coverImage),
+    [post.content, post.coverImage],
+  );
 
   const headings = useMemo(
     () =>

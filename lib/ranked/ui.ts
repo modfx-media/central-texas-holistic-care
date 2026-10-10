@@ -7,6 +7,12 @@ import {
 } from "@/lib/blog-data";
 import { SITE_URL } from "@/lib/site";
 
+import {
+  dedupeBlogPosts,
+  isPublishDateReached,
+  normalizeBlogTitle,
+  type BlogPostOrigin,
+} from "@/lib/blog-publish";
 import { queryCmsBlogPostBySlug, queryPublishedCmsBlogPosts } from "@/lib/cms/posts";
 
 import { getPublishedBlogPosts } from "./posts";
@@ -92,43 +98,72 @@ export function absoluteAssetUrl(src: string): string {
   return `${origin}${src.startsWith("/") ? src : `/${src}`}`;
 }
 
-export async function getPublishedUiPosts(): Promise<BlogPost[]> {
+function byNewest(a: BlogPost, b: BlogPost): number {
+  return b.publishedAt.localeCompare(a.publishedAt) || a.slug.localeCompare(b.slug);
+}
+
+/** Local, Ranked, and CMS posts that are allowed on the public site today. */
+async function collectLiveBlogPosts(): Promise<{
+  posts: BlogPost[];
+  originOf: (post: BlogPost) => BlogPostOrigin;
+}> {
   const merged = await getPublishedBlogPosts();
   const localBySlug = new Map(BLOG_POSTS.map((post) => [post.slug, post]));
+  const origins = new Map<BlogPost, BlogPostOrigin>();
+  const track = (post: BlogPost, origin: BlogPostOrigin) => {
+    origins.set(post, origin);
+    return post;
+  };
 
   const designed = merged.map((data) => {
     const local = localBySlug.get(data.slug);
     if (local) {
-      return {
-        ...local,
-        publishedAt: data.publishDate,
-        coverImage: data.coverImage,
-      };
+      return track(
+        {
+          ...local,
+          publishedAt: local.publishedAt.slice(0, 10),
+          coverImage: local.coverImage,
+        },
+        "local",
+      );
     }
-    return rankedDataToBlogPost(data);
+    return track(rankedDataToBlogPost(data), "ranked");
   });
 
-  const cmsPosts = await queryPublishedCmsBlogPosts();
-  const seen = new Set(designed.map((post) => post.slug));
-  const extras = cmsPosts.filter((post) => !seen.has(post.slug));
+  const cmsPosts = (await queryPublishedCmsBlogPosts()).map((post) => track(post, "cms"));
+  const posts = [...designed, ...cmsPosts].filter((post) => isPublishDateReached(post.publishedAt));
 
-  return [...designed, ...extras].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  );
+  return {
+    posts,
+    originOf: (post) => origins.get(post) ?? "ranked",
+  };
+}
+
+export async function getPublishedUiPosts(): Promise<BlogPost[]> {
+  const { posts, originOf } = await collectLiveBlogPosts();
+  return dedupeBlogPosts(posts, originOf).sort(byNewest);
 }
 
 export async function getPublishedUiPost(slug: string): Promise<BlogPost | undefined> {
-  const posts = await getPublishedUiPosts();
-  return (
-    posts.find((post) => post.slug === slug) ??
-    (await queryCmsBlogPostBySlug(slug)) ??
-    undefined
-  );
+  const { posts, originOf } = await collectLiveBlogPosts();
+  const direct = posts.find((post) => post.slug === slug);
+  if (direct) {
+    return dedupeBlogPosts(posts, originOf).find((post) => post.slug === slug) ?? direct;
+  }
+  return (await queryCmsBlogPostBySlug(slug)) ?? undefined;
 }
 
 export async function getPublishedRelatedPosts(slug: string, count = 2): Promise<BlogPost[]> {
   const posts = await getPublishedUiPosts();
-  const fromLive = posts.filter((post) => post.slug !== slug).slice(0, count);
+  const current = posts.find((post) => post.slug === slug) ?? (await getPublishedUiPost(slug));
+  const currentTitle = current ? normalizeBlogTitle(current.title) : "";
+  const fromLive = posts
+    .filter((post) => {
+      if (post.slug === slug) return false;
+      if (currentTitle && normalizeBlogTitle(post.title) === currentTitle) return false;
+      return true;
+    })
+    .slice(0, count);
   if (fromLive.length > 0) return fromLive;
   return getRelatedPosts(slug, count);
 }

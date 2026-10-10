@@ -1,6 +1,7 @@
 import { draftMode } from "next/headers";
 
 import type { BlogAuthor, BlogBlock, BlogPost } from "@/lib/blog-data";
+import { calendarDate, isPlaceholderCover, isPublishDateReached, sameAsset } from "@/lib/blog-publish";
 import { DEFAULT_COVER } from "@/lib/ranked/config";
 
 import { lexicalToBlocks } from "./lexical-to-blocks";
@@ -102,9 +103,7 @@ function blockWords(blocks: BlogBlock[]): number {
 }
 
 function dateOnly(value?: string | null): string {
-  if (!value) return new Date().toISOString().slice(0, 10);
-  const match = value.match(/^(\d{4}-\d{2}-\d{2})/);
-  return match?.[1] ?? new Date().toISOString().slice(0, 10);
+  return calendarDate(value) ?? new Date().toISOString().slice(0, 10);
 }
 
 /** Map a published CMS post onto the designed article shape. */
@@ -113,7 +112,17 @@ export function cmsPostToBlogPost(doc: CmsRoutedDoc): BlogPost | null {
   const title = doc.title?.trim();
   if (!slug || !title) return null;
 
-  const blocks = lexicalToBlocks(doc.content);
+  let blocks = lexicalToBlocks(doc.content);
+  let coverImage = publicMediaUrl(doc.heroImage) || "";
+  const leadingImage = blocks[0]?.type === "image" ? blocks[0] : null;
+  if (
+    leadingImage &&
+    (isPlaceholderCover(coverImage) || sameAsset(leadingImage.src, coverImage))
+  ) {
+    if (isPlaceholderCover(coverImage)) coverImage = leadingImage.src;
+    blocks = blocks.slice(1);
+  }
+  if (isPlaceholderCover(coverImage)) coverImage = DEFAULT_COVER;
   const firstParagraph = blocks.find((block) => block.type === "p");
   const excerpt = (doc.excerpt?.trim() || (firstParagraph?.type === "p" ? firstParagraph.text : "") || title).slice(
     0,
@@ -122,7 +131,6 @@ export function cmsPostToBlogPost(doc: CmsRoutedDoc): BlogPost | null {
   const inferred = inferCategory(`${doc.category ?? ""} ${title}`);
   const category = doc.category?.trim() || inferred.category;
   const categoryHref = inferred.href;
-  const coverImage = publicMediaUrl(doc.heroImage) || DEFAULT_COVER;
   const content = blocks.length > 0 ? blocks : [{ type: "p" as const, text: excerpt }];
   const relatedServiceHref = categoryHref === "/blog/" ? "/contact/" : categoryHref;
 
@@ -174,7 +182,7 @@ export async function queryPublishedCmsBlogPosts(): Promise<BlogPost[]> {
     for (const doc of result.docs as CmsRoutedDoc[]) {
       if (doc._status && doc._status !== "published") continue;
       const post = cmsPostToBlogPost(doc);
-      if (!post || seen.has(post.slug)) continue;
+      if (!post || seen.has(post.slug) || !isPublishDateReached(post.publishedAt)) continue;
       seen.add(post.slug);
       posts.push(post);
     }
@@ -209,7 +217,9 @@ export async function queryCmsBlogPostBySlug(slug: string): Promise<BlogPost | n
       if (!draft && doc._status && doc._status !== "published") continue;
       if (!matchesBlogSlug(doc, slug)) continue;
       const post = cmsPostToBlogPost(doc);
-      if (post) return post;
+      if (!post) continue;
+      if (!draft && !isPublishDateReached(post.publishedAt)) continue;
+      return post;
     }
     return null;
   }, null);

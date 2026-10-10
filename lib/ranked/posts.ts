@@ -1,8 +1,7 @@
 import { getRankedContentDetail, isRankedConfigured, listRankedContent } from "./client";
-import { ensureUniqueCoverImages, getRankedCoverImage } from "./cover";
+import { getRankedCoverImage } from "./cover";
 import { fetchGoogleDocHtml } from "./google-doc";
 import {
-  ensureUniquePublishDates,
   htmlToBlogPost,
   isBlogContentType,
   isRankedPostLive,
@@ -106,7 +105,7 @@ export async function getLiveRankedBlogPosts(
       posts.push(post);
       taken.add(slug);
     }
-    return ensureUniquePublishDates(ensureUniqueCoverImages(posts));
+    return posts;
   } catch (err) {
     console.error("[ranked] failed to load content calendar", err);
     return [];
@@ -127,8 +126,7 @@ export async function getPublishedBlogPosts(): Promise<BlogPostData[]> {
   const local = getLocalBlogPosts();
   const ranked = await getLiveRankedBlogPosts();
   const taken = new Set(local.map((p) => p.slug));
-  const merged = [...local, ...ranked.filter((p) => !taken.has(p.slug))];
-  return ensureUniquePublishDates(ensureUniqueCoverImages(merged));
+  return [...local, ...ranked.filter((p) => !taken.has(p.slug))];
 }
 
 export async function getPublishedBlogSlugs(): Promise<string[]> {

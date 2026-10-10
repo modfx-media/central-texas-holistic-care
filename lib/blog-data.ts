@@ -1349,7 +1349,14 @@ export function getRelatedPosts(slug: string, count = 2): BlogPost[] {
 }
 
 export function formatPublishedDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso.trim());
+  // Date-only values are calendar days. Parsing them as UTC midnight shifts
+  // the label back one day in US timezones.
+  const date = match
+    ? new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]))
+    : new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso;
+  return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
