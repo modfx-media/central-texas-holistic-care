@@ -21,6 +21,8 @@ import {
 
 import { getLiveCities, getLiveServices } from "@/lib/locations";
 
+
+export const revalidate = 300;
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/sitemap/`;
 const BOOKING_URL =
