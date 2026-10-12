@@ -7,7 +7,7 @@ import BlogIndexClient from "./BlogIndexClient";
 import { SITE_URL } from "@/lib/site";
 import { absoluteAssetUrl, getPublishedUiPosts } from "@/lib/ranked/ui";
 
-export const revalidate = 3600;
+export const revalidate = 300;
 
 const CANONICAL = `${SITE_URL}/blog/`;
 

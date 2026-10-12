@@ -16,6 +16,7 @@ import { Header } from "./globals/Header";
 import { SiteSettings } from "./globals/SiteSettings";
 import { getCorsOrigins, getServerURL } from "./lib/cms/url";
 
+import { scheduledPublishPlugin } from "./scheduled-publish";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -51,6 +52,7 @@ export default buildConfig({
   editor: lexicalEditor(),
   globals: [Header, Footer, SiteSettings],
   plugins: [
+    scheduledPublishPlugin(),
     vercelBlobStorage({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
       collections: {

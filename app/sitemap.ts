@@ -10,6 +10,8 @@ import {
 import { getPublishedUiPosts } from "@/lib/ranked/ui";
 import { SITE_URL } from "@/lib/site";
 
+
+export const revalidate = 300;
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
 type StaticPage = {

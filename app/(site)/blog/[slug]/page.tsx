@@ -13,7 +13,7 @@ import {
   getPublishedUiPosts,
 } from "@/lib/ranked/ui";
 
-export const revalidate = 3600;
+export const revalidate = 300;
 export const dynamicParams = true;
 
 type Params = { slug: string };
