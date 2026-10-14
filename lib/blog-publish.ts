@@ -38,6 +38,11 @@ export function isPlaceholderCover(src?: string | null): boolean {
   return path === PLACEHOLDER_COVER || path.endsWith(PLACEHOLDER_COVER);
 }
 
+/** Auto-picked stock photos (Unsplash) are not a post's own image. */
+export function isStockCover(src?: string | null): boolean {
+  return Boolean(src && /(^|\/\/)images\.unsplash\.com\//.test(src));
+}
+
 function assetPath(src: string): string {
   const bare = src.trim().split("?")[0];
   if (/^https?:\/\//i.test(bare)) {
@@ -134,7 +139,9 @@ export function dedupeBlogPosts<T extends BlogPost>(
     }
     const donor = indexes
       .map((index) => posts[index])
-      .find((post) => !isPlaceholderCover(post.coverImage));
+      // Only borrow a real image from a duplicate of the same article, never an
+      // auto-picked stock photo (those showed up as "random" images).
+      .find((post) => !isPlaceholderCover(post.coverImage) && !isStockCover(post.coverImage));
     chosen.push(donor ? { ...winner, coverImage: donor.coverImage } : winner);
   }
   return chosen;
