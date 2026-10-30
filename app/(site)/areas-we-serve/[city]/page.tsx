@@ -3,7 +3,6 @@ import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import { ChevronRight, Clock, MapPin, Phone } from "lucide-react";
 
 import { Reveal } from "@/components/motion/Reveal";
@@ -15,7 +14,10 @@ import {
   type City,
   type Service,
 } from "@/lib/locations";
+import { DepthArticle } from "@/components/local/DepthArticle";
+import { TEMPLE_DEPTH } from "@/lib/enriched-local-copy";
 import { composeCityHubMeta, composeCityHubParagraphs } from "@/lib/programmatic-content";
+import { metadataTitle } from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const BOOKING_URL =
@@ -44,7 +46,7 @@ export async function generateMetadata({
   const meta = composeCityHubMeta(city);
 
   return cmsMetadata(`/areas-we-serve/${city.slug}`, {
-    title: meta.title,
+    title: metadataTitle(meta.title),
     description: meta.description,
     alternates: { canonical },
     openGraph: {
@@ -89,6 +91,7 @@ export default async function CityHubPage({
   const services = getLiveServices();
   const nearby = getNearbyCities(city, 4);
   const canonical = `${SITE_URL}/areas-we-serve/${city.slug}/`;
+  const depth = city.slug === "temple" ? TEMPLE_DEPTH : null;
 
   /* ----------------------------- JSON-LD ---------------------------------- */
 
@@ -136,18 +139,33 @@ export default async function CityHubPage({
   return (
     <CMSRoute path={`/areas-we-serve/${city.slug}`}>
     <>
-      <Script
+      <script
         id={`ld-city-${city.slug}-breadcrumb`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
+      <script
         id={`ld-city-${city.slug}-business`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(medicalBusinessSchema) }}
       />
+      {depth ? (
+        <script
+          id={`ld-city-${city.slug}-faq`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: depth.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.q,
+                acceptedAnswer: { "@type": "Answer", text: faq.a },
+              })),
+            }),
+          }}
+        />
+      ) : null}
 
       <CityHubHero city={city} />
 
@@ -233,6 +251,28 @@ export default async function CityHubPage({
           </Reveal>
         </div>
       </section>
+
+      {depth ? <DepthArticle page={depth} /> : null}
+
+      {depth ? (
+        <section className="bg-[var(--color-cream)] py-16">
+          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+            <h2 className="font-heading text-2xl font-light text-[var(--color-forest)] sm:text-3xl">
+              Questions from Temple patients
+            </h2>
+            <dl className="mt-8 space-y-6">
+              {depth.faqs.map((faq) => (
+                <div key={faq.q}>
+                  <dt className="font-heading text-lg font-light text-[var(--color-forest)]">{faq.q}</dt>
+                  <dd className="mt-2 text-base leading-relaxed text-[var(--color-text-muted,#6B6B6B)]">
+                    {faq.a}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      ) : null}
 
       {/* Nearby cities */}
       {nearby.length > 0 && (

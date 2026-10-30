@@ -185,7 +185,7 @@ export function nextUniquePublishDate(
   occupied: Set<string>,
   today = todayInNewYork(),
 ): string {
-  let date = preferred.slice(0, 10);
+  const date = preferred.slice(0, 10);
   if (!occupied.has(date)) return date;
 
   let forward = date;

@@ -191,8 +191,8 @@ function Logo({ className }: { className?: string }) {
       <img
         src="/logo.png"
         alt="Central Texas Holistic Care"
-        width={1536}
-        height={447}
+        width={960}
+        height={279}
         decoding="async"
         fetchPriority="high"
         className="block h-10 w-auto sm:h-11 lg:h-12"
@@ -438,8 +438,8 @@ function MobileDrawer({
                 <img
                   src="/logo.png"
                   alt="Central Texas Holistic Care"
-                  width={1536}
-                  height={447}
+                  width={960}
+                  height={279}
                   decoding="async"
                   className="block h-9 w-auto"
                 />

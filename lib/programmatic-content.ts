@@ -10,6 +10,12 @@
  */
 
 import type { City, Service } from "./locations";
+import {
+  KILLEEN_TRT_DESCRIPTION,
+  KILLEEN_TRT_TITLE,
+  TEMPLE_DESCRIPTION,
+  TEMPLE_TITLE,
+} from "./seo-meta";
 
 export type ComposedContent = {
   metaTitle: string;
@@ -30,10 +36,16 @@ export type ComposedContent = {
 /* -------------------------------------------------------------------------- */
 
 export function composeMetaTitle(city: City, service: Service): string {
+  if (city.slug === "killeen" && service.slug === "testosterone-therapy") {
+    return KILLEEN_TRT_TITLE;
+  }
   return `${service.name} in ${city.name}, TX`;
 }
 
 export function composeMetaDescription(city: City, service: Service): string {
+  if (city.slug === "killeen" && service.slug === "testosterone-therapy") {
+    return KILLEEN_TRT_DESCRIPTION;
+  }
   const opener =
     service.slug === "iv-nutrition"
       ? `Clinician-supervised ${service.primaryKeyword} in ${city.name}, TX.`
@@ -242,6 +254,9 @@ export function composeCityHubParagraphs(city: City): string[] {
 }
 
 export function composeCityHubMeta(city: City): { title: string; description: string } {
+  if (city.slug === "temple") {
+    return { title: TEMPLE_TITLE, description: TEMPLE_DESCRIPTION };
+  }
   return {
     title: `${city.name}, TX`,
     description: `Hormone therapy, IV nutrition, TRT, and wellness care for ${city.name}, TX. ~${city.driveTimeMin} min via ${city.primaryRoute}. Book a consultation.`,

@@ -90,7 +90,7 @@ function ArticleHero({ post }: { post: BlogPost }) {
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] text-[#FAF6EE]">
       <Image
         src={post.coverImage}
-        alt=""
+        alt={post.title}
         aria-hidden
         fill
         priority
@@ -259,7 +259,7 @@ function RichText({ text }: { text: string }) {
   );
 }
 
-function BlockRenderer({ block }: { block: BlogBlock }) {
+function BlockRenderer({ block, imageAlt }: { block: BlogBlock; imageAlt: string }) {
   switch (block.type) {
     case "p":
       return (
@@ -352,7 +352,7 @@ function BlockRenderer({ block }: { block: BlogBlock }) {
           <div className="relative aspect-[16/9] w-full">
             <Image
               src={block.src}
-              alt={block.alt || ""}
+              alt={block.alt?.trim() || imageAlt}
               fill
               sizes="(min-width: 1024px) 48rem, 100vw"
               className="object-cover"
@@ -673,7 +673,7 @@ export default function BlogPostClient({
 
             <div className="mt-2">
               {content.map((block, i) => (
-                <BlockRenderer key={i} block={block} />
+                <BlockRenderer key={i} block={block} imageAlt={post.title} />
               ))}
             </div>
 

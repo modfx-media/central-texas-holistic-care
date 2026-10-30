@@ -1,4 +1,11 @@
-import type { CollectionBeforeOperationHook, Config, Field, Plugin, Where } from "payload";
+import type { CollectionBeforeOperationHook, Config, Field, PayloadRequest, Plugin, Where } from "payload";
+
+type FieldNode = {
+  type?: string;
+  name?: string;
+  fields?: Field[];
+  tabs?: { name?: string; fields?: Field[] }[];
+};
 
 /**
  * Scheduled publishing guard (added 12 Oct 2026).
@@ -13,7 +20,7 @@ const DATE_CANDIDATES = ["publishedAt", "publishDate", "publishedOn", "datePubli
 function findDateField(fields: Field[]): string | null {
   const names = new Set<string>();
   const visit = (list: Field[]) => {
-    for (const f of list as any[]) {
+    for (const f of list as FieldNode[]) {
       if (!f) continue;
       if (f.type === "date" && f.name) names.add(f.name);
       if ((f.type === "row" || f.type === "collapsible") && Array.isArray(f.fields)) visit(f.fields);
@@ -38,7 +45,7 @@ function hideFuturePosts(field: string): CollectionBeforeOperationHook {
   };
 }
 
-function cronOrUser({ req }: { req: any }): boolean {
+function cronOrUser({ req }: { req: PayloadRequest }): boolean {
   if (req?.user) return true;
   const secret = process.env.CRON_SECRET;
   if (!secret) return false;
@@ -72,7 +79,11 @@ export const scheduledPublishPlugin =
         ...(config.jobs || {}),
         access: {
           ...(config.jobs?.access || {}),
-          run: existingRun ? async (args: any) => cronOrUser(args) || (await (existingRun as any)(args)) : cronOrUser,
+          run: async (args) => {
+            if (cronOrUser(args)) return true;
+            if (!existingRun) return false;
+            return existingRun(args);
+          },
         },
       },
     };

@@ -15,6 +15,7 @@ import {
   composeMetaDescription,
   composeMetaTitle,
 } from "../../lib/programmatic-content";
+import { fitDescription, fitTitle } from "../../lib/seo-length";
 import { lexicalHeading, lexicalParagraph, lexicalRoot, textToLexical } from "./lexical";
 
 type ExportRecord = {
@@ -26,9 +27,9 @@ type ExportRecord = {
 
 const STATIC_TITLES: Record<string, { title: string; description: string }> = {
   "/": {
-    title: "Holistic Medicine in Killeen, TX | Central Texas Holistic Care",
+    title: "Killeen Holistic Medicine | Central Texas Holistic Health",
     description:
-      "Holistic medicine and hormone therapy in Killeen, TX. Bioidentical HRT, IV nutrition, and men's and women's health at 311 E. Stan Schlueter Loop. Serving Harker Heights. Book today.",
+      "Central Texas Holistic Health offers hormone therapy, IV nutrition, and men's and women's care at 311 E. Stan Schlueter Loop, Killeen. Serving Harker Heights.",
   },
   "/about-us": {
     title: "About Us",
@@ -50,8 +51,9 @@ const STATIC_TITLES: Record<string, { title: string; description: string }> = {
     description: "Routine women's health and screenings.",
   },
   "/women/menopausal-disorders": {
-    title: "Menopausal Disorders",
-    description: "Personalized peri- and post-menopause care.",
+    title: "Killeen Menopause Care | Central Texas Holistic Care",
+    description:
+      "Menopause care in Killeen, TX: symptom review, hormone labs, and a clinician-led plan at Central Texas Holistic Care on Stan Schlueter Loop.",
   },
   "/women/menstrual-disorders": {
     title: "Menstrual Disorders",
@@ -82,16 +84,19 @@ const STATIC_TITLES: Record<string, { title: string; description: string }> = {
     description: "Hydrate, detox, and bounce back.",
   },
   "/hormone-therapy": {
-    title: "Hormone Therapy (BHRT)",
-    description: "Bioidentical hormone replacement therapy (BHRT) in Killeen, TX.",
+    title: "Hormone Therapy (BHRT) | Central Texas Holistic Care",
+    description:
+      "Hormone therapy in Killeen for men and women, matched to your labs. Testosterone, estrogen, and progesterone at our Stan Schlueter Loop clinic.",
   },
   "/stem-cells": {
-    title: "Stem Cell Therapy",
-    description: "Regenerative stem cell care at Central Texas Holistic Care.",
+    title: "Stem Cell Therapy in Killeen | Central Texas Holistic Care",
+    description:
+      "Clinician-supervised stem cell, exosome, and PRP therapy in Killeen, TX. Non-surgical regenerative injections for joints, tendons, hair, and recovery.",
   },
   "/payment-plans": {
-    title: "Payment Plans",
-    description: "Flexible financing options for care.",
+    title: "Payment Plans | Central Texas Holistic Care",
+    description:
+      "Pay over time for your care with two flexible financing partners: Cherry (soft credit check, 0% APR options) and Denefits (no credit check). Ask us how.",
   },
   "/contact": {
     title: "Contact Us",
@@ -106,7 +111,7 @@ const STATIC_TITLES: Record<string, { title: string; description: string }> = {
     description: "Holistic care serving communities across Central Texas.",
   },
   "/blog": {
-    title: "Blog",
+    title: "Hormone & Wellness Blog | Central Texas Holistic Care",
     description: "Insights on hormones, IV nutrition, and whole-person care.",
   },
   "/privacy-policy": { title: "Privacy Policy", description: "Privacy policy." },
@@ -142,7 +147,7 @@ function pageRecord(
       legacyId: `page:${normalized}`,
       sourceUrl: normalized,
       layout,
-      meta: { title, description },
+      meta: { title: fitTitle(title), description: fitDescription(description) },
       canonicalUrl: normalized === "/" ? "/" : `${normalized}/`,
       _status: "draft",
       ...extras,
@@ -325,7 +330,7 @@ function buildRecords(): ExportRecord[] {
         content: blogBlocksToLexical(post.content),
         publishedAt: post.publishedAt,
         sourceUpdatedAt: post.updatedAt || post.publishedAt,
-        meta: { title: post.title, description: post.excerpt },
+        meta: { title: fitTitle(post.title), description: fitDescription(post.excerpt) },
         canonicalUrl: `${cmsPath}/`,
         _status: "draft",
       },

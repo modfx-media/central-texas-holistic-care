@@ -78,7 +78,7 @@ function HeroSection() {
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] py-14 sm:py-20 lg:py-28">
       <Image
         src="/images/source/low-t-symptoms.webp"
-        alt=""
+        alt="Low testosterone symptoms discussed at Central Texas Holistic Care"
         fill
         priority
         sizes="100vw"

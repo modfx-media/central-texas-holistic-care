@@ -11,7 +11,7 @@ export const revalidate = 300;
 
 const CANONICAL = `${SITE_URL}/blog/`;
 
-const PAGE_TITLE = "Blog | Insights on Hormones, IV Nutrition & Whole-Person Care";
+const PAGE_TITLE = "Hormone & Wellness Blog | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
   "Evidence-based articles from Central Texas Holistic Care clinicians on hormone therapy, IV nutrition, men's and women's health, and whole-person medicine.";
 

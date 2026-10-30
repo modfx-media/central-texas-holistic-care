@@ -83,6 +83,12 @@ export type WomenPillar = {
 
 export type WomenFAQ = { q: string; a: string };
 
+export type WomenLongformSection = {
+  heading: string;
+  paragraphs: readonly string[];
+  links?: readonly { href: string; label: string }[];
+};
+
 export type WomenRelated = {
   title: string;
   href: string;
@@ -125,6 +131,8 @@ export type WomenSubpageProps = {
   whyPillars?: readonly WomenPillar[];
   /** Optional FAQ items rendered in an accordion */
   faqs?: readonly WomenFAQ[];
+  /** Extra headed sections, rendered when a page needs more than the overview */
+  longform?: readonly WomenLongformSection[];
   /** Optional related services for cross-linking */
   related?: readonly WomenRelated[];
   /** Final-CTA heading (with optional gold accent via {accent} key) */
@@ -144,6 +152,25 @@ export default function WomenSubpageClient(props: WomenSubpageProps) {
       {props.whyPillars && props.whyPillars.length > 0 && (
         <WhyPillarsSection pillars={props.whyPillars} h1={props.h1} />
       )}
+      {props.longform && props.longform.length > 0 && (
+        <LongformSection sections={props.longform} />
+      )}
+      {props.faqs && props.faqs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: props.faqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.q,
+                acceptedAnswer: { "@type": "Answer", text: faq.a },
+              })),
+            }),
+          }}
+        />
+      )}
       {props.faqs && props.faqs.length > 0 && (
         <FAQSection faqs={props.faqs} h1={props.h1} />
       )}
@@ -159,6 +186,41 @@ export default function WomenSubpageClient(props: WomenSubpageProps) {
 /*                                   Hero                                      */
 /* -------------------------------------------------------------------------- */
 
+function LongformSection({ sections }: { sections: readonly WomenLongformSection[] }) {
+  return (
+    <section className="bg-white py-16 sm:py-20">
+      <div className="mx-auto max-w-3xl space-y-14 px-4 sm:px-6 lg:px-8">
+        {sections.map((section) => (
+          <div key={section.heading}>
+            <h2 className="font-heading text-3xl font-light text-[#1a3a0a] sm:text-4xl">
+              {section.heading}
+            </h2>
+            <div className="mt-5 space-y-4 text-[16px] leading-relaxed text-stone-700">
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+              ))}
+            </div>
+            {section.links && section.links.length > 0 ? (
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="inline-flex rounded-full border border-stone-200 bg-[color:var(--color-cream-soft,#faf6ec)] px-4 py-2 text-sm font-medium text-[#1a3a0a] hover:border-[#C4A862]"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function HeroSection({
   h1,
   breadcrumbLabel,
@@ -172,7 +234,7 @@ function HeroSection({
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] py-14 sm:py-20 lg:py-28">
       <Image
         src={heroBackground ?? image.src}
-        alt=""
+        alt={image.alt}
         fill
         priority
         sizes="100vw"

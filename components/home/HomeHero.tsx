@@ -166,7 +166,7 @@ export default function HomeHero() {
           >
             <Image
               src={active.src}
-              alt=""
+              alt={active.alt}
               fill
               priority={index === 0}
               quality={90}
@@ -463,7 +463,7 @@ export default function HomeHero() {
                   >
                     <Image
                       src={slide.src}
-                      alt=""
+                      alt={slide.alt}
                       fill
                       sizes="128px"
                       quality={90}

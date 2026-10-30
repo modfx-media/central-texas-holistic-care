@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
 import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
-import Script from "next/script";
-
 import HormoneTherapyClient from "@/components/hormone/HormoneTherapyClient";
+import { HORMONE_DESCRIPTION, HORMONE_TITLE } from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/hormone-therapy/`;
 
-const PAGE_TITLE = "Hormone Therapy (BHRT) | Central Texas Holistic Care";
-const PAGE_DESCRIPTION =
-  "Bioidentical hormone replacement therapy (BHRT) in Killeen, TX. Testosterone for men, estrogen and progesterone for women, personalized to your labs. Serving Harker Heights.";
+const PAGE_TITLE = HORMONE_TITLE;
+const PAGE_DESCRIPTION = HORMONE_DESCRIPTION;
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -88,16 +86,14 @@ export default function HormoneTherapyPage() {
   return (
     <CMSRoute path="/hormone-therapy">
     <>
-      <Script
+      <script
         id="ld-hrt-breadcrumb"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
+      <script
         id="ld-hrt-medicalwebpage"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(medicalWebPageSchema),
         }}

@@ -60,7 +60,7 @@ function HeroSection() {
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] py-14 sm:py-20 lg:py-28">
       <Image
         src="/images/source/hero-medical-assistant.webp"
-        alt=""
+        alt="Clinician at Central Texas Holistic Care in Killeen"
         fill
         priority
         sizes="100vw"

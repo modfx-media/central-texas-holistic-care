@@ -226,8 +226,8 @@ export default function Footer({
               <img
                 src="/logo.png"
                 alt="Central Texas Holistic Care"
-                width={1536}
-                height={447}
+                width={960}
+                height={279}
                 decoding="async"
                 className="h-16 w-auto brightness-0 invert sm:h-20"
               />

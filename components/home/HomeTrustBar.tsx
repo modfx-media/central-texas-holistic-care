@@ -100,7 +100,7 @@ export default function HomeTrustBar() {
                 <span className="relative flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#f0f5eb] to-[#e6f0db] ring-1 ring-[#6CBE45]/20 transition-transform group-hover:scale-110">
                   <Image
                     src={icon}
-                    alt=""
+                    alt={label}
                     width={40}
                     height={40}
                     className="size-8 object-contain"

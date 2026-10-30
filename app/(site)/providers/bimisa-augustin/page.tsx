@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
-
 import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
+import {
+  BIMISA_DESCRIPTION,
+  BIMISA_IMAGE,
+  BIMISA_IMAGE_ALT,
+  BIMISA_IMAGE_HEIGHT,
+  BIMISA_IMAGE_WIDTH,
+  BIMISA_TITLE,
+} from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/providers/bimisa-augustin/`;
-const PAGE_TITLE = "Bimisa Augustin, DNP, FNP-C, PMHNP-BC | Central Texas Holistic Care";
-const PAGE_DESCRIPTION =
-  "Bimisa Augustin, DNP, FNP-C, PMHNP-BC, is a nurse practitioner at Central Texas Holistic Care in Killeen, TX. 26 years of clinical experience, including 10 years and six combat deployments with the U.S. Army.";
+const PAGE_TITLE = BIMISA_TITLE;
+const PAGE_DESCRIPTION = BIMISA_DESCRIPTION;
+const PORTRAIT = `${SITE_URL}${BIMISA_IMAGE}`;
 const BOOKING =
   "https://www.tebra.com/care/provider/bimisa-augustin-dnp-msn-aprnfnp-c-1043765431?lid=2324997788/";
 
@@ -23,6 +30,20 @@ const pageMetadata: Metadata = {
     url: CANONICAL,
     type: "profile",
     siteName: "Central Texas Holistic Care",
+    images: [
+      {
+        url: PORTRAIT,
+        width: BIMISA_IMAGE_WIDTH,
+        height: BIMISA_IMAGE_HEIGHT,
+        alt: BIMISA_IMAGE_ALT,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [PORTRAIT],
   },
   robots: { index: true, follow: true },
 };
@@ -31,12 +52,24 @@ export async function generateMetadata(): Promise<Metadata> {
   return cmsMetadata("/providers/bimisa-augustin", pageMetadata);
 }
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "About", item: `${SITE_URL}/about-us/` },
+    { "@type": "ListItem", position: 3, name: "Bimisa Augustin", item: CANONICAL },
+  ],
+};
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Bimisa Augustin",
   honorificSuffix: "DNP, FNP-C, PMHNP-BC",
   jobTitle: "Doctor of Nursing Practice, Family Nurse Practitioner, Psychiatric Mental Health Nurse Practitioner",
+  description: PAGE_DESCRIPTION,
+  image: PORTRAIT,
   url: CANONICAL,
   worksFor: {
     "@type": "MedicalClinic",
@@ -61,11 +94,15 @@ const personSchema = {
 export default function BimisaAugustinPage() {
   return (
     <CMSRoute path="/providers/bimisa-augustin">
-      <Script
+      <script
         id="ld-bimisa"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        id="ld-bimisa-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <article className="bg-[var(--color-cream)] py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
@@ -75,6 +112,14 @@ export default function BimisaAugustinPage() {
           <h1 className="mt-3 font-heading text-4xl font-light text-[var(--color-forest)] sm:text-5xl">
             Bimisa Augustin, DNP, FNP-C, PMHNP-BC
           </h1>
+          <Image
+            src={BIMISA_IMAGE}
+            alt={BIMISA_IMAGE_ALT}
+            width={BIMISA_IMAGE_WIDTH}
+            height={BIMISA_IMAGE_HEIGHT}
+            priority
+            className="mt-8 aspect-[4/5] w-full max-w-sm rounded-2xl object-cover"
+          />
           <p className="mt-4 text-lg text-[var(--color-text-muted,#6B6B6B)]">
             Doctor of Nursing Practice. Family nurse practitioner and psychiatric mental health nurse practitioner at Central Texas Holistic Care, 311 E. Stan Schlueter Loop, Suite 207, Killeen.
           </p>
