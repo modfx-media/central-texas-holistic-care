@@ -63,20 +63,45 @@ export function fitTitle(input: string): string {
   return trimAtWord(clean, TITLE_LIMIT);
 }
 
-/** Meta description at most 158 characters. Prefers whole sentences. */
+/** Split on sentence endings, including a period that sits inside a closing quote. */
+export function splitSentences(text: string): string[] {
+  return text
+    .split(/(?<=[.!?]['"]?)\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+}
+
+/**
+ * Meta description at most 158 characters.
+ * Keeps whole sentences. A single overlong sentence is cut on a comma or
+ * semicolon, then closed with a period, so it does not stop mid-phrase.
+ */
 export function fitDescription(input: string): string {
   const clean = input.replace(/\s+/g, " ").trim();
-  if (clean.length <= DESCRIPTION_LIMIT) return clean;
+  if (!clean) return clean;
+  if (clean.length <= DESCRIPTION_LIMIT && /[.!?]['"]?$/.test(clean)) return clean;
 
-  const sentences = clean.split(/(?<=[.!?])\s+/);
+  const sentences = splitSentences(clean);
   let built = "";
   for (const sentence of sentences) {
+    if (sentence.length > DESCRIPTION_LIMIT) break;
     const next = built ? `${built} ${sentence}` : sentence;
     if (next.length <= DESCRIPTION_LIMIT) built = next;
     else break;
   }
-  if (built.length >= 40) return built;
-  return trimAtWord(clean, DESCRIPTION_LIMIT);
+  if (built.length >= 40 && /[.!?]['"]?$/.test(built)) return built;
+
+  const source = sentences[0] || clean;
+  const room = DESCRIPTION_LIMIT - 1;
+  let cutAt = -1;
+  for (const mark of [";", ","]) {
+    const idx = source.lastIndexOf(mark, room);
+    if (idx > cutAt) cutAt = idx;
+  }
+  const clause = (cutAt >= 40 ? source.slice(0, cutAt) : trimAtWord(source, room))
+    .replace(/[\s,;:–—-]+$/g, "")
+    .trim();
+  return /[.!?]['"]?$/.test(clause) ? clause : `${clause}.`;
 }
 
 function titleText(title: Metadata["title"]): string | undefined {

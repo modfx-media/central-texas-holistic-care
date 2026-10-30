@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "tsx scripts/check-seo-meta.ts && next build",
+    "seo:check": "tsx scripts/check-seo-meta.ts",
     "start": "next start",
     "lint": "eslint",
     "cms:export": "tsx scripts/cms/build-export.ts",

@@ -14,6 +14,7 @@ import {
   composeCityServiceCopy,
   composeMetaDescription,
   composeMetaTitle,
+  composeTreatmentMetaDescription,
 } from "../../lib/programmatic-content";
 import { fitDescription, fitTitle } from "../../lib/seo-length";
 import { lexicalHeading, lexicalParagraph, lexicalRoot, textToLexical } from "./lexical";
@@ -279,7 +280,7 @@ function buildRecords(): ExportRecord[] {
   for (const { city, service, treatment } of getLiveCityServiceTreatmentTriples()) {
     const cmsPath = `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`;
     const title = `${treatment.name} in ${city.name}, TX`;
-    const description = `${treatment.shortDescription} Available in ${city.name}, TX.`;
+    const description = composeTreatmentMetaDescription(city, treatment);
     records.push(
       pageRecord(cmsPath, title, description, [
         {

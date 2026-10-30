@@ -10,7 +10,9 @@
  */
 
 import type { City, Service } from "./locations";
+import { DESCRIPTION_LIMIT } from "./seo-length";
 import {
+  KILLEEN_MENOPAUSE_DESCRIPTION,
   KILLEEN_TRT_DESCRIPTION,
   KILLEEN_TRT_TITLE,
   TEMPLE_DESCRIPTION,
@@ -58,6 +60,41 @@ export function composeMetaDescription(city: City, service: Service): string {
 
 export function composeH1(city: City, service: Service): string {
   return `${service.name} in ${city.name}, TX`;
+}
+
+/**
+ * One description per city and treatment. The city clause is always kept,
+ * so 15 cities do not collapse onto the same sentence.
+ */
+export function composeTreatmentMetaDescription(
+  city: City,
+  treatment: { slug: string; shortDescription: string },
+): string {
+  if (city.slug === "killeen" && treatment.slug === "menopause-care") {
+    return KILLEEN_MENOPAUSE_DESCRIPTION;
+  }
+  const clause = ` for ${city.name} patients at our Killeen clinic.`;
+  const lead = shortenTreatmentLead(treatment.shortDescription, DESCRIPTION_LIMIT - clause.length);
+  return `${lead}${clause}`;
+}
+
+function shortenTreatmentLead(text: string, max: number): string {
+  const clean = text.replace(/\s+/g, " ").trim().replace(/[.!?]+$/g, "");
+  if (clean.length <= max) return clean;
+
+  const parts = clean.split(/,\s+/);
+  let built = parts[0] ?? clean;
+  for (let index = 1; index < parts.length; index += 1) {
+    const next = `${built}, ${parts[index]}`;
+    if (next.length <= max) built = next;
+    else break;
+  }
+  built = built.replace(/[,;]\s*$/g, "").trim();
+  if (built.length >= 12 && built.length <= max) return built;
+
+  const cut = clean.slice(0, max);
+  const space = cut.lastIndexOf(" ");
+  return (space > 12 ? cut.slice(0, space) : cut).replace(/[\s,;:–—-]+$/g, "").trim();
 }
 
 /* -------------------------------------------------------------------------- */

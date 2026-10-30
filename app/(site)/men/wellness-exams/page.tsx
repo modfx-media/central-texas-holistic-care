@@ -10,7 +10,7 @@ const CANONICAL = `${SITE_URL}/men/wellness-exams/`;
 
 const PAGE_TITLE = "Annual Wellness Exams for Men | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
-  "Annual Wellness Exams for men in Killeen, TX: preventive screenings, vaccinations, and early detection to protect your long-term health at Central Texas Holistic.";
+  "Annual wellness exams for men in Killeen, TX, with preventive screenings and a written plan at Central Texas Holistic Care.";
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },

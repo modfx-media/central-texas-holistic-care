@@ -21,6 +21,7 @@ import {
   composeCityHubMeta,
   composeMetaDescription,
   composeMetaTitle,
+  composeTreatmentMetaDescription,
 } from "../lib/programmatic-content";
 import {
   DESCRIPTION_LIMIT,
@@ -40,15 +41,6 @@ type Change = {
   previousTitle?: string;
   previousDescription?: string;
 };
-
-function treatmentDescription(
-  shortDescription: string,
-  cityName: string,
-  driveTimeMin: number,
-  primaryRoute: string,
-): string {
-  return `${shortDescription} Seen at our Killeen clinic, about ${driveTimeMin} minutes from ${cityName} via ${primaryRoute}.`;
-}
 
 function collectChanges(): Change[] {
   const byPath = new Map<string, Change>();
@@ -97,12 +89,7 @@ function collectChanges(): Change[] {
     const path = `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`;
     if (byPath.has(path)) continue;
     const rawTitle = `${treatment.name} in ${city.name}, TX`;
-    const rawDescription = treatmentDescription(
-      treatment.shortDescription,
-      city.name,
-      city.driveTimeMin,
-      city.primaryRoute,
-    );
+    const rawDescription = composeTreatmentMetaDescription(city, treatment);
     byPath.set(path, {
       path,
       title: fitTitle(rawTitle),

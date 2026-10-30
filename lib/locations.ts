@@ -1306,7 +1306,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     shortDescription:
       "Full bioidentical hormone replacement for menopausal and post-menopausal women, restoring sleep, mood, libido, bone health, and quality of life.",
     longDescription:
-      "Menopause is not something to white-knuckle through. Bioidentical hormone replacement, estradiol, progesterone, and selectively testosterone, restores hormone levels into a healthy range that protects bone density, cardiovascular health, and quality of life. Every plan starts with a full lab panel and a real conversation about your history, risk factors, and goals.",
+      "Menopause care starts with a full lab panel and a conversation about history, risk factors, and goals. Estradiol, progesterone, and, when the labs support it, testosterone are options the provider reviews with you before any plan starts.",
     indicatedFor: [
       "hot flashes, night sweats, and disrupted sleep",
       "menopausal mood changes and brain fog",
@@ -1315,15 +1315,15 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
       "weight gain and body composition shifts",
     ],
     benefits: [
-      "Significant reduction in hot flashes and night sweats",
-      "Restored sleep, mood, and cognitive sharpness",
-      "Better libido, intimacy, and vaginal comfort",
-      "Bone density and cardiovascular benefits when started in the right window",
+      "Many patients report fewer hot flashes and night sweats",
+      "Sleep, mood, and focus are reviewed at follow-up",
+      "Libido, intimacy, and vaginal comfort are part of the visit",
+      "Your provider reviews bone and heart history before a plan starts",
     ],
     protocol:
       "Comprehensive lab panel including hormones, lipids, metabolic and bone markers, clinician consult, BHRT prescription (oral, topical, pellet, or injectable), re-check at 8 to 12 weeks, then on a 6-month cadence.",
     faqs: [
-      { q: "Is menopausal HRT safe?", a: "When prescribed and monitored properly, modern bioidentical HRT has a favorable risk profile, especially when started within 10 years of menopause." },
+      { q: "Is menopausal HRT safe?", a: "Your provider will review risks and benefits before menopause hormone therapy starts, and again when labs are rechecked. It is not the right fit for every patient." },
       { q: "Do I need testosterone too?", a: "Many menopausal women benefit from a low dose of testosterone for libido, mood, and lean mass. We decide together based on labs and goals." },
       { q: "How long can I stay on HRT?", a: "Most patients stay on a maintenance dose long-term, with regular labs and risk-factor re-assessment. There is no arbitrary cut-off." },
     ],

@@ -18,12 +18,8 @@ import {
 import { DepthArticle } from "@/components/local/DepthArticle";
 import { Reveal } from "@/components/motion/Reveal";
 import { KILLEEN_MENOPAUSE_DEPTH } from "@/lib/enriched-local-copy";
-import { composeTreatmentNarrative } from "@/lib/programmatic-content";
-import {
-  KILLEEN_MENOPAUSE_DESCRIPTION,
-  KILLEEN_MENOPAUSE_TITLE,
-  metadataTitle,
-} from "@/lib/seo-meta";
+import { composeTreatmentMetaDescription, composeTreatmentNarrative } from "@/lib/programmatic-content";
+import { KILLEEN_MENOPAUSE_TITLE, metadataTitle } from "@/lib/seo-meta";
 import Accordion from "@/components/ui/Accordion";
 import {
   getCity,
@@ -72,9 +68,7 @@ export async function generateMetadata({
   const title = killeenMenopause
     ? KILLEEN_MENOPAUSE_TITLE
     : `${treatment.name} in ${city.name}, TX`;
-  const description = killeenMenopause
-    ? KILLEEN_MENOPAUSE_DESCRIPTION
-    : `${treatment.shortDescription} Seen at our Killeen clinic, about ${city.driveTimeMin} minutes from ${city.name} via ${city.primaryRoute}.`;
+  const description = composeTreatmentMetaDescription(city, treatment);
 
   return cmsMetadata(
     `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`,
