@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
-
 import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
+import {
+  LARISSA_DESCRIPTION,
+  LARISSA_IMAGE,
+  LARISSA_IMAGE_ALT,
+  LARISSA_IMAGE_HEIGHT,
+  LARISSA_IMAGE_WIDTH,
+  LARISSA_TITLE,
+} from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/providers/larissa-garth/`;
-const PAGE_TITLE = "Larissa Garth, DMSc, MPH, MPAS, PA-C | Central Texas Holistic Care";
-const PAGE_DESCRIPTION =
-  "Larissa Garth, DMSc, MPH, MPAS, PA-C, is a certified physician assistant at Central Texas Holistic Care in Killeen, TX. More than 10 years of clinical experience and a decade as a U.S. Army officer.";
+const PAGE_TITLE = LARISSA_TITLE;
+const PAGE_DESCRIPTION = LARISSA_DESCRIPTION;
+const PORTRAIT = `${SITE_URL}${LARISSA_IMAGE}`;
 const BOOKING = "https://www.tebra.com/care/provider/larissa-garth-pa-c-1487096947";
 
 const pageMetadata: Metadata = {
@@ -22,6 +29,20 @@ const pageMetadata: Metadata = {
     url: CANONICAL,
     type: "profile",
     siteName: "Central Texas Holistic Care",
+    images: [
+      {
+        url: PORTRAIT,
+        width: LARISSA_IMAGE_WIDTH,
+        height: LARISSA_IMAGE_HEIGHT,
+        alt: LARISSA_IMAGE_ALT,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [PORTRAIT],
   },
   robots: { index: true, follow: true },
 };
@@ -30,12 +51,24 @@ export async function generateMetadata(): Promise<Metadata> {
   return cmsMetadata("/providers/larissa-garth", pageMetadata);
 }
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "About", item: `${SITE_URL}/about-us/` },
+    { "@type": "ListItem", position: 3, name: "Larissa Garth", item: CANONICAL },
+  ],
+};
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Larissa Garth",
   honorificSuffix: "DMSc, MPH, MPAS, PA-C",
   jobTitle: "Certified Physician Assistant",
+  description: PAGE_DESCRIPTION,
+  image: PORTRAIT,
   url: CANONICAL,
   worksFor: {
     "@type": "MedicalClinic",
@@ -55,11 +88,15 @@ const personSchema = {
 export default function LarissaGarthPage() {
   return (
     <CMSRoute path="/providers/larissa-garth">
-      <Script
+      <script
         id="ld-larissa"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        id="ld-larissa-breadcrumb"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <article className="bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
@@ -69,6 +106,14 @@ export default function LarissaGarthPage() {
           <h1 className="mt-3 font-heading text-4xl font-light text-[var(--color-forest)] sm:text-5xl">
             Larissa Garth, DMSc, MPH, MPAS, PA-C
           </h1>
+          <Image
+            src={LARISSA_IMAGE}
+            alt={LARISSA_IMAGE_ALT}
+            width={LARISSA_IMAGE_WIDTH}
+            height={LARISSA_IMAGE_HEIGHT}
+            priority
+            className="mt-8 aspect-[4/5] w-full max-w-sm rounded-2xl object-cover"
+          />
           <p className="mt-4 text-lg text-[var(--color-text-muted,#6B6B6B)]">
             Doctor of Medical Science and certified physician assistant at Central Texas Holistic Care, 311 E. Stan Schlueter Loop, Suite 207, Killeen.
           </p>

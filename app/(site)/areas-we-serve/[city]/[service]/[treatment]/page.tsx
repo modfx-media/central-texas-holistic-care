@@ -3,7 +3,6 @@ import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import {
   CheckCircle2,
   ChevronRight,
@@ -16,8 +15,11 @@ import {
   Stethoscope,
 } from "lucide-react";
 
+import { DepthArticle } from "@/components/local/DepthArticle";
 import { Reveal } from "@/components/motion/Reveal";
-import { composeTreatmentNarrative } from "@/lib/programmatic-content";
+import { KILLEEN_MENOPAUSE_DEPTH } from "@/lib/enriched-local-copy";
+import { composeTreatmentMetaDescription, composeTreatmentNarrative } from "@/lib/programmatic-content";
+import { KILLEEN_MENOPAUSE_TITLE, metadataTitle } from "@/lib/seo-meta";
 import Accordion from "@/components/ui/Accordion";
 import {
   getCity,
@@ -62,13 +64,16 @@ export async function generateMetadata({
   if (treatment.serviceSlug !== service.slug) return {};
 
   const canonical = `${SITE_URL}/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}/`;
-  const title = `${treatment.name} in ${city.name}, TX`;
-  const description = `${treatment.shortDescription} Seen at our Killeen clinic, about ${city.driveTimeMin} minutes from ${city.name} via ${city.primaryRoute}.`;
+  const killeenMenopause = city.slug === "killeen" && treatment.slug === "menopause-care";
+  const title = killeenMenopause
+    ? KILLEEN_MENOPAUSE_TITLE
+    : `${treatment.name} in ${city.name}, TX`;
+  const description = composeTreatmentMetaDescription(city, treatment);
 
   return cmsMetadata(
     `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`,
     {
-      title,
+      title: metadataTitle(title),
       description,
       alternates: { canonical },
       openGraph: {
@@ -122,7 +127,8 @@ export default async function CityServiceTreatmentPage({
     q: `Do you offer ${treatment.name.toLowerCase()} for ${city.name} patients?`,
     a: `Yes. ${city.name} residents reach our Killeen clinic in about ${city.driveTimeMin} minutes via ${city.primaryRoute}. We coordinate ${treatment.name.toLowerCase()} alongside your overall ${service.shortName} plan, and most ${city.name} patients schedule labs and the consult on the same visit so the trip is worth the drive.`,
   };
-  const allFaqs = [...treatment.faqs, localFaq];
+  const depth = city.slug === "killeen" && treatment.slug === "menopause-care" ? KILLEEN_MENOPAUSE_DEPTH : null;
+  const allFaqs = [...treatment.faqs, localFaq, ...(depth?.faqs ?? [])];
 
   /* ----------------------------- JSON-LD ---------------------------------- */
 
@@ -192,22 +198,19 @@ export default async function CityServiceTreatmentPage({
   return (
     <CMSRoute path={`/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`}>
     <>
-      <Script
+      <script
         id={`ld-${city.slug}-${service.slug}-${treatment.slug}-breadcrumb`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
+      <script
         id={`ld-${city.slug}-${service.slug}-${treatment.slug}-procedure`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureSchema) }}
       />
-      <Script
+      <script
         id={`ld-${city.slug}-${service.slug}-${treatment.slug}-faq`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
@@ -436,6 +439,8 @@ export default async function CityServiceTreatmentPage({
           </div>
         </section>
       )}
+
+      {depth ? <DepthArticle page={depth} /> : null}
 
       {/* FAQ */}
       <section className="bg-[var(--color-cream)] py-16">

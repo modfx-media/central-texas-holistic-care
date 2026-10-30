@@ -119,13 +119,9 @@ export function Testimonials({
     return () => clearInterval(id);
   }, [next, paused, items.length]);
 
-  useEffect(() => {
-    if (index >= items.length) setIndex(0);
-  }, [index, items.length]);
-
   if (items.length === 0) return null;
 
-  const review = items[index] ?? items[0];
+  const review = items[index % items.length] ?? items[0];
 
   return (
     <section

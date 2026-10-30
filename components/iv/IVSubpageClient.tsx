@@ -187,7 +187,7 @@ function HeroSection({
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] py-14 sm:py-20 lg:py-28">
       <Image
         src={image.src}
-        alt=""
+        alt={image.alt}
         fill
         priority
         sizes="100vw"

@@ -375,7 +375,7 @@ export default function HomeApproach() {
                     <div className="relative flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#f0f5eb] to-[#e6f0db] ring-1 ring-[#6CBE45]/40 transition-transform group-hover:scale-105 sm:size-[72px]">
                       <Image
                         src={icon}
-                        alt=""
+                        alt={`${title} icon`}
                         width={48}
                         height={48}
                         className="size-12 object-contain sm:size-14"

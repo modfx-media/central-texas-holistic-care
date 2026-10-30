@@ -3,7 +3,6 @@ import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Script from "next/script";
 import {
   CheckCircle2,
   ChevronRight,
@@ -13,6 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+import { DepthArticle } from "@/components/local/DepthArticle";
 import { Reveal } from "@/components/motion/Reveal";
 import Accordion from "@/components/ui/Accordion";
 import {
@@ -25,11 +25,13 @@ import {
   type City,
   type Service,
 } from "@/lib/locations";
+import { KILLEEN_HORMONE_DEPTH } from "@/lib/enriched-local-copy";
 import {
   composeCityServiceCopy,
   composeMetaDescription,
   composeMetaTitle,
 } from "@/lib/programmatic-content";
+import { metadataTitle } from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const BOOKING_URL =
@@ -63,7 +65,7 @@ export async function generateMetadata({
   const description = composeMetaDescription(city, service);
 
   return cmsMetadata(`/areas-we-serve/${city.slug}/${service.slug}`, {
-    title,
+    title: metadataTitle(title),
     description,
     alternates: { canonical },
     openGraph: {
@@ -107,6 +109,9 @@ export default async function CityServicePage({
   if (!city?.live || !service?.live) notFound();
 
   const copy = composeCityServiceCopy(city, service);
+  const depth =
+    city.slug === "killeen" && service.slug === "hormone-therapy" ? KILLEEN_HORMONE_DEPTH : null;
+  const faqs = depth ? [...copy.faqs, ...depth.faqs] : copy.faqs;
   const nearby = getNearbyCities(city, 4);
   const otherServices = getLiveServices().filter((s) => s.slug !== service.slug);
   const treatments = getTreatmentsForService(service.slug);
@@ -166,7 +171,7 @@ export default async function CityServicePage({
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: copy.faqs.map((f) => ({
+    mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -178,22 +183,19 @@ export default async function CityServicePage({
   return (
     <CMSRoute path={`/areas-we-serve/${city.slug}/${service.slug}`}>
     <>
-      <Script
+      <script
         id={`ld-${city.slug}-${service.slug}-breadcrumb`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
+      <script
         id={`ld-${city.slug}-${service.slug}-service`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
-      <Script
+      <script
         id={`ld-${city.slug}-${service.slug}-faq`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
@@ -421,6 +423,8 @@ export default async function CityServicePage({
         </section>
       )}
 
+      {depth ? <DepthArticle page={depth} /> : null}
+
       {/* FAQs */}
       <section className="bg-[var(--color-cream)] py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
@@ -436,7 +440,7 @@ export default async function CityServicePage({
           <Reveal delay={0.1}>
             <div className="mt-10">
               <Accordion
-                items={copy.faqs.map((f, i) => ({
+                items={faqs.map((f, i) => ({
                   value: `faq-${i}`,
                   title: f.q,
                   content: f.a,

@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import { CMSRoute } from "@/lib/cms/CMSRoute";
 import { cmsMetadata } from "@/lib/cms/metadata";
-import Script from "next/script";
-
 import WomenSubpageClient from "@/components/women/WomenSubpageClient";
+import { MENOPAUSE_DEPTH } from "@/lib/enriched-local-copy";
+import { MENOPAUSE_DESCRIPTION, MENOPAUSE_TITLE } from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/women/menopausal-disorders/`;
 
-const PAGE_TITLE = "Menopausal Disorders | Central Texas Holistic Care";
-const PAGE_DESCRIPTION =
-  "Comprehensive menopausal care at Central Texas Holistic Care: guidance, symptom relief, and personalized plans to navigate menopause with comfort.";
+const PAGE_TITLE = MENOPAUSE_TITLE;
+const PAGE_DESCRIPTION = MENOPAUSE_DESCRIPTION;
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -83,16 +82,14 @@ export default function MenopausalDisordersPage() {
   return (
     <CMSRoute path="/women/menopausal-disorders">
     <>
-      <Script
+      <script
         id="ld-meno-breadcrumb"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Script
+      <script
         id="ld-meno-condition"
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(medicalConditionSchema),
         }}
@@ -170,6 +167,7 @@ export default function MenopausalDisordersPage() {
             body: "Sleep, mood, body composition, bone and heart health, all tracked alongside your hormones, not in silos.",
           },
         ]}
+        longform={MENOPAUSE_DEPTH.sections}
         faqs={[
           {
             q: "When does menopause typically start?",
@@ -177,7 +175,7 @@ export default function MenopausalDisordersPage() {
           },
           {
             q: "Is bioidentical hormone therapy (BHRT) right for me?",
-            a: "BHRT can be a safe, effective option for many women, but it isn't right for everyone. We review your full history, labs, and goals before recommending any plan.",
+            a: "BHRT can be an option for many women, and it is not right for everyone. We review your full history, labs, and goals before recommending any plan.",
           },
           {
             q: "What lab work is typically done?",
@@ -185,8 +183,9 @@ export default function MenopausalDisordersPage() {
           },
           {
             q: "Are there non-hormonal options?",
-            a: "Yes. Lifestyle, targeted supplementation, and non-hormonal prescription options can meaningfully improve hot flashes, sleep, and mood when hormones aren't a fit.",
+            a: "Yes. Lifestyle, targeted supplementation, and non-hormonal prescription options are discussed when hormones are not a fit.",
           },
+          ...MENOPAUSE_DEPTH.faqs,
         ]}
         related={[
           {

@@ -109,7 +109,7 @@ function HeroSection() {
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] py-14 sm:py-20 lg:py-28">
       <Image
         src="/images/source/mens-health-optimization.jpeg"
-        alt=""
+        alt="Men's wellness visit at Central Texas Holistic Care"
         fill
         priority
         sizes="100vw"

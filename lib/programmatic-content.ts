@@ -10,6 +10,13 @@
  */
 
 import type { City, Service } from "./locations";
+import { DESCRIPTION_LIMIT } from "./seo-length";
+import {
+  KILLEEN_TRT_DESCRIPTION,
+  KILLEEN_TRT_TITLE,
+  TEMPLE_DESCRIPTION,
+  TEMPLE_TITLE,
+} from "./seo-meta";
 
 export type ComposedContent = {
   metaTitle: string;
@@ -30,10 +37,16 @@ export type ComposedContent = {
 /* -------------------------------------------------------------------------- */
 
 export function composeMetaTitle(city: City, service: Service): string {
+  if (city.slug === "killeen" && service.slug === "testosterone-therapy") {
+    return KILLEEN_TRT_TITLE;
+  }
   return `${service.name} in ${city.name}, TX`;
 }
 
 export function composeMetaDescription(city: City, service: Service): string {
+  if (city.slug === "killeen" && service.slug === "testosterone-therapy") {
+    return KILLEEN_TRT_DESCRIPTION;
+  }
   const opener =
     service.slug === "iv-nutrition"
       ? `Clinician-supervised ${service.primaryKeyword} in ${city.name}, TX.`
@@ -46,6 +59,30 @@ export function composeMetaDescription(city: City, service: Service): string {
 
 export function composeH1(city: City, service: Service): string {
   return `${service.name} in ${city.name}, TX`;
+}
+
+/**
+ * Full metaLead plus a complete city sentence. The lead is never trimmed.
+ * Killeen uses a tail that does not repeat the city name.
+ */
+export function composeTreatmentMetaDescription(
+  city: City,
+  treatment: { metaLead: string },
+): string {
+  const lead = treatment.metaLead.trim();
+  const tails =
+    city.slug === "killeen"
+      ? [" Visit our Killeen clinic."]
+      : [
+          ` Serving ${city.name} patients at our Killeen clinic.`,
+          ` Serving ${city.name} patients in Killeen.`,
+          ` For ${city.name} patients.`,
+        ];
+  for (const tail of tails) {
+    const description = `${lead}${tail}`;
+    if (description.length <= DESCRIPTION_LIMIT) return description;
+  }
+  throw new Error(`No city clause fits after the full meta lead for ${city.slug}`);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -242,6 +279,9 @@ export function composeCityHubParagraphs(city: City): string[] {
 }
 
 export function composeCityHubMeta(city: City): { title: string; description: string } {
+  if (city.slug === "temple") {
+    return { title: TEMPLE_TITLE, description: TEMPLE_DESCRIPTION };
+  }
   return {
     title: `${city.name}, TX`,
     description: `Hormone therapy, IV nutrition, TRT, and wellness care for ${city.name}, TX. ~${city.driveTimeMin} min via ${city.primaryRoute}. Book a consultation.`,

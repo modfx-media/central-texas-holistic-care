@@ -118,7 +118,7 @@ function HeroSection() {
     <section className="relative isolate overflow-hidden bg-[#0b1d04] text-[#FAF6EE]">
       <Image
         src="/images/hormone.jpeg"
-        alt=""
+        alt="Hormone therapy consultation at Central Texas Holistic Care"
         fill
         priority
         sizes="100vw"
@@ -501,13 +501,19 @@ function MenSection() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-6">
+            <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/men/testosterone/"
                 className="group inline-flex items-center gap-2 rounded-full bg-[#1a3a0a] px-5 py-2.5 text-sm font-semibold text-[#FAF6EE] shadow-md transition-colors hover:bg-[#2D5016]"
               >
                 Explore Testosterone Therapy
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="/areas-we-serve/killeen/testosterone-therapy/"
+                className="inline-flex items-center rounded-full border border-[#1a3a0a]/20 px-5 py-2.5 text-sm font-semibold text-[#1a3a0a] hover:border-[#1a3a0a]"
+              >
+                Testosterone therapy in Killeen
               </Link>
             </motion.div>
           </motion.div>
@@ -623,13 +629,19 @@ function WomenSection() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-6">
+            <motion.div variants={fadeUp} className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/women/menopausal-disorders/"
                 className="group inline-flex items-center gap-2 rounded-full bg-[#1a3a0a] px-5 py-2.5 text-sm font-semibold text-[#FAF6EE] shadow-md transition-colors hover:bg-[#2D5016]"
               >
                 Explore Menopausal Care
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                href="/areas-we-serve/killeen/hormone-therapy/"
+                className="inline-flex items-center rounded-full border border-[#1a3a0a]/20 px-5 py-2.5 text-sm font-semibold text-[#1a3a0a] hover:border-[#1a3a0a]"
+              >
+                Hormone therapy in Killeen
               </Link>
             </motion.div>
           </motion.div>
@@ -912,8 +924,18 @@ function FinalCTA() {
 /* -------------------------------------------------------------------------- */
 
 export default function HormoneTherapyClient() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <HeroSection />
       <IntroSection />
       <MenSection />

@@ -18,13 +18,15 @@ export default function BottomBookNowBanner() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    try {
-      if (sessionStorage.getItem(DISMISS_KEY) === "1") {
-        setDismissed(true);
+    queueMicrotask(() => {
+      try {
+        if (sessionStorage.getItem(DISMISS_KEY) === "1") {
+          setDismissed(true);
+        }
+      } catch {
+        /* ignore storage errors */
       }
-    } catch {
-      /* ignore storage errors */
-    }
+    });
     const onScroll = () => {
       setScrolledPast(window.scrollY > SHOW_AFTER_PX);
     };

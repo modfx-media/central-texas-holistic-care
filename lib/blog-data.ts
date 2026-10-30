@@ -581,7 +581,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "testosterone-therapy-vs-lifestyle-changes-for-low-t",
     title: "Low T Treatment: Therapy or Lifestyle Changes",
     excerpt:
-      "Compare lifestyle strategies and clinical options for low testosterone, including testosterone therapy in Killeen, to choose a personalized plan that fits your health history and goals.",
+      "Compare lifestyle strategies and clinical options for low testosterone, including testosterone therapy in Killeen. The visit matches the plan to your history and goals.",
     category: "Men's Health",
     categoryHref: "/men/",
     readMinutes: 8,

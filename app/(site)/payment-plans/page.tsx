@@ -9,8 +9,7 @@ import PaymentPlansContent from "@/components/payment-plans/PaymentPlansContent"
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/payment-plans/`;
 
-const PAGE_TITLE =
-  "Payment Plans | Cherry & Denefits Financing | Central Texas Holistic Care";
+const PAGE_TITLE = "Payment Plans | Central Texas Holistic Care";
 const PAGE_DESCRIPTION =
   "Pay over time for your care with two flexible financing partners: Cherry (soft credit check, 0% APR options) and Denefits (no credit check). Ask us how.";
 

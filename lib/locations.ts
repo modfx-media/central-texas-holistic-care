@@ -1188,6 +1188,8 @@ export type Treatment = {
   secondaryKeywords: string[];
   /** 1-sentence summary used in tiles and meta. */
   shortDescription: string;
+  /** Complete sentence used as the meta description lead. Never truncated. */
+  metaLead: string;
   /** 2-3 sentence narrative used in the page intro. */
   longDescription: string;
   /** What this protocol typically helps with. */
@@ -1211,6 +1213,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["BHRT pellets", "hormone pellets", "testosterone pellets", "estradiol pellets"],
     shortDescription:
       "Low-maintenance bioidentical hormone pellets that release a steady physiologic dose for 3 to 5 months.",
+    metaLead: "Bioidentical hormone pellets release a steady dose for 3 to 5 months.",
     longDescription:
       "Pellet therapy places a small bioidentical hormone implant just under the skin during a quick in-office procedure. The pellet then releases testosterone or estradiol at a steady, physiologic rate for 3 to 5 months, no daily dosing, no peaks and troughs, and no missed-dose effects. It is one of the most consistent ways to keep levels in the right range, and it is especially popular with patients who travel often or prefer to set-and-forget their protocol.",
     indicatedFor: [
@@ -1242,6 +1245,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["testosterone cypionate injection", "estradiol injection", "weekly hormone injections", "injectable BHRT"],
     shortDescription:
       "Highly adjustable injectable BHRT with weekly or twice-weekly dosing and tight lab control.",
+    metaLead: "Injectable BHRT uses weekly or twice-weekly dosing and lab follow-up.",
     longDescription:
       "Injectable bioidentical hormone therapy delivers testosterone cypionate or estradiol on a precise weekly or twice-weekly cadence. Injections give us the tightest control over peaks, troughs, and total weekly dose, which is why they are the preferred route for patients who want labs dialed in to a target range. Most patients self-inject at home after a brief in-clinic teach.",
     indicatedFor: [
@@ -1273,6 +1277,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["perimenopause hormones", "irregular cycles treatment", "perimenopausal mood support", "low progesterone treatment"],
     shortDescription:
       "Targeted hormone support for the 5 to 10 year window before menopause, when cycles, mood, sleep, and energy first start to drift.",
+    metaLead: "Perimenopause care is hormone support for the years before menopause.",
     longDescription:
       "Perimenopause is the long runway before menopause when estrogen and progesterone start fluctuating in ways that disrupt sleep, mood, cycles, and body composition. Our perimenopause protocol starts with comprehensive labs across the cycle, then layers in targeted progesterone, estrogen, or thyroid support based on the actual pattern, not a one-size script.",
     indicatedFor: [
@@ -1305,8 +1310,9 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["menopausal HRT", "post-menopause hormones", "hot flash treatment", "estradiol replacement", "vaginal estrogen"],
     shortDescription:
       "Full bioidentical hormone replacement for menopausal and post-menopausal women, restoring sleep, mood, libido, bone health, and quality of life.",
+    metaLead: "Menopause care starts with labs and a review of history and goals.",
     longDescription:
-      "Menopause is not something to white-knuckle through. Bioidentical hormone replacement, estradiol, progesterone, and selectively testosterone, restores hormone levels into a healthy range that protects bone density, cardiovascular health, and quality of life. Every plan starts with a full lab panel and a real conversation about your history, risk factors, and goals.",
+      "Menopause care starts with a full lab panel and a conversation about history, risk factors, and goals. Estradiol, progesterone, and, when the labs support it, testosterone are options the provider reviews with you before any plan starts.",
     indicatedFor: [
       "hot flashes, night sweats, and disrupted sleep",
       "menopausal mood changes and brain fog",
@@ -1315,17 +1321,17 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
       "weight gain and body composition shifts",
     ],
     benefits: [
-      "Significant reduction in hot flashes and night sweats",
-      "Restored sleep, mood, and cognitive sharpness",
-      "Better libido, intimacy, and vaginal comfort",
-      "Bone density and cardiovascular benefits when started in the right window",
+      "Many patients report fewer hot flashes and night sweats",
+      "Sleep, mood, and focus are reviewed at follow-up",
+      "Libido, intimacy, and vaginal comfort are part of the visit",
+      "Your provider reviews bone and heart history before a plan starts",
     ],
     protocol:
       "Comprehensive lab panel including hormones, lipids, metabolic and bone markers, clinician consult, BHRT prescription (oral, topical, pellet, or injectable), re-check at 8 to 12 weeks, then on a 6-month cadence.",
     faqs: [
-      { q: "Is menopausal HRT safe?", a: "When prescribed and monitored properly, modern bioidentical HRT has a favorable risk profile, especially when started within 10 years of menopause." },
-      { q: "Do I need testosterone too?", a: "Many menopausal women benefit from a low dose of testosterone for libido, mood, and lean mass. We decide together based on labs and goals." },
-      { q: "How long can I stay on HRT?", a: "Most patients stay on a maintenance dose long-term, with regular labs and risk-factor re-assessment. There is no arbitrary cut-off." },
+      { q: "Is menopausal HRT safe?", a: "Your provider will review risks and benefits before menopause hormone therapy starts, and again when labs are rechecked. It is not the right fit for every patient." },
+      { q: "Do I need testosterone too?", a: "Some women may be candidates for low-dose testosterone, which your provider will discuss based on labs and goals." },
+      { q: "How long can I stay on HRT?", a: "Some patients continue a maintenance dose, which your provider reviews over time. There is no arbitrary cut-off." },
     ],
     live: true,
   },
@@ -1339,6 +1345,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["Myers cocktail infusion", "B-complex IV", "magnesium IV", "wellness IV drip"],
     shortDescription:
       "The original wellness IV, B-complex, vitamin C, magnesium, and calcium, for a full-body reset in about 45 minutes.",
+    metaLead: "Myers' Cocktail IV blends B-complex, vitamin C, magnesium, and calcium.",
     longDescription:
       "The Myers' Cocktail is the original wellness IV, a balanced infusion of B-complex vitamins, vitamin C, magnesium, and calcium that delivers a full-body reset in about 45 minutes. It is our most-requested drip and a great place to start if you have never tried IV therapy.",
     indicatedFor: [
@@ -1370,6 +1377,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["high-dose vitamin C IV", "zinc IV", "immune support drip", "flu season IV"],
     shortDescription:
       "High-dose vitamin C, zinc, and glutathione for immune support before travel, during flu season, or when you feel something coming on.",
+    metaLead: "Immune Booster IV pairs vitamin C with zinc and glutathione.",
     longDescription:
       "Our Immune Booster IV pairs high-dose vitamin C with zinc, B-complex, and a glutathione push for an immune-focused infusion you can use proactively before travel and flu season, or reactively when you start to feel a virus brewing. It is one of our most-booked drips during the late-fall and winter months.",
     indicatedFor: [
@@ -1401,6 +1409,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["workout recovery IV", "amino acid IV", "hydration IV", "post-training IV"],
     shortDescription:
       "Amino acids, electrolytes, B-complex, and magnesium for faster recovery between training blocks, races, and competitions.",
+    metaLead: "Athletic Recovery IV blends amino acids, electrolytes, B-complex, and magnesium.",
     longDescription:
       "Our Athletic Recovery IV is built for the patient who trains hard, an endurance athlete between race blocks, a lifter chasing a meet, a CrossFitter on a heavy cycle, or a military operator preparing for selection. We blend amino acids, electrolytes, B-complex, and magnesium to restore what training depletes and accelerate the recovery curve.",
     indicatedFor: [
@@ -1432,6 +1441,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["hangover relief drip", "rehydration IV", "morning-after IV", "anti-nausea IV"],
     shortDescription:
       "Aggressive rehydration plus anti-nausea and B-complex support to bounce back from a rough night faster than you would on your own.",
+    metaLead: "Hangover Relief IV uses saline, B-complex, and anti-nausea support.",
     longDescription:
       "Our Hangover Relief IV combines aggressive saline rehydration, B-complex for energy and brain fog, and approved anti-nausea support so you can recover in 45 minutes instead of the rest of the day. It is built for the morning after a wedding, conference, or work event, when you simply do not have the day to lose.",
     indicatedFor: [
@@ -1465,6 +1475,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["testosterone cypionate", "weekly TRT injections", "self-injection TRT", "intramuscular testosterone"],
     shortDescription:
       "The most adjustable form of TRT, weekly or twice-weekly testosterone cypionate injections with tight lab control.",
+    metaLead: "TRT injections are weekly or twice-weekly testosterone with lab follow-up.",
     longDescription:
       "TRT injections give us the most precise control over your testosterone levels, with a weekly or twice-weekly self-injection schedule that keeps levels stable and adjustable. Most men we treat self-inject at home after a brief in-clinic teach. It is the most cost-effective long-term route and the easiest to fine-tune as goals evolve.",
     indicatedFor: [
@@ -1496,6 +1507,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["TRT pellets", "testosterone pellet implant", "pellet TRT"],
     shortDescription:
       "Low-maintenance testosterone pellets that release a steady physiologic dose for 4 to 6 months.",
+    metaLead: "Testosterone pellets release a steady dose for 4 to 6 months.",
     longDescription:
       "Testosterone pellets are placed under the skin during a quick in-office procedure and release a steady physiologic dose for 4 to 6 months. They are popular with men who travel often, dislike self-injections, or want the most set-and-forget TRT option available.",
     indicatedFor: [
@@ -1527,6 +1539,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["topical testosterone", "testosterone gel", "compounded testosterone cream"],
     shortDescription:
       "Compounded topical testosterone for men who prefer a needle-free, daily delivery method.",
+    metaLead: "Compounded testosterone cream is a needle-free daily option for men.",
     longDescription:
       "Compounded testosterone cream is a topical option for men who want a needle-free protocol and are willing to commit to daily application. It works well for many men, with the trade-off that absorption varies more than injections and pellets, so lab follow-up is important.",
     indicatedFor: [
@@ -1556,6 +1569,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["Low T workup", "low testosterone lab panel", "TRT consult", "men's hormone consult"],
     shortDescription:
       "A comprehensive Low T workup before any prescription, full hormone panel, symptom history, and an honest yes-or-no on whether TRT is right for you.",
+    metaLead: "A Low T evaluation is a hormone panel and history before any prescription.",
     longDescription:
       "Not every man with low energy needs TRT, and not every man with normal-looking labs is in the clear. Our Low T evaluation is a comprehensive workup including total and free testosterone, estradiol, SHBG, PSA, CBC, lipid and metabolic panels, plus a real symptom and history conversation. The outcome is a clear yes-or-no on TRT candidacy, along with any lifestyle, sleep, or thyroid factors you should address either way.",
     indicatedFor: [
@@ -1589,6 +1603,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["mens preventive physical", "annual mens wellness exam", "mens health checkup"],
     shortDescription:
       "A comprehensive annual physical built for men, with hormone, metabolic, and cardiovascular labs that go past the basic insurance panel.",
+    metaLead: "The men's annual physical includes hormone, metabolic, and cardiovascular labs.",
     longDescription:
       "Our men's annual physical goes beyond the basic check-the-box panel. We screen total and free testosterone, estradiol, lipid panel, fasting glucose and A1C, PSA when age-appropriate, and other markers that flag early-stage risk you can still reverse. The exam includes a full physical, a labs review, and a written plan you actually take home.",
     indicatedFor: [
@@ -1619,6 +1634,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["womens preventive physical", "annual womens wellness exam", "womens health checkup"],
     shortDescription:
       "A comprehensive annual physical for women with hormone, metabolic, thyroid, and cardiovascular labs that go past the standard insurance panel.",
+    metaLead: "The women's annual physical includes hormone, thyroid, and metabolic labs.",
     longDescription:
       "Our women's annual physical includes a full thyroid panel, cycle-aware hormone labs, lipid and metabolic markers, and age-appropriate cancer screening guidance. The exam is built for women who want a real partner in long-term prevention, not a 15-minute rush.",
     indicatedFor: [
@@ -1649,6 +1665,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["executive health physical", "longevity physical", "comprehensive health assessment"],
     shortDescription:
       "An expanded annual physical for executives and high-performers, with deeper labs, cardiovascular imaging coordination, and a longevity-focused written plan.",
+    metaLead: "An executive physical includes deeper labs and a written longevity plan.",
     longDescription:
       "The Executive Physical is our deepest single-visit assessment, expanded hormone, metabolic, inflammatory, and cardiovascular markers, coordination of imaging (CIMT, calcium score, DEXA) when clinically appropriate, and a longevity-focused written plan that translates the data into next 12-month action.",
     indicatedFor: [
@@ -1679,6 +1696,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["DOT physical", "athlete physical", "youth sports physical", "pre-participation physical"],
     shortDescription:
       "Fast, thorough sports and DOT physicals for athletes, students, and commercial drivers, often same-day.",
+    metaLead: "Sports and DOT physicals are offered for athletes and commercial drivers.",
     longDescription:
       "We offer pre-participation sports physicals for youth and high school athletes, DOT physicals for commercial drivers, and a more comprehensive athlete physical for adult competitive and tactical athletes. Visits are fast, thorough, and often available same-day.",
     indicatedFor: [
@@ -1711,6 +1729,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["semaglutide", "tirzepatide", "GLP-1 weight loss", "metabolic peptide therapy"],
     shortDescription:
       "Clinician-supervised GLP-1 peptide protocols for metabolic health, body composition, and sustainable weight loss.",
+    metaLead: "GLP-1 peptides are clinician-supervised for metabolic health.",
     longDescription:
       "Our GLP-1 program uses clinician-supervised semaglutide or tirzepatide alongside labs, body-composition tracking, and nutrition coaching so you get the metabolic benefits without the rebound. We are not a write-a-script-and-wave-goodbye clinic; we plan the on-ramp, the maintenance dose, and the eventual taper or maintenance phase.",
     indicatedFor: [
@@ -1742,6 +1761,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["BPC-157", "TB-500", "recovery peptides", "tissue repair peptide"],
     shortDescription:
       "Recovery-focused peptide protocols (BPC-157, TB-500) for soft-tissue repair, training recovery, and post-surgical healing.",
+    metaLead: "BPC-157 and TB-500 are recovery peptides used in defined cycles.",
     longDescription:
       "BPC-157 and TB-500 are recovery-focused peptides used to support soft-tissue healing, training recovery, and post-surgical tissue repair. Protocols are clinician-prescribed, time-limited, and paired with rehab and training context so the peptide is a tool, not a shortcut.",
     indicatedFor: [
@@ -1772,6 +1792,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["thymosin alpha-1", "immune peptide therapy", "immune support peptide"],
     shortDescription:
       "Thymosin alpha-1 peptide protocols for immune resilience during high-stress, high-exposure, or post-illness windows.",
+    metaLead: "Thymosin alpha-1 is prescribed in defined cycles for immune support.",
     longDescription:
       "Thymosin alpha-1 is an immune-modulating peptide used to support immune resilience during high-stress periods, post-illness recovery, and certain chronic infection contexts. We prescribe defined cycles with labs before and after so we can see what is actually changing.",
     indicatedFor: [
@@ -1802,6 +1823,7 @@ export const TREATMENTS: ReadonlyArray<Treatment> = [
     secondaryKeywords: ["anti-aging peptides", "longevity peptide protocol", "epitalon", "GHK-Cu"],
     shortDescription:
       "Curated longevity peptide protocols layered onto hormone, IV, and lifestyle programs for patients optimizing healthspan.",
+    metaLead: "Longevity peptides are added after sleep, hormones, and metabolic basics.",
     longDescription:
       "Our longevity peptide protocols are reserved for patients already optimizing the basics, sleep, training, hormones, and metabolic markers, and looking for the next layer. We curate specific peptides to specific goals (sleep architecture, mitochondrial markers, skin and tissue quality) and pair them with regular labs so we are measuring, not guessing.",
     indicatedFor: [

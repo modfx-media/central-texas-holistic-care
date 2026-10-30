@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 
 import FaqAccordion, { type FaqItem } from "@/components/sections/FaqAccordion";
+import { STEM_DESCRIPTION, STEM_TITLE } from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
 const CANONICAL = `${SITE_URL}/stem-cells/`;
@@ -34,10 +35,8 @@ const BOOKING_URL =
 const PHONE_DISPLAY = "(254) 213-2423";
 const PHONE_TEL = "+12542132423";
 
-const PAGE_TITLE =
-  "Stem Cell Therapy in Killeen, TX | Central Texas Holistic Care";
-const PAGE_DESCRIPTION =
-  "Clinician-supervised stem cell, exosome, and PRP therapy in Killeen, TX. Non-surgical regenerative injections for joints, tendons, hair, and recovery.";
+const PAGE_TITLE = STEM_TITLE;
+const PAGE_DESCRIPTION = STEM_DESCRIPTION;
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -104,6 +103,19 @@ export default function StemCellsPage() {
   return (
     <CMSRoute path="/stem-cells">
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+              { "@type": "ListItem", position: 2, name: "Stem Cell Therapy", item: CANONICAL },
+            ],
+          }),
+        }}
+      />
       <HeroSection />
       <TrustTrio />
       <WhatItIsSection />
@@ -131,7 +143,7 @@ function HeroSection() {
     <section className="relative isolate w-full overflow-hidden bg-[#0b1d04] py-14 sm:py-20 lg:py-28">
       <Image
         src="/images/stem-cell/regenerative-medicine.webp"
-        alt=""
+        alt="Regenerative medicine imagery for stem cell therapy at Central Texas Holistic Care"
         fill
         priority
         sizes="100vw"

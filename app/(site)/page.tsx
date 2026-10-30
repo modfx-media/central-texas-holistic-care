@@ -7,12 +7,11 @@ import { Testimonials } from "@/components/home/Testimonials";
 import Home2Client from "@/components/home2/Home2Client";
 import { getDisplayedGoogleReviews } from "@/lib/google-reviews";
 import { getPublishedUiPosts } from "@/lib/ranked/ui";
+import { HOME_DESCRIPTION, HOME_TITLE } from "@/lib/seo-meta";
 
 const SITE_URL = "https://centraltexasholisticcarepllc.com";
-const PAGE_TITLE =
-  "Holistic Medicine in Killeen, TX | Central Texas Holistic Care";
-const PAGE_DESCRIPTION =
-  "Holistic medicine and hormone therapy in Killeen, TX. Bioidentical HRT, IV nutrition, and men's and women's health at 311 E. Stan Schlueter Loop. Serving Harker Heights. Book today.";
+const PAGE_TITLE = HOME_TITLE;
+const PAGE_DESCRIPTION = HOME_DESCRIPTION;
 
 const pageMetadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -29,7 +28,7 @@ const pageMetadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${SITE_URL}/api/og?title=${encodeURIComponent("Holistic Medicine in Killeen")}&subtitle=${encodeURIComponent("Killeen, TX · Hormone therapy, IV nutrition, men's & women's health")}`,
+        url: `${SITE_URL}/api/og?title=${encodeURIComponent("Central Texas Holistic Health")}&subtitle=${encodeURIComponent("Killeen, TX · Hormone therapy, IV nutrition, men's and women's health")}`,
         width: 1200,
         height: 630,
         alt: "Central Texas Holistic Care",
@@ -40,7 +39,7 @@ const pageMetadata: Metadata = {
     card: "summary_large_image",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    images: [`${SITE_URL}/api/og?title=${encodeURIComponent("Holistic Medicine in Killeen")}&subtitle=${encodeURIComponent("Killeen, TX · Hormone therapy, IV nutrition, men's & women's health")}`],
+    images: [`${SITE_URL}/api/og?title=${encodeURIComponent("Central Texas Holistic Health")}&subtitle=${encodeURIComponent("Killeen, TX · Hormone therapy, IV nutrition, men's and women's health")}`],
   },
 }
 
@@ -87,6 +86,18 @@ export default async function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+            ],
+          }),
+        }}
       />
       <Home2Client
         latestBlogPosts={latestBlogPosts}
