@@ -87,9 +87,13 @@ function collectChanges(): Change[] {
 
   for (const { city, service, treatment } of getLiveCityServiceTreatmentTriples()) {
     const path = `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`;
-    if (byPath.has(path)) continue;
     const rawTitle = `${treatment.name} in ${city.name}, TX`;
     const rawDescription = composeTreatmentMetaDescription(city, treatment);
+    const existing = byPath.get(path);
+    if (existing) {
+      existing.description = fitDescription(rawDescription);
+      continue;
+    }
     byPath.set(path, {
       path,
       title: fitTitle(rawTitle),

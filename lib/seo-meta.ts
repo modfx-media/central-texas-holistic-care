@@ -49,7 +49,7 @@ export const MENOPAUSE_DESCRIPTION =
 
 export const KILLEEN_MENOPAUSE_TITLE = "Menopause Hormone Care in Killeen | Holistic Care";
 export const KILLEEN_MENOPAUSE_DESCRIPTION =
-  "Menopause hormone care for women in Killeen, seen at 311 E. Stan Schlueter Loop. A clinician reviews symptoms and labs before any plan starts.";
+  "Menopause care starts with labs and a review of history and goals. Visit our Killeen clinic.";
 
 export type SeoMetaUpdate = {
   /** CMS path without a trailing slash. */

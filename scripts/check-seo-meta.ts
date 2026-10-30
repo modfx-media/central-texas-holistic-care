@@ -143,6 +143,22 @@ function collect(): Row[] {
   return rows;
 }
 
+function validateTreatmentDescriptions(errors: string[]) {
+  for (const { city, treatment } of getLiveCityServiceTreatmentTriples()) {
+    const description = fitDescription(composeTreatmentMetaDescription(city, treatment));
+    const path = `/areas-we-serve/${city.slug}/${treatment.serviceSlug}/${treatment.slug}/`;
+    if (!description.startsWith(treatment.metaLead)) {
+      errors.push(`${path} description does not keep the full meta lead: ${description}`);
+    }
+    if (/Killeen patients at our Killeen/i.test(description)) {
+      errors.push(`${path} city clause repeats Killeen: ${description}`);
+    }
+    if (city.slug !== "temple" && /\bminutes?\b|\bmin\b/i.test(description)) {
+      errors.push(`${path} adds a drive time outside Temple: ${description}`);
+    }
+  }
+}
+
 function main() {
   const rows = collect();
   const errors: string[] = [];
@@ -169,6 +185,8 @@ function main() {
       errors.push(`duplicate description (${paths.length}): ${description} -> ${paths.slice(0, 4).join(", ")}`);
     }
   }
+
+  validateTreatmentDescriptions(errors);
 
   if (errors.length > 0) {
     console.error(`SEO meta check failed (${rows.length} URLs, ${errors.length} problems)`);
