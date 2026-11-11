@@ -332,11 +332,11 @@ function ProviderBimisa() {
           <motion.div variants={fadeUp} className="relative mx-auto w-full max-w-md">
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-[#C4A862]/30 shadow-[0_40px_100px_-40px_rgba(15,39,6,0.45)]">
               <Image
-                src="/images/providers/dr-bimisa-augustin.jpg"
+                src="/images/providers/dr-bimisa-augustin-portrait.png"
                 alt="Dr. Bimisa Augustin, DNP, FNP-C, PMHNP-BC"
                 fill
                 sizes="(min-width: 1024px) 28rem, (min-width: 640px) 60vw, 90vw"
-                className="object-cover"
+                className="object-cover object-[center_12%]"
                 priority
               />
               <div

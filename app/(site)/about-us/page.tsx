@@ -74,7 +74,7 @@ const organizationSchema = {
       honorificSuffix: "DNP, FNP-C, PMHNP-BC",
       jobTitle:
         "Doctor of Nursing Practice | Family & Psychiatric Nurse Practitioner",
-      image: `${SITE_URL}/images/providers/dr-bimisa-augustin.jpg`,
+      image: `${SITE_URL}/images/providers/dr-bimisa-augustin-portrait.png`,
       affiliation: { "@type": "MedicalOrganization", name: "Central Texas Holistic Care" },
       alumniOf: [
         { "@type": "CollegeOrUniversity", name: "University of Mary Hardin-Baylor" },
