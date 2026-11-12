@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { blogMetaForPath } from "@/lib/blog-meta-defaults";
 import { clampSeoMetadata } from "@/lib/seo-length";
 
 import { queryRoutedContentByPath } from "./query";
@@ -78,13 +79,34 @@ export function metadataFromDoc(
   };
 }
 
+/**
+ * The five curated posts render these title and description strings even when
+ * Payload still has the short or trimmed values. The database is not written
+ * here. scripts/apply-blog-meta-updates.ts copies the same strings later.
+ */
+function withCuratedBlogMeta(path: string, meta: Metadata): Metadata {
+  const curated = blogMetaForPath(path);
+  if (!curated) return meta;
+  return {
+    ...meta,
+    title: curated.title,
+    description: curated.description,
+    openGraph: meta.openGraph
+      ? { ...meta.openGraph, title: curated.title, description: curated.description }
+      : meta.openGraph,
+    twitter: meta.twitter
+      ? { ...meta.twitter, title: curated.title, description: curated.description }
+      : meta.twitter,
+  };
+}
+
 export async function cmsMetadata(
   path: string,
   fallback: Metadata,
 ): Promise<Metadata> {
   return withCMS(async () => {
     const routed = await queryRoutedContentByPath(normalizeCmsPath(path));
-    if (!routed) return clampSeoMetadata(fallback);
-    return clampSeoMetadata(metadataFromDoc(routed.doc, fallback));
-  }, clampSeoMetadata(fallback));
+    const base = routed ? metadataFromDoc(routed.doc, fallback) : fallback;
+    return clampSeoMetadata(withCuratedBlogMeta(path, base));
+  }, clampSeoMetadata(withCuratedBlogMeta(path, fallback)));
 }

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 
 import BlogPostClient from "./BlogPostClient";
+import { blogMetaForPath } from "@/lib/blog-meta-defaults";
 import { SITE_URL } from "@/lib/site";
 import {
   absoluteAssetUrl,
@@ -81,11 +82,12 @@ export default async function BlogPostPage({
   const canonical = `${SITE_URL}/blog/${post.slug}/`;
   const image = absoluteAssetUrl(post.coverImage);
 
+  const curated = blogMetaForPath(`/blog/${post.slug}`);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    description: post.excerpt,
+    description: curated?.description ?? post.excerpt,
     image,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
