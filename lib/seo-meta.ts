@@ -49,7 +49,7 @@ export const MENOPAUSE_DESCRIPTION =
 
 export const KILLEEN_MENOPAUSE_TITLE = "Menopause Hormone Care in Killeen | Holistic Care";
 export const KILLEEN_MENOPAUSE_DESCRIPTION =
-  "Menopause care starts with labs and a review of history and goals. Visit our Killeen clinic.";
+  "Menopause hormone care in Killeen, TX: labs, a review of your symptoms, history, and goals, and a clinician-led plan at our Stan Schlueter Loop clinic.";
 
 export type SeoMetaUpdate = {
   /** CMS path without a trailing slash. */
@@ -130,9 +130,9 @@ export const SEO_META_UPDATES: readonly SeoMetaUpdate[] = [
     path: "/areas-we-serve/killeen/hormone-therapy/menopause-care",
     title: KILLEEN_MENOPAUSE_TITLE,
     description: KILLEEN_MENOPAUSE_DESCRIPTION,
-    previousTitle: "Menopause Hormone Replacement in Killeen, TX | Central Texas Holistic Care",
+    previousTitle: "Menopause Hormone Care in Killeen | Holistic Care",
     previousDescription:
-      "Full bioidentical hormone replacement for menopausal and post-menopausal women, restoring sleep, mood, libido, bone health, and quality of life. Seen at our Killeen clinic, about 5 minutes from Killeen via East Stan Schlueter Loop / US-190.",
+      "Menopause care starts with labs and a review of history and goals. Visit our Killeen clinic.",
   },
 ];
 

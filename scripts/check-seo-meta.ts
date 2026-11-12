@@ -21,6 +21,7 @@ import {
   composeMetaTitle,
   composeTreatmentMetaDescription,
 } from "../lib/programmatic-content";
+import { BLOG_META_UPDATES } from "../lib/blog-meta-defaults";
 import { fitDescription, fitTitle, DESCRIPTION_LIMIT, TITLE_LIMIT } from "../lib/seo-length";
 import * as seoMeta from "../lib/seo-meta";
 
@@ -147,7 +148,15 @@ function validateTreatmentDescriptions(errors: string[]) {
   for (const { city, treatment } of getLiveCityServiceTreatmentTriples()) {
     const description = fitDescription(composeTreatmentMetaDescription(city, treatment));
     const path = `/areas-we-serve/${city.slug}/${treatment.serviceSlug}/${treatment.slug}/`;
-    if (!description.startsWith(treatment.metaLead)) {
+    const handTunedMenopause = city.slug === "killeen" && treatment.slug === "menopause-care";
+    if (handTunedMenopause) {
+      if (description !== seoMeta.KILLEEN_MENOPAUSE_DESCRIPTION) {
+        errors.push(`${path} description drifted from the hand-tuned menopause copy: ${description}`);
+      }
+      if (description.length < 140 || description.length > 155) {
+        errors.push(`${path} description ${description.length} is outside 140-155`);
+      }
+    } else if (!description.startsWith(treatment.metaLead)) {
       errors.push(`${path} description does not keep the full meta lead: ${description}`);
     }
     if (/Killeen patients at our Killeen/i.test(description)) {
@@ -156,6 +165,39 @@ function validateTreatmentDescriptions(errors: string[]) {
     if (city.slug !== "temple" && /\bminutes?\b|\bmin\b/i.test(description)) {
       errors.push(`${path} adds a drive time outside Temple: ${description}`);
     }
+  }
+}
+
+function validateCuratedMeta(rows: Row[], errors: string[]) {
+  const preserved = fitDescription(
+    "Learn how functional medicine in Bell County uses advanced lab testing to uncover hormonal, metabolic, and nutritional insights for personalized care",
+  );
+  if (!preserved.endsWith("personalized care.")) {
+    errors.push(`fitDescription cut a fitting description mid-sentence: ${preserved}`);
+  }
+  if (preserved.length < 140 || preserved.length > 155) {
+    errors.push(`preserved CMS sentence landed at ${preserved.length}, expected 140-155`);
+  }
+
+  const descriptions = new Map(rows.map((entry) => [entry.description, entry.path]));
+  const seenTitles = new Set<string>();
+  for (const update of BLOG_META_UPDATES) {
+    if (update.title.length > TITLE_LIMIT) {
+      errors.push(`${update.path} curated title ${update.title.length}`);
+    }
+    if (update.description.length < 140 || update.description.length > 155) {
+      errors.push(`${update.path} curated description ${update.description.length}`);
+    }
+    if (fitTitle(update.title) !== update.title) {
+      errors.push(`${update.path} fitTitle changed the curated title`);
+    }
+    if (fitDescription(update.description) !== update.description) {
+      errors.push(`${update.path} fitDescription changed the curated description: ${fitDescription(update.description)}`);
+    }
+    if (seenTitles.has(update.title)) errors.push(`duplicate curated title: ${update.title}`);
+    seenTitles.add(update.title);
+    const other = descriptions.get(update.description);
+    if (other) errors.push(`${update.path} description duplicates ${other}`);
   }
 }
 
@@ -187,6 +229,7 @@ function main() {
   }
 
   validateTreatmentDescriptions(errors);
+  validateCuratedMeta(rows, errors);
 
   if (errors.length > 0) {
     console.error(`SEO meta check failed (${rows.length} URLs, ${errors.length} problems)`);

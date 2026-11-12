@@ -13,7 +13,8 @@
     "cms:import": "tsx scripts/cms/import.ts",
     "payload": "payload",
     "cms:generate-types": "payload generate:types",
-    "seo:content": "tsx scripts/seo-content-update.ts"
+    "seo:content": "tsx scripts/seo-content-update.ts",
+    "seo:blog-meta": "tsx scripts/apply-blog-meta-updates.ts"
   },
   "dependencies": {
     "@payloadcms/db-vercel-postgres": "^3.90.2",

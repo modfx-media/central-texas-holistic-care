@@ -19,7 +19,8 @@ import { DepthArticle } from "@/components/local/DepthArticle";
 import { Reveal } from "@/components/motion/Reveal";
 import { KILLEEN_MENOPAUSE_DEPTH } from "@/lib/enriched-local-copy";
 import { composeTreatmentMetaDescription, composeTreatmentNarrative } from "@/lib/programmatic-content";
-import { KILLEEN_MENOPAUSE_TITLE, metadataTitle } from "@/lib/seo-meta";
+import { clampSeoMetadata } from "@/lib/seo-length";
+import { KILLEEN_MENOPAUSE_DESCRIPTION, KILLEEN_MENOPAUSE_TITLE, metadataTitle } from "@/lib/seo-meta";
 import Accordion from "@/components/ui/Accordion";
 import {
   getCity,
@@ -70,7 +71,7 @@ export async function generateMetadata({
     : `${treatment.name} in ${city.name}, TX`;
   const description = composeTreatmentMetaDescription(city, treatment);
 
-  return cmsMetadata(
+  const metadata = await cmsMetadata(
     `/areas-we-serve/${city.slug}/${service.slug}/${treatment.slug}`,
     {
       title: metadataTitle(title),
@@ -101,6 +102,20 @@ export async function generateMetadata({
       robots: { index: true, follow: true },
     },
   );
+
+  if (!killeenMenopause) return metadata;
+  const current = typeof metadata.description === "string" ? metadata.description : "";
+  if (current.length >= 140 && current.length <= 155) return metadata;
+  return clampSeoMetadata({
+    ...metadata,
+    description: KILLEEN_MENOPAUSE_DESCRIPTION,
+    openGraph: metadata.openGraph
+      ? { ...metadata.openGraph, description: KILLEEN_MENOPAUSE_DESCRIPTION }
+      : metadata.openGraph,
+    twitter: metadata.twitter
+      ? { ...metadata.twitter, description: KILLEEN_MENOPAUSE_DESCRIPTION }
+      : metadata.twitter,
+  });
 }
 
 /* -------------------------------------------------------------------------- */
