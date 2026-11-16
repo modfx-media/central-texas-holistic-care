@@ -22,8 +22,8 @@ export const BIMISA_TITLE = "Bimisa Augustin, DNP | Central Texas Holistic Care"
 export const BIMISA_DESCRIPTION =
   "Bimisa Augustin, DNP, FNP-C, PMHNP-BC, nurse practitioner at Central Texas Holistic Care in Killeen. 26 years in clinic, including U.S. Army service.";
 export const BIMISA_IMAGE = "/images/providers/dr-bimisa-augustin.jpg";
-export const BIMISA_IMAGE_WIDTH = 822;
-export const BIMISA_IMAGE_HEIGHT = 1024;
+export const BIMISA_IMAGE_WIDTH = 962;
+export const BIMISA_IMAGE_HEIGHT = 1280;
 export const BIMISA_IMAGE_ALT =
   "Bimisa Augustin, DNP, FNP-C, PMHNP-BC, nurse practitioner at Central Texas Holistic Care in Killeen";
 
