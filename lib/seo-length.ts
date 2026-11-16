@@ -71,25 +71,41 @@ export function splitSentences(text: string): string[] {
     .filter(Boolean);
 }
 
+const SENTENCE_END = /[.!?]['"]?$/;
+
+/** Close a description that already fits. Never slice it at a comma. */
+function closeFittingDescription(value: string): string {
+  const text = value.replace(/[\s,;:–—-]+$/g, "").trim();
+  if (!text) return text;
+  if (SENTENCE_END.test(text)) return text.length <= DESCRIPTION_LIMIT ? text : trimAtWord(text, DESCRIPTION_LIMIT);
+  if (text.length < DESCRIPTION_LIMIT) return `${text}.`;
+  const trimmed = trimAtWord(text, DESCRIPTION_LIMIT - 1);
+  return SENTENCE_END.test(trimmed) ? trimmed : `${trimmed}.`;
+}
+
 /**
  * Meta description at most 158 characters.
- * Keeps whole sentences. A single overlong sentence is cut on a comma or
- * semicolon, then closed with a period, so it does not stop mid-phrase.
+ * A description that already fits is kept whole. If it has no closing
+ * punctuation, a period is added. It is not cut at a comma.
+ * Longer copy keeps complete sentences. A single sentence past the limit
+ * is still shortened at the last comma or semicolon that fits, then closed.
  */
 export function fitDescription(input: string): string {
   const clean = input.replace(/\s+/g, " ").trim();
   if (!clean) return clean;
-  if (clean.length <= DESCRIPTION_LIMIT && /[.!?]['"]?$/.test(clean)) return clean;
+  if (clean.length <= DESCRIPTION_LIMIT) return closeFittingDescription(clean);
 
   const sentences = splitSentences(clean);
   let built = "";
   for (const sentence of sentences) {
     if (sentence.length > DESCRIPTION_LIMIT) break;
-    const next = built ? `${built} ${sentence}` : sentence;
+    const closed = closeFittingDescription(sentence);
+    if (closed.length > DESCRIPTION_LIMIT) break;
+    const next = built ? `${built} ${closed}` : closed;
     if (next.length <= DESCRIPTION_LIMIT) built = next;
     else break;
   }
-  if (built.length >= 40 && /[.!?]['"]?$/.test(built)) return built;
+  if (built.length >= 40 && SENTENCE_END.test(built)) return built;
 
   const source = sentences[0] || clean;
   const room = DESCRIPTION_LIMIT - 1;
@@ -101,7 +117,7 @@ export function fitDescription(input: string): string {
   const clause = (cutAt >= 40 ? source.slice(0, cutAt) : trimAtWord(source, room))
     .replace(/[\s,;:–—-]+$/g, "")
     .trim();
-  return /[.!?]['"]?$/.test(clause) ? clause : `${clause}.`;
+  return SENTENCE_END.test(clause) ? clause : `${clause}.`;
 }
 
 function titleText(title: Metadata["title"]): string | undefined {

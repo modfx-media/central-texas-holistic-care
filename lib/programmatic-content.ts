@@ -12,6 +12,7 @@
 import type { City, Service } from "./locations";
 import { DESCRIPTION_LIMIT } from "./seo-length";
 import {
+  KILLEEN_MENOPAUSE_DESCRIPTION,
   KILLEEN_TRT_DESCRIPTION,
   KILLEEN_TRT_TITLE,
   TEMPLE_DESCRIPTION,
@@ -67,8 +68,11 @@ export function composeH1(city: City, service: Service): string {
  */
 export function composeTreatmentMetaDescription(
   city: City,
-  treatment: { metaLead: string },
+  treatment: { metaLead: string; slug?: string },
 ): string {
+  if (city.slug === "killeen" && treatment.slug === "menopause-care") {
+    return KILLEEN_MENOPAUSE_DESCRIPTION;
+  }
   const lead = treatment.metaLead.trim();
   const tails =
     city.slug === "killeen"

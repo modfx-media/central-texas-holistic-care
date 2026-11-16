@@ -1,0 +1,45 @@
+{
+  "instructions": "Public title and description defaults for five Payload blog posts. The site reads this file when it renders those URLs. It does not write the database. To copy these strings into Payload after approval, run `npx tsx scripts/apply-blog-meta-updates.ts` (dry-run), then `APPLY=1 npx tsx scripts/apply-blog-meta-updates.ts`. Do not add that command to the build.",
+  "updates": [
+    {
+      "path": "/blog/functional-medicine-labs-routine-bloodwork",
+      "slug": "functional-medicine-labs-routine-bloodwork",
+      "title": "Functional Medicine Labs vs. Routine Bloodwork | CTHC",
+      "description": "See how functional medicine labs in Bell County can add context to routine bloodwork by exploring hormonal, metabolic, and nutritional health patterns.",
+      "previousTitle": "What Functional Medicine Labs Can Reveal About Health | CTHC",
+      "previousDescription": "Learn how functional medicine in Bell County uses advanced lab testing to uncover hormonal, metabolic."
+    },
+    {
+      "path": "/blog/fall-fatigue-wellness-clinic-can-help",
+      "slug": "fall-fatigue-wellness-clinic-can-help",
+      "title": "Fall Fatigue: When a Killeen Wellness Clinic Can Help | CTHC",
+      "description": "Fall fatigue that hangs on deserves attention. See how our Killeen wellness clinic looks at sleep, stress, hormones, metabolism, and nutrition with you.",
+      "previousTitle": "Why Fall Fatigue May Signal a Need for Wellness Care | CTHC",
+      "previousDescription": "Learn how a wellness clinic in Killeen can help address fall fatigue with personalized hormone, nutrition, metabolic."
+    },
+    {
+      "path": "/blog/when-hot-flashes-disrupt-work",
+      "slug": "when-hot-flashes-disrupt-work",
+      "title": "Hot Flashes at Work: Seeing a Menopause Specialist | CTHC",
+      "description": "Hot flashes disrupting your workday? Learn which symptoms to track, ways to ease the day, and what to ask a menopause specialist in Bell County.",
+      "previousTitle": "When Hot Flashes Disrupt Work: Seeing a Menopause | CTHC",
+      "previousDescription": "Find personalized support from a menopause specialist in Bell County to manage hot flashes, improve comfort."
+    },
+    {
+      "path": "/blog/what-happens-after-starting-bioidentical-hormones-in-killeen",
+      "slug": "what-happens-after-starting-bioidentical-hormones-in-killeen",
+      "title": "Starting Bioidentical Hormones: What to Expect | CTHC",
+      "description": "Starting bioidentical hormones in Killeen? Learn what your first visit covers, why changes build gradually, and how follow-up keeps your plan on track.",
+      "previousTitle": "What Happens After Starting Bioidentical Hormones | CTHC",
+      "previousDescription": "Feel Prepared for Your Hormone Therapy Care."
+    },
+    {
+      "path": "/blog/iv-nutrition-or-oral-supplements",
+      "slug": "iv-nutrition-or-oral-supplements",
+      "title": "IV Nutrition or Oral Supplements for Fall Energy | CTHC",
+      "description": "Comparing IV nutrition and oral supplements for fall energy? Learn how our Killeen clinic uses labs and health history to help you decide what may fit.",
+      "previousTitle": "IV Nutrition or Oral Supplements for Fall Energy | CTHC",
+      "previousDescription": "Fall schedules in Bell County can drain your energy fast."
+    }
+  ]
+}
