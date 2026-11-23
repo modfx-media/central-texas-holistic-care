@@ -168,6 +168,16 @@ function PulseLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Vercel stores the root prerender as `/index`, so `usePathname()` is
+ * `/index` in that HTML and `/` in the browser. Those must compare equal
+ * or the active Home link renders an extra underline and hydration fails.
+ */
+function normalizePathname(pathname: string | null | undefined): string {
+  if (!pathname || pathname === "/index" || pathname === "/index/") return "/";
+  return pathname;
+}
+
 function isActive(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(href);
@@ -613,7 +623,7 @@ export default function Navbar({
   bookingUrl = BOOKING_URL,
   nav,
 }: NavbarProps) {
-  const pathname = usePathname() ?? "/";
+  const pathname = normalizePathname(usePathname());
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const items = nav && nav.length > 0 ? nav : NAV;
