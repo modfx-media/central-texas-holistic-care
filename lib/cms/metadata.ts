@@ -1,104 +1,11 @@
 import type { Metadata } from "next";
 
-import { blogMetaForPath } from "@/lib/blog-meta-defaults";
-import { clampSeoMetadata } from "@/lib/seo-length";
-
 import { queryRoutedContentByPath } from "./query";
+import { resolveRoutedMetadata } from "./resolve-metadata";
 import { withCMS } from "./safe";
-import type { CmsRoutedDoc } from "./types";
-import { getPublicSiteURL, normalizeCmsPath, publicPathFromCms } from "./url";
+import { normalizeCmsPath } from "./url";
 
-function mediaImage(image: CmsRoutedDoc["meta"]): {
-  url: string;
-  width?: number;
-  height?: number;
-  alt?: string;
-} | undefined {
-  const value = image?.image;
-  if (!value || typeof value !== "object" || !("url" in value) || !value.url) return undefined;
-  const record = value as {
-    url: string;
-    width?: number | null;
-    height?: number | null;
-    alt?: string | null;
-  };
-  return {
-    url: record.url,
-    ...(typeof record.width === "number" ? { width: record.width } : {}),
-    ...(typeof record.height === "number" ? { height: record.height } : {}),
-    ...(record.alt ? { alt: record.alt } : {}),
-  };
-}
-
-export function metadataFromDoc(
-  doc: CmsRoutedDoc,
-  fallback: Metadata,
-): Metadata {
-  const site = getPublicSiteURL();
-  const title = doc.meta?.title || doc.title || undefined;
-  const description = doc.meta?.description || doc.excerpt || undefined;
-  const path = doc.path ? publicPathFromCms(doc.path) : undefined;
-  const canonical =
-    doc.canonicalUrl || (path ? `${site}${path}` : undefined);
-  const image = mediaImage(doc.meta);
-
-  return {
-    ...fallback,
-    ...(title ? { title } : {}),
-    ...(description ? { description } : {}),
-    ...(canonical ? { alternates: { canonical } } : {}),
-    robots: {
-      index: !doc.noIndex,
-      follow: !doc.noFollow,
-    },
-    openGraph: {
-      ...fallback.openGraph,
-      ...(title ? { title } : {}),
-      ...(description ? { description } : {}),
-      ...(canonical ? { url: canonical } : {}),
-      ...(image
-        ? {
-            images: [
-              {
-                url: image.url,
-                ...(image.width ? { width: image.width } : {}),
-                ...(image.height ? { height: image.height } : {}),
-                alt: image.alt || title || "Central Texas Holistic Care",
-              },
-            ],
-          }
-        : {}),
-    },
-    twitter: {
-      ...fallback.twitter,
-      card: "summary_large_image",
-      ...(title ? { title } : {}),
-      ...(description ? { description } : {}),
-      ...(image ? { images: [image.url] } : {}),
-    },
-  };
-}
-
-/**
- * The five curated posts render these title and description strings even when
- * Payload still has the short or trimmed values. The database is not written
- * here. scripts/apply-blog-meta-updates.ts copies the same strings later.
- */
-function withCuratedBlogMeta(path: string, meta: Metadata): Metadata {
-  const curated = blogMetaForPath(path);
-  if (!curated) return meta;
-  return {
-    ...meta,
-    title: curated.title,
-    description: curated.description,
-    openGraph: meta.openGraph
-      ? { ...meta.openGraph, title: curated.title, description: curated.description }
-      : meta.openGraph,
-    twitter: meta.twitter
-      ? { ...meta.twitter, title: curated.title, description: curated.description }
-      : meta.twitter,
-  };
-}
+export { metadataFromDoc, resolveRoutedMetadata } from "./resolve-metadata";
 
 export async function cmsMetadata(
   path: string,
@@ -106,7 +13,6 @@ export async function cmsMetadata(
 ): Promise<Metadata> {
   return withCMS(async () => {
     const routed = await queryRoutedContentByPath(normalizeCmsPath(path));
-    const base = routed ? metadataFromDoc(routed.doc, fallback) : fallback;
-    return clampSeoMetadata(withCuratedBlogMeta(path, base));
-  }, clampSeoMetadata(withCuratedBlogMeta(path, fallback)));
+    return resolveRoutedMetadata(path, fallback, routed?.doc ?? null);
+  }, resolveRoutedMetadata(path, fallback, null));
 }
