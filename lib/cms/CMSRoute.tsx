@@ -1,6 +1,7 @@
 import { draftMode } from "next/headers";
 import type { ReactNode } from "react";
 
+import { keepsDesignedLayout } from "./designed-layout";
 import { LivePreviewListener } from "./LivePreviewListener";
 import { queryRoutedContentByPath } from "./query";
 import { RenderRoutedContent } from "./RenderRoutedContent";
@@ -20,9 +21,9 @@ export async function CMSRoute({
 
   if (!routed) return children;
 
-  // Blog posts use the designed article template passed as children.
-  // A published post must not swap that template for a generic renderer.
-  if (routed.collection === "posts") {
+  // Designed pages and blog posts use the coded template passed as children.
+  // Publishing the CMS document must not swap that template for RenderRoutedContent.
+  if (keepsDesignedLayout(routed.collection)) {
     return (
       <>
         {draft.isEnabled ? <LivePreviewListener /> : null}
